@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#eee9df">
+<title>한국 캠퍼스 첫날 · 한네스트</title>
+<link rel="stylesheet" href="lv1.css">
+</head>
+<body>
+<div class="game-shell">
+  <header class="topbar"><div class="brand"><span class="brand-mark">ㅎ</span><div><strong>한네스트</strong><span id="brand-subtitle">한국어로 만나는 나의 첫 캠퍼스</span></div></div><div class="topbar-tools"><span id="level-label" class="level-tag">레벨 1</span><span class="next-level" aria-disabled="true">레벨 2 · 준비 중</span><button id="map-toggle" aria-label="캠퍼스 지도 보기" aria-expanded="false">지도</button><button id="vocabulary-toggle" type="button" aria-controls="vocabulary-panel" aria-label="만난 낱말 다시 보기" aria-expanded="false">낱말</button><button id="view-toggle" type="button" aria-label="시점 바꾸기">어깨 시점</button><button id="ambient-toggle" type="button" aria-label="작은 배경음 켜기 또는 끄기" aria-pressed="true">배경음 켜짐</button><span id="ambient-status" class="sr-only" role="status"></span><button id="help-toggle" aria-label="조작 방법 보기">?</button></div></header>
+  <main class="world" id="world">
+    <canvas id="scene" tabindex="0" aria-label="3D 캠퍼스. 화면을 눌러 이동하거나 방향키와 W A S D를 사용하세요."></canvas>
+    <section class="mission-card" aria-labelledby="mission-title"><div class="mission-topline"><span>오늘의 이야기</span><span id="mission-count">01 / 08</span></div><h1 id="mission-title">한국 캠퍼스 첫날</h1><p id="mission-description">처음 만나는 길, 새로운 친구.</p><div class="progress-track"><span id="mission-progress"></span></div><p id="save-status" class="save-status" role="status"></p></section>
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+    <section id="map-panel" class="map-panel" aria-label="캠퍼스 지도" hidden><div><strong>캠퍼스 지도</strong><button id="map-close" aria-label="지도 닫기">×</button></div><canvas id="mini-map" width="240" height="200" aria-label="나의 위치와 목적지"></canvas><p><span class="map-player">●</span> 나 <span class="map-target">●</span> 목적지</p></section>
+    <section id="discovery-panel" class="discovery-panel" aria-labelledby="discovery-title" hidden>
+      <p class="discovery-eyebrow">장면 속 작은 발견</p>
+      <h2 id="discovery-title">이 모양을 찾아보세요</h2>
+      <p class="goal-label">찾을 모양</p>
+      <div class="goal-shape">
+        <svg id="goal-notebook" viewBox="0 0 120 120" role="img" aria-label="목표물 모양" hidden><rect x="27" y="15" width="67" height="91" rx="6" fill="#527c6b"/><rect x="39" y="21" width="49" height="79" rx="3" fill="#f7f4ed"/><path d="M49 40h29M49 51h29M49 62h29M49 73h29M49 84h20" fill="none" stroke="#9aafa0" stroke-width="3" stroke-linecap="round"/><path d="M34 30c-16-8-16 8 0 4M34 43c-16-8-16 8 0 4M34 56c-16-8-16 8 0 4M34 69c-16-8-16 8 0 4M34 82c-16-8-16 8 0 4M34 95c-16-8-16 8 0 4" fill="none" stroke="#263c38" stroke-width="4" stroke-linecap="round"/></svg>
+        <svg id="goal-pencil" viewBox="0 0 120 120" role="img" aria-label="목표물 모양" hidden><g transform="rotate(35 60 60)"><rect x="48" y="11" width="24" height="15" rx="4" fill="#c78e96"/><path d="M48 24h24v64H48z" fill="#527c6b"/><path d="M56 27v57M64 27v57" stroke="#8fb19d" stroke-width="3"/><path d="M48 88h24l-12 24z" fill="#d4aa7b"/><path d="m56 104 4 8 4-8z" fill="#263c38"/><path d="M48 25h24" stroke="#e4ded0" stroke-width="5"/></g></svg>
+        <svg id="goal-eraser" viewBox="0 0 120 120" role="img" aria-label="목표물 모양" hidden><path d="m20 48 22-19h62L82 48z" fill="#e4b2af"/><path d="M20 48h62v43H20z" fill="#c78e96"/><path d="m82 48 22-19v43L82 91z" fill="#ad7780"/><path d="M43 48h24v43H43z" fill="#f7f4ed"/><path d="m43 48 22-19h24L67 48z" fill="#fffdf6"/></svg>
+        <svg id="goal-bag" viewBox="0 0 120 120" role="img" aria-label="목표물 모양" hidden><path d="M44 25v-5c0-17 32-17 32 0v5" fill="none" stroke="#263c38" stroke-width="7" stroke-linecap="round"/><path d="M31 42c0-16 58-16 58 0v58H31z" fill="#527c6b"/><path d="M26 55v39M94 55v39" stroke="#263c38" stroke-width="9" stroke-linecap="round"/><rect x="40" y="64" width="40" height="29" rx="7" fill="#8fb19d"/><path d="M46 72h28M42 47h36" stroke="#e9eadc" stroke-width="3" stroke-linecap="round"/><circle cx="75" cy="47" r="2.5" fill="#e9eadc"/></svg>
+      </div>
+      <p class="discovery-hint">같은 모양을 장면에서 누르세요.</p>
+      <div class="object-reveal">
+        <p id="selected-object-label" class="selected-object-label" hidden>방금 고른 물건</p>
+        <p id="object-word" class="object-word" lang="ko" aria-labelledby="selected-object-label" aria-live="polite"></p>
+        <p id="object-feedback" class="object-feedback" role="status" aria-live="polite"></p>
+        <div class="object-actions"><button id="object-next" type="button" hidden>다음 모양 찾기</button><button id="pack-bag" type="button" hidden>준비물 넣기</button></div>
+      </div>
+    </section>
+    <div class="scene-caption"><span class="scene-dot"></span><span id="location-label">캠퍼스 입구</span></div>
+    <div class="movement-pad" aria-label="이동 버튼"><button data-direction="up" class="up" aria-label="앞으로 이동">↑</button><button data-direction="left" class="left" aria-label="왼쪽으로 이동">←</button><button data-direction="down" class="down" aria-label="뒤로 이동">↓</button><button data-direction="right" class="right" aria-label="오른쪽으로 이동">→</button></div>
+    <button id="interact" class="interact-button" disabled><span>이야기하기</span><small>가까이 다가가세요</small></button>
+    <section id="dialogue" class="dialogue" aria-labelledby="dialogue-name" hidden><div class="dialogue-heading"><div class="speaker-avatar" id="speaker-avatar">수</div><div><span id="dialogue-role">캠퍼스 친구</span><h2 id="dialogue-name">수아</h2></div><button id="dialogue-close" aria-label="대화 닫기">×</button></div><p id="dialogue-text" lang="ko"></p><div id="dialogue-choices" class="dialogue-choices"></div><p id="dialogue-feedback" role="status" aria-live="polite"></p></section>
+    <div id="look-controls" class="look-controls" role="group" aria-label="주변 둘러보기"><button id="look-left" type="button" aria-label="왼쪽으로 둘러보기">↶</button><button id="look-right" type="button" aria-label="오른쪽으로 둘러보기">↷</button><button id="look-up" type="button" aria-label="위로 둘러보기">↑</button><button id="look-down" type="button" aria-label="아래로 둘러보기">↓</button></div>
+    <div id="reticle" class="reticle" aria-hidden="true" hidden></div>
+    <section id="loading" class="overlay loading-overlay" role="status"><div class="loading-dot"></div><p>캠퍼스를 준비하고 있어요…</p></section>
+    <section id="intro" class="overlay" aria-labelledby="intro-title" hidden><div class="story-card"><span class="story-eyebrow">한네스트 · 연결되는 첫날 이야기</span><p class="chapter-label">캠퍼스에서 101호까지</p><h2 id="intro-title">친구를 만나고<br>함께 수업에 가요</h2><p>캠퍼스에서 8가지 활동을 차례로 마쳐요.<br>준비물을 챙긴 뒤 101호에서 친구들과 30가지 낱말을 배워요.</p><button id="start-game" class="primary" type="button">첫날 시작하기</button><p id="classroom-entry-hint" class="story-hint" role="status">캠퍼스 활동 0 / 8 · 모두 마치면 101호가 열려요.</p><button id="start-new-classroom" class="secondary" type="button" disabled>캠퍼스 8가지 활동 후 열려요</button></div></section>
+    <section id="completion" class="overlay" aria-labelledby="completion-title" hidden><div class="story-card completion-card"><span class="story-eyebrow">첫 번째 이야기 완료</span><div class="completion-emblem" aria-hidden="true">✓</div><h2 id="completion-title">첫날, 잘 해냈어요!</h2><p id="completion-description">새로운 친구를 만나고, 그림 속 준비물을 찾았어요.<br>준비물을 챙겨 101호에 도착했어요.</p><ul><li>안녕하세요.</li><li>감사합니다.</li><li>강의실이 어디예요?</li></ul><p id="classroom-completion-hint" class="story-hint" role="status"></p><button id="enter-classroom" class="primary" type="button" disabled>캠퍼스 8가지 활동 후 열려요</button><button id="restart-game" class="secondary" type="button">첫날 다시 해보기</button><p class="locked-level">다음 이야기 · 101호에서 친구들과 공부해요</p></div></section>
+    <div id="classroom-ui" class="classroom-ui" hidden></div>
+    <section id="vocabulary-panel" class="overlay vocabulary-overlay" role="dialog" aria-modal="true" aria-labelledby="vocabulary-title" hidden><div class="vocabulary-card"><div class="vocabulary-heading"><div><p class="story-eyebrow">나의 작은 낱말 모음</p><h2 id="vocabulary-title">만난 낱말</h2></div><button id="vocabulary-close" type="button" aria-label="낱말 모음 닫기">×</button></div><p class="vocabulary-intro">장면에서 만난 낱말을 다시 살펴보세요.<br>목소리 없이 글로 공부해요.</p><div id="vocabulary-items" class="vocabulary-items"></div><p id="vocabulary-status" role="status" aria-live="polite"></p></div></section>
+    <section id="help" class="overlay" aria-labelledby="help-title" hidden><div class="help-card"><button id="help-close" aria-label="도움말 닫기">×</button><h2 id="help-title">한 걸음씩, 함께 가요</h2><p>화면을 끌면 주변을 둘러봐요. 짧게 누르면 이동하거나 물건을 골라요.</p><p>방향키로 직접 움직일 수도 있어요. 휴대전화에서는 왼쪽 아래 방향 버튼을 누르고 있으세요.</p><p><strong>어깨 시점</strong>과 <strong>1인칭</strong>을 바꿔 볼 수 있어요. 오른쪽 아래 화살표로도 주변을 둘러봐요.</p><p>빛나는 표시는 다음 목적지예요. 친구 가까이에서 <strong>이야기하기</strong>를 누르세요.</p><p>그림과 같은 모양의 물건을 장면에서 눌러 보세요. 물건을 고른 뒤에 낱말이 나타나요. 선택한 낱말은 <strong>낱말</strong>에서 다시 볼 수 있어요.</p><p>대화와 낱말은 글로 보여요. 목소리는 재생하지 않아요. 작은 배경음은 위의 버튼으로 끌 수 있어요.</p><button id="help-done" class="primary">알겠어요</button></div></section>
+    <section id="error" class="overlay" aria-labelledby="error-title" hidden><div class="help-card"><h2 id="error-title">3D 캠퍼스를 열 수 없어요</h2><p>이 기기에서 WebGL을 사용할 수 없거나 그래픽 연결이 끊겼어요.</p><p>다른 브라우저에서 다시 열어 주세요. 실제 캠퍼스에 들어가기 전에는 이동 임무가 완료되지 않아요.</p><button id="retry" class="primary">다시 시도</button><p id="error-detail" class="error-detail"></p></div></section>
+  </main>
+</div>
+<noscript>이 이야기를 시작하려면 브라우저에서 JavaScript를 켜 주세요.</noscript>
+<script type="module" src="main.js"></script>
+</body>
+</html>

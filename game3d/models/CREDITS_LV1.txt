@@ -1,0 +1,57 @@
+HANNEST LV1 — ASSET CREDITS AND CHANGE RECORD
+
+This is a composed scene using Ngoc's uploaded assets and new scene geometry.
+The sources retain their own licences; the entire bundle is not declared CC0.
+
+1. Korean highschool classroom — haein99
+   Source:
+   https://sketchfab.com/3d-models/korean-highschool-classroom-03f592577eb34754a73bd04d8c8db7e5
+   Source page labels the licence "CC Attribution".
+   Licence information: https://creativecommons.org/licenses/by/
+   The uploaded archive did not include a licence-version notice.
+   Retained geometry: student desk, student chair, teacher table, chalkboard.
+   Changes: metric scaling, joined parts, new materials, revised placement,
+   fewer furniture copies, new classroom architecture and signs.
+   Credit for the game: "Classroom geometry adapted from Korean highschool
+   classroom by haein99, via Sketchfab (CC Attribution)."
+
+2. School Classrooms Asset Pack — styloo / Styl0o_
+   https://styloo.itch.io/classroom-asset-pack
+   Licence listed on the author's page: CC0 1.0 Universal.
+   https://creativecommons.org/publicdomain/zero/1.0/
+   Supplied in StylooClassroomAssetPack GLTF & FBX.zip.
+   Changes: scale, orientation, layout, palette textures baked to HANNEST
+   materials, several props combined under named interactive parent nodes.
+   Used models include books, notebook, pencils, pen, pencil case, scissors,
+   chalk, board sponge, lockers, bookshelf, globe, plant, clock and computer.
+
+3. Michelle character and wave animation — user-uploaded Mixamo asset
+   Supplied file: hannest_lv1_michelle_wave.glb
+   Source service: https://www.mixamo.com/
+   Adobe FAQ: https://helpx.adobe.com/creative-cloud/faq/mixamo-faq.html
+   The supplied file contains a skinned mesh and a 3.2-second animation.
+   Changes: placement in room 101, guide name Su-a, animation track renamed
+   Su_a_Wave, texture resolution reduced to at most 1024 pixels.
+   This remains a Mixamo asset; no new blanket CC licence is assigned.
+
+4. School, gate and courtyard — Ngoc's uploaded GLB environment assets
+   hannest_school.glb.glb
+   hannest_gate.glb.glb
+   hannest_courtyard.glb.glb
+   Created earlier using Meshy from HANNEST image references in this project.
+   https://www.meshy.ai/
+   Changes: common metric coordinates, scale and placement, added HANNEST
+   sign, walkway and plantings, reduced texture resolution.
+   The archive contains no account-plan or licence notice for these inputs.
+   Retain the original Meshy terms/attribution applicable to their creation.
+   Suggested source credit: "School environment generated with Meshy from
+   HANNEST concept references supplied by Ngoc."
+
+5. New HANNEST scene work
+   Architecture, palette, classroom layout, signs, backpack, ruler, eraser,
+   water bottle, glue stick, paper stack, bin, courtyard path and manifest
+   created for Ngoc's HANNEST project in this session.
+   This does not alter the licences of the source geometry above.
+
+Korean letter shapes were converted to mesh so a separate font installation
+is not needed when opening the Blender or GLB files.

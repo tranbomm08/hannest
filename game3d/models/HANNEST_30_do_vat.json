@@ -1,0 +1,687 @@
+{
+  "project": "HANNEST",
+  "level": 1,
+  "room": "101",
+  "units": "meters",
+  "blender_axes": "Z up",
+  "gltf_axes": "Y up",
+  "scope": "3D assets and animated guide; no Flutter/game controller integration",
+  "spawn_blender": [
+    2.6,
+    1.3,
+    0
+  ],
+  "spawn_gltf": [
+    2.6,
+    0,
+    -1.3
+  ],
+  "guide": {
+    "name": "Su-a / Michelle",
+    "height_m": 1.66,
+    "animation": "Su_a_Wave",
+    "loop_in_game": true
+  },
+  "objects": [
+    {
+      "id": "lv1_01",
+      "number": 1,
+      "object": "LV1_01_desk",
+      "english": "desk",
+      "korean": "책상",
+      "vietnamese": "Bàn học",
+      "group": 1,
+      "bounds_blender": [
+        [
+          -2.430150270462036,
+          1.3809250593185425,
+          0.019999999552965164
+        ],
+        [
+          -1.5698494911193848,
+          1.9190750122070312,
+          0.8149999976158142
+        ]
+      ],
+      "gltf_root_node": "LV1_01_desk"
+    },
+    {
+      "id": "lv1_02",
+      "number": 2,
+      "object": "LV1_02_chair",
+      "english": "chair",
+      "korean": "의자",
+      "vietnamese": "Ghế học sinh",
+      "group": 1,
+      "bounds_blender": [
+        [
+          -2.2820942401885986,
+          0.6449172496795654,
+          0.019999999552965164
+        ],
+        [
+          -1.7179057598114014,
+          1.1950827836990356,
+          0.949999988079071
+        ]
+      ],
+      "gltf_root_node": "LV1_02_chair"
+    },
+    {
+      "id": "lv1_03",
+      "number": 3,
+      "object": "LV1_03_book",
+      "english": "book",
+      "korean": "책",
+      "vietnamese": "Sách",
+      "group": 1,
+      "bounds_blender": [
+        [
+          -2.3399999141693115,
+          1.6299999952316284,
+          0.8199999928474426
+        ],
+        [
+          -2.120000123977661,
+          1.8899999856948853,
+          0.8449999690055847
+        ]
+      ],
+      "gltf_root_node": "LV1_03_book"
+    },
+    {
+      "id": "lv1_04",
+      "number": 4,
+      "object": "LV1_04_notebook",
+      "english": "notebook",
+      "korean": "공책",
+      "vietnamese": "Vở",
+      "group": 1,
+      "bounds_blender": [
+        [
+          -0.32999998331069946,
+          1.6299999952316284,
+          0.8199999928474426
+        ],
+        [
+          -0.08999999612569809,
+          1.909999966621399,
+          0.8479999899864197
+        ]
+      ],
+      "gltf_root_node": "LV1_04_notebook"
+    },
+    {
+      "id": "lv1_05",
+      "number": 5,
+      "object": "LV1_05_pencil",
+      "english": "pencil",
+      "korean": "연필",
+      "vietnamese": "Bút chì",
+      "group": 1,
+      "bounds_blender": [
+        [
+          -1.7587080001831055,
+          1.5649999380111694,
+          0.824999988079071
+        ],
+        [
+          -1.7012920379638672,
+          1.7350000143051147,
+          0.835813045501709
+        ]
+      ],
+      "gltf_root_node": "LV1_05_pencil"
+    },
+    {
+      "id": "lv1_06",
+      "number": 6,
+      "object": "LV1_06_pen",
+      "english": "pen",
+      "korean": "볼펜",
+      "vietnamese": "Bút bi",
+      "group": 2,
+      "bounds_blender": [
+        [
+          0.2643560767173767,
+          1.5699999332427979,
+          0.824999988079071
+        ],
+        [
+          0.2956439256668091,
+          1.7300000190734863,
+          0.833918035030365
+        ]
+      ],
+      "gltf_root_node": "LV1_06_pen"
+    },
+    {
+      "id": "lv1_07",
+      "number": 7,
+      "object": "LV1_07_eraser",
+      "english": "eraser",
+      "korean": "지우개",
+      "vietnamese": "Tẩy",
+      "group": 2,
+      "bounds_blender": [
+        [
+          -2.1680002212524414,
+          1.4129999876022339,
+          0.831000030040741
+        ],
+        [
+          -2.111999988555908,
+          1.4469999074935913,
+          0.8529999852180481
+        ]
+      ],
+      "gltf_root_node": "LV1_07_eraser"
+    },
+    {
+      "id": "lv1_08",
+      "number": 8,
+      "object": "LV1_08_ruler",
+      "english": "ruler",
+      "korean": "자",
+      "vietnamese": "Thước kẻ",
+      "group": 2,
+      "bounds_blender": [
+        [
+          -2.0850000381469727,
+          1.4259999990463257,
+          0.8299999833106995
+        ],
+        [
+          -1.7950000762939453,
+          1.4540001153945923,
+          0.8360000252723694
+        ]
+      ],
+      "gltf_root_node": "LV1_08_ruler"
+    },
+    {
+      "id": "lv1_09",
+      "number": 9,
+      "object": "LV1_09_backpack",
+      "english": "backpack",
+      "korean": "가방",
+      "vietnamese": "Cặp sách",
+      "group": 2,
+      "bounds_blender": [
+        [
+          -2.830000162124634,
+          0.6184999942779541,
+          0.07000000774860382
+        ],
+        [
+          -2.5299999713897705,
+          0.8790000081062317,
+          0.49000000953674316
+        ]
+      ],
+      "gltf_root_node": "LV1_09_backpack"
+    },
+    {
+      "id": "lv1_10",
+      "number": 10,
+      "object": "LV1_10_blackboard",
+      "english": "blackboard",
+      "korean": "칠판",
+      "vietnamese": "Bảng lớp",
+      "group": 3,
+      "bounds_blender": [
+        [
+          -2.422319173812866,
+          4.261562347412109,
+          0.7799999713897705
+        ],
+        [
+          2.422319173812866,
+          4.518437385559082,
+          2.344827890396118
+        ]
+      ],
+      "gltf_root_node": "LV1_10_blackboard"
+    },
+    {
+      "id": "lv1_11",
+      "number": 11,
+      "object": "LV1_11_clock",
+      "english": "clock",
+      "korean": "시계",
+      "vietnamese": "Đồng hồ",
+      "group": 3,
+      "bounds_blender": [
+        [
+          -0.19999998807907104,
+          4.417153835296631,
+          2.740000009536743
+        ],
+        [
+          0.19999998807907104,
+          4.462846279144287,
+          3.1399998664855957
+        ]
+      ],
+      "gltf_root_node": "LV1_11_clock"
+    },
+    {
+      "id": "lv1_12",
+      "number": 12,
+      "object": "LV1_12_door",
+      "english": "door",
+      "korean": "문",
+      "vietnamese": "Cửa ra vào",
+      "group": 3,
+      "bounds_blender": [
+        [
+          2.607930898666382,
+          2.7300000190734863,
+          0.0
+        ],
+        [
+          3.379999876022339,
+          3.7699999809265137,
+          2.319999933242798
+        ]
+      ],
+      "gltf_root_node": "LV1_12_door"
+    },
+    {
+      "id": "lv1_13",
+      "number": 13,
+      "object": "LV1_13_window",
+      "english": "window",
+      "korean": "창문",
+      "vietnamese": "Cửa sổ",
+      "group": 3,
+      "bounds_blender": [
+        [
+          -3.370000123977661,
+          -1.350000023841858,
+          0.8624999523162842
+        ],
+        [
+          -3.069999933242798,
+          1.350000023841858,
+          2.879999876022339
+        ]
+      ],
+      "gltf_root_node": "LV1_13_window"
+    },
+    {
+      "id": "lv1_14",
+      "number": 14,
+      "object": "LV1_14_computer",
+      "english": "computer",
+      "korean": "컴퓨터",
+      "vietnamese": "Máy tính",
+      "group": 3,
+      "bounds_blender": [
+        [
+          -0.625,
+          3.299999952316284,
+          0.014999999664723873
+        ],
+        [
+          0.24500000476837158,
+          3.700000047683716,
+          1.1800000667572021
+        ]
+      ],
+      "gltf_root_node": "LV1_14_computer"
+    },
+    {
+      "id": "lv1_15",
+      "number": 15,
+      "object": "LV1_15_trash_bin",
+      "english": "trash_bin",
+      "korean": "휴지통",
+      "vietnamese": "Thùng rác",
+      "group": 3,
+      "bounds_blender": [
+        [
+          2.6700000762939453,
+          -3.5899999141693115,
+          0.014999999664723873
+        ],
+        [
+          3.049999952316284,
+          -3.2100000381469727,
+          0.4749999940395355
+        ]
+      ],
+      "gltf_root_node": "LV1_15_trash_bin"
+    },
+    {
+      "id": "lv1_16",
+      "number": 16,
+      "object": "LV1_16_locker",
+      "english": "locker",
+      "korean": "사물함",
+      "vietnamese": "Tủ đồ cá nhân",
+      "group": 4,
+      "bounds_blender": [
+        [
+          -0.8650000095367432,
+          -4.460000038146973,
+          0.05999999865889549
+        ],
+        [
+          1.4450000524520874,
+          -4.079999923706055,
+          1.559999942779541
+        ]
+      ],
+      "gltf_root_node": "LV1_16_locker"
+    },
+    {
+      "id": "lv1_17",
+      "number": 17,
+      "object": "LV1_17_bookshelf",
+      "english": "bookshelf",
+      "korean": "책장",
+      "vietnamese": "Kệ sách",
+      "group": 4,
+      "bounds_blender": [
+        [
+          -3.31000018119812,
+          -3.9250006675720215,
+          0.019999999552965164
+        ],
+        [
+          -2.830000162124634,
+          -2.4750003814697266,
+          1.649999976158142
+        ]
+      ],
+      "gltf_root_node": "LV1_17_bookshelf"
+    },
+    {
+      "id": "lv1_18",
+      "number": 18,
+      "object": "LV1_18_water_bottle",
+      "english": "water_bottle",
+      "korean": "물병",
+      "vietnamese": "Bình nước",
+      "group": 4,
+      "bounds_blender": [
+        [
+          1.8899999856948853,
+          1.7599999904632568,
+          0.8199999928474426
+        ],
+        [
+          1.96999990940094,
+          1.8399999141693115,
+          1.065999984741211
+        ]
+      ],
+      "gltf_root_node": "LV1_18_water_bottle"
+    },
+    {
+      "id": "lv1_19",
+      "number": 19,
+      "object": "LV1_19_globe",
+      "english": "globe",
+      "korean": "지구본",
+      "vietnamese": "Quả địa cầu",
+      "group": 4,
+      "bounds_blender": [
+        [
+          -1.2912858724594116,
+          3.278876781463623,
+          0.7950000166893005
+        ],
+        [
+          -1.0287140607833862,
+          3.5211234092712402,
+          1.1649999618530273
+        ]
+      ],
+      "gltf_root_node": "LV1_19_globe"
+    },
+    {
+      "id": "lv1_20",
+      "number": 20,
+      "object": "LV1_20_potted_plant",
+      "english": "potted_plant",
+      "korean": "화분",
+      "vietnamese": "Chậu cây",
+      "group": 4,
+      "bounds_blender": [
+        [
+          2.447482109069824,
+          -4.3447370529174805,
+          0.019999999552965164
+        ],
+        [
+          3.032517910003662,
+          -3.93526291847229,
+          1.1200000047683716
+        ]
+      ],
+      "gltf_root_node": "LV1_20_potted_plant"
+    },
+    {
+      "id": "lv1_21",
+      "number": 21,
+      "object": "LV1_21_teacher_desk",
+      "english": "teacher_desk",
+      "korean": "교탁",
+      "vietnamese": "Bàn giáo viên",
+      "group": 5,
+      "bounds_blender": [
+        [
+          -1.4321022033691406,
+          2.894735336303711,
+          0.0
+        ],
+        [
+          0.23210209608078003,
+          3.7052645683288574,
+          0.7799999713897705
+        ]
+      ],
+      "gltf_root_node": "LV1_21_teacher_desk"
+    },
+    {
+      "id": "lv1_22",
+      "number": 22,
+      "object": "LV1_22_chalk",
+      "english": "chalk",
+      "korean": "분필",
+      "vietnamese": "Phấn",
+      "group": 5,
+      "bounds_blender": [
+        [
+          -1.399999976158142,
+          4.16131067276001,
+          0.8899999856948853
+        ],
+        [
+          -1.3000000715255737,
+          4.178689479827881,
+          0.9073786735534668
+        ]
+      ],
+      "gltf_root_node": "LV1_22_chalk"
+    },
+    {
+      "id": "lv1_23",
+      "number": 23,
+      "object": "LV1_23_board_eraser",
+      "english": "board_eraser",
+      "korean": "칠판지우개",
+      "vietnamese": "Miếng lau bảng",
+      "group": 5,
+      "bounds_blender": [
+        [
+          -0.6549999713897705,
+          4.132500171661377,
+          0.8899999856948853
+        ],
+        [
+          -0.48499998450279236,
+          4.207499980926514,
+          0.9399999976158142
+        ]
+      ],
+      "gltf_root_node": "LV1_23_board_eraser"
+    },
+    {
+      "id": "lv1_24",
+      "number": 24,
+      "object": "LV1_24_pencil_case",
+      "english": "pencil_case",
+      "korean": "필통",
+      "vietnamese": "Hộp bút",
+      "group": 5,
+      "bounds_blender": [
+        [
+          -0.055000003427267075,
+          1.4130001068115234,
+          0.824999988079071
+        ],
+        [
+          0.1550000011920929,
+          1.4869999885559082,
+          0.8799999952316284
+        ]
+      ],
+      "gltf_root_node": "LV1_24_pencil_case"
+    },
+    {
+      "id": "lv1_25",
+      "number": 25,
+      "object": "LV1_25_scissors",
+      "english": "scissors",
+      "korean": "가위",
+      "vietnamese": "Kéo",
+      "group": 5,
+      "bounds_blender": [
+        [
+          -0.19116245210170746,
+          -0.13250000774860382,
+          0.824999988079071
+        ],
+        [
+          -0.12883754074573517,
+          0.012500006705522537,
+          0.8312520980834961
+        ]
+      ],
+      "gltf_root_node": "LV1_25_scissors"
+    },
+    {
+      "id": "lv1_26",
+      "number": 26,
+      "object": "LV1_26_glue",
+      "english": "glue",
+      "korean": "풀",
+      "vietnamese": "Keo dán",
+      "group": 6,
+      "bounds_blender": [
+        [
+          0.18699999153614044,
+          -0.12300000339746475,
+          0.824999988079071
+        ],
+        [
+          0.2329999953508377,
+          -0.07699999958276749,
+          0.9375
+        ]
+      ],
+      "gltf_root_node": "LV1_26_glue"
+    },
+    {
+      "id": "lv1_27",
+      "number": 27,
+      "object": "LV1_27_coloured_pencils",
+      "english": "coloured_pencils",
+      "korean": "색연필",
+      "vietnamese": "Hộp bút màu",
+      "group": 6,
+      "bounds_blender": [
+        [
+          -2.1499998569488525,
+          -1.9000000953674316,
+          0.8230000138282776
+        ],
+        [
+          -1.9499999284744263,
+          -1.7599999904632568,
+          0.877348780632019
+        ]
+      ],
+      "gltf_root_node": "LV1_27_coloured_pencils"
+    },
+    {
+      "id": "lv1_28",
+      "number": 28,
+      "object": "LV1_28_paper",
+      "english": "paper",
+      "korean": "종이",
+      "vietnamese": "Giấy",
+      "group": 6,
+      "bounds_blender": [
+        [
+          -0.09000000357627869,
+          -2.0450000762939453,
+          0.8240000009536743
+        ],
+        [
+          0.12999999523162842,
+          -1.7549999952316284,
+          0.8359999656677246
+        ]
+      ],
+      "gltf_root_node": "LV1_28_paper"
+    },
+    {
+      "id": "lv1_29",
+      "number": 29,
+      "object": "LV1_29_keyboard",
+      "english": "keyboard",
+      "korean": "키보드",
+      "vietnamese": "Bàn phím",
+      "group": 6,
+      "bounds_blender": [
+        [
+          -0.5950000286102295,
+          3.0199999809265137,
+          0.800000011920929
+        ],
+        [
+          -0.20499999821186066,
+          3.1599998474121094,
+          0.828000009059906
+        ]
+      ],
+      "gltf_root_node": "LV1_29_keyboard"
+    },
+    {
+      "id": "lv1_30",
+      "number": 30,
+      "object": "LV1_30_mouse",
+      "english": "mouse",
+      "korean": "마우스",
+      "vietnamese": "Chuột máy tính",
+      "group": 6,
+      "bounds_blender": [
+        [
+          -0.026000000536441803,
+          3.057499885559082,
+          0.800000011920929
+        ],
+        [
+          0.026000000536441803,
+          3.1424999237060547,
+          0.8300000429153442
+        ]
+      ],
+      "gltf_root_node": "LV1_30_mouse"
+    }
+  ]
+}
