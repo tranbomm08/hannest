@@ -1,7 +1,7 @@
 import { MediaURL as URL } from './hannest-media-url.mjs?v=8de1577a43f5fd889820f62fa80ca775';
 import { getDocument, GlobalWorkerOptions } from './vendor/pdfjs/pdf.mjs?v=12';
 import { CHANNEL, VERSION, newSession, phaseAt, audioPosition, updateSession,
-  answer, submit, readSaved, saveSession, validMessage } from './exam-core.mjs?v=12';
+  answer, submit, readSaved, saveSession, validMessage } from './exam-core.mjs?v=intro-20261012-1';
 import { attachPaperGestures } from './paper-gestures.mjs?v=12';
 import { validateQuestionMap, pixelSlices, questionPage, validateAnswerKey, scoreExam } from './question-tools.mjs?v=12';
 import { validateReviewNotes, renderReviewNote } from './review-notes.mjs?v=12';
@@ -293,18 +293,18 @@ function movePage(delta) {
 function updateStart() { $('start').disabled = !(paperReady && audioReady && !session); }
 function audioStatus(message) { $('audio-status').textContent = message; }
 function prepareAudio() {
-  audio.pause(); audioReady = false; audioFailed = false; audioComplete = false; audioIndex = 0;
+  audio.pause(); audioReady = false; audioFailed = false; audioComplete = false; audioIndex = session ? 0 : Math.min(1, exam.tracks.length - 1);
   if (!exam.phases.some(p => p.id === 'listening')) {
     audio.removeAttribute('src'); audioIndex = -1; audioReady = true;
     $('resume-audio').hidden = true; audioStatus(''); updateStart(); return;
   }
-  audio.src = new URL(exam.tracks[0].url, import.meta.url).href; audio.load();
+  audio.src = new URL(exam.tracks[audioIndex].url, import.meta.url).href; audio.load();
   audioStatus(t('Đang chuẩn bị audio gốc…','Preparing original audio…')); updateStart();
 }
 audio.addEventListener('canplay', () => {
   if (disposed || !exam?.phases.some(p => p.id === 'listening')) return;
   audioReady = true; updateStart();
-  if (!session) audioStatus(t('Sẵn sàng · Audio sẽ phát khi bắt đầu','Ready · Audio plays when you start'));
+  if (!session) audioStatus(t('Sẵn sàng · Bỏ qua giới thiệu, nghe từ câu 1','Ready · Skip the introduction and start at question 1'));
   else syncAudio();
 });
 audio.addEventListener('error', () => {
@@ -732,8 +732,8 @@ async function selectExam(selected, forceNew = false) {
   $('prepare-instructions').textContent = first.id !== 'listening'
     ? t(`Làm riêng phần ${first.label.vi}: ${first.questions.length} câu, ${first.seconds/60} phút. Đồng hồ và ô trả lời mở ngay khi bấm Bắt đầu. Nộp phần này hoặc hết giờ sẽ mở phần xem lại. Đổi tab hoặc tải lại vẫn tính thời gian.`, `Practise ${first.label.en}: ${first.questions.length} questions, ${first.seconds/60} minutes. The clock and answers start immediately when you press Start. Review opens after this section is submitted or time is up. Timing continues across tab switches and reloads.`)
     : exam.practicePhase
-    ? t('Làm riêng Nghe: 50 câu, 60 phút. Câu hỏi mở ngay trong lúc nghe hướng dẫn gốc; ô trả lời mở khi bắt đầu tính giờ. Nộp phần Nghe hoặc hết giờ sẽ mở kết quả và giải thích. Đổi tab hoặc tải lại vẫn tính thời gian.', 'Practise Listening: 50 questions, 60 minutes. Read questions during the original instructions; answer fields unlock when the section clock starts. Results and explanations open after submitting Listening or time is up. Timing continues across tab switches and reloads.')
-    : t('Câu hỏi đã mở để xem ngay, kể cả khi nghe hướng dẫn gốc. Audio hướng dẫn phát trước khi tính giờ; ô trả lời mở khi bắt đầu phần làm bài. Các phần tự chuyển khi hết giờ. Đổi tab hoặc tải lại vẫn tính thời gian.', 'Questions are available immediately, including while original instructions play. The instructions precede the exam clock; answer fields unlock when the timed section starts. Sections change automatically. Timing continues across tab switches and reloads.');
+    ? t('Làm riêng Nghe: 50 câu, 60 phút. Bài mới bỏ qua đoạn giới thiệu và bắt đầu audio câu 1 cùng đồng hồ làm bài. Nộp phần Nghe hoặc hết giờ sẽ mở kết quả và giải thích. Đổi tab hoặc tải lại vẫn tính thời gian.', 'Practise Listening: 50 questions, 60 minutes. New attempts skip the introduction and start question 1 audio with the section clock. Results and explanations open after submitting Listening or time is up. Timing continues across tab switches and reloads.')
+    : t('Bài mới bỏ qua đoạn giới thiệu, phát từ câu 1 và mở ô trả lời cùng đồng hồ làm bài. Các phần tự chuyển khi hết giờ. Đổi tab hoặc tải lại vẫn tính thời gian.', 'New attempts skip the introduction, start question 1 audio and unlock answers with the section clock. Sections change automatically. Timing continues across tab switches and reloads.');
   notice(writable ? '' : t('Bản lưu cũ hoặc cài đặt trình duyệt không tương thích. Bài này chỉ được giữ trong phiên đang mở.', 'An older save or browser setting is incompatible. This attempt is kept only in this open session.'));
   if (session) {
     prepareAudio(); tick(); armInterval();
@@ -745,7 +745,7 @@ async function selectExam(selected, forceNew = false) {
 }
 function startExam() {
   if (!paperReady || !audioReady || session) return;
-  session = newSession(exam, Date.now()); persist();
+  session = newSession(exam, Date.now(), { skipIntroduction: true }); persist();
   if (pdfUrl === exam.phases[0].pdf && range) { session.pages[exam.phases[0].id] = page; persist(); }
   // Invoke play during the actual click, preserving browser user activation.
   syncAudio(); tick(); armInterval();
@@ -962,3 +962,4 @@ try {
   message.textContent=t('Chưa tải được danh sách đề. Kiểm tra kết nối và tải lại trang.','The exam list could not load. Check your connection and reload.');
   $('exam-list').append(message); $('exam-list').setAttribute('aria-busy','false');
 }
+

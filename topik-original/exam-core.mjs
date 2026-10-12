@@ -28,10 +28,13 @@ export function audioPosition(tracks, elapsedMs) {
   return null;
 }
 
-export function newSession(exam, now) {
-  // Track 00 is the original pre-exam instructions, outside the timed section.
-  return { version: VERSION, examId: exam.id, audioStartedAt: now,
-    startedAt: now + Math.round(exam.tracks[0].seconds * 1000), status: 'running',
+export function newSession(exam, now, { skipIntroduction = false } = {}) {
+  // Keep the original audio timeline and existing save format.
+  // Only new attempts opt into skipping track 00; old attempts resume unchanged.
+  const introductionMs = Math.round(exam.tracks[0].seconds * 1000);
+  const audioStartedAt = skipIntroduction ? now - introductionMs : now;
+  return { version: VERSION, examId: exam.id, audioStartedAt,
+    startedAt: audioStartedAt + introductionMs, status: 'running',
     finishedAt: null, finishReason: null, answers: {}, pages: {} };
 }
 
@@ -118,3 +121,4 @@ export function saveSession(storage, session, writable) {
   try { storage.setItem(storageKey(session.examId), JSON.stringify(session)); return true; }
   catch { return false; }
 }
+
