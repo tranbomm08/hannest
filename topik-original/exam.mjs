@@ -314,6 +314,25 @@ function updateStart() {
   $('start').disabled = !ready;
   const writingStart=$('writing-start'); if(writingStart) writingStart.disabled=!ready;
 }
+function audioStatus(message) { $('audio-status').textContent = message; }
+function prepareAudio() {
+  audio.pause(); audioReady = false; audioFailed = false; audioComplete = false;
+  $('resume-audio').hidden = true;
+  if (!exam.phases.some(p => p.id === 'listening')) {
+    audio.removeAttribute('src'); audioIndex = -1; audioReady = true;
+    audioStatus(''); updateStart(); return;
+  }
+  // Preload the actual starting track, including the skipped introduction.
+  // Restored attempts retain their existing audio timeline and saved answers.
+  const elapsed = session
+    ? playbackElapsedMs(exam, session, Date.now()) : introductionMs(exam);
+  const position = audioPosition(exam.tracks, elapsed);
+  audioIndex = position?.index ?? 0;
+  audio.src = new URL(exam.tracks[audioIndex].url, import.meta.url).href;
+  audio.load();
+  audioStatus(t('Đang chuẩn bị audio gốc…','Preparing original audio…'));
+  updateStart();
+}
 audio.addEventListener('canplay', () => {
   if (disposed || !exam?.phases.some(p => p.id === 'listening')) return;
   audioReady = true; updateStart();
@@ -1013,3 +1032,4 @@ try {
   message.textContent=t('Chưa tải được danh sách đề. Kiểm tra kết nối và tải lại trang.','The exam list could not load. Check your connection and reload.');
   $('exam-list').append(message); $('exam-list').setAttribute('aria-busy','false');
 }
+
