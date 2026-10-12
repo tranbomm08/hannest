@@ -8,6 +8,7 @@ import { validateReviewNotes, renderReviewNote } from './review-notes.mjs?v=12';
 import { createOriginalContextRenderer } from './review-context.mjs?v=12';
 import { createPracticeExam, officialExamId } from './practice-exam.mjs?v=12';
 import { PHONE_BREAKPOINT, paperLayout } from './mobile-layout.mjs?v=12';
+import { createWritingEditor, refreshWritingEditor } from './writing-fields.mjs?v=writing-20261012-1';
 
 GlobalWorkerOptions.workerSrc = new URL('./vendor/pdfjs/pdf.worker.mjs?v=12', import.meta.url).href;
 const params = new URL(location.href).searchParams;
@@ -30,6 +31,11 @@ let paintedPageKey = '';
 let viewMode = window.innerWidth <= PHONE_BREAKPOINT ? 'readable' : 'fit';
 let alignNewPage = true, renderedAvailableWidth = 0;
 let drawerReturnFocus = null;
+let writingData = null;
+function paperURL(value) {
+  return writingData?.localPapers.includes(value)
+    ? new globalThis.URL(value, import.meta.url).href : new URL(value, import.meta.url).href;
+}
 const audio = new Audio(); audio.preload = 'auto';
 const browserStorage = { getItem: key => window.localStorage.getItem(key),
   setItem: (key, value) => window.localStorage.setItem(key, value) };
@@ -62,6 +68,16 @@ for (const [id, text] of Object.entries({ 'previous-page': ['Trang trước','Pr
   $(id).setAttribute('aria-label', text[language === 'en' ? 1 : 0]);
 }
 $('exam-layout').dataset.tab = 'paper';
+const writingButton = document.createElement('button');
+writingButton.type = 'button'; writingButton.id = 'writing-entry'; writingButton.className = 'button writing-entry'; writingButton.hidden = true;
+const writingLabel=document.createElement('span'), writingShort=document.createElement('span');
+writingLabel.className='writing-label'; writingShort.className='writing-short';
+writingLabel.textContent=t('Nhập bài viết','Write answers'); writingShort.textContent=t('Viết','Write');
+writingButton.append(writingLabel,writingShort); writingButton.setAttribute('aria-label',t('Nhập bài viết','Write answers'));
+writingButton.setAttribute('aria-controls', 'answer-panel');
+writingButton.addEventListener('click', () => { setTab('answer'); $('answer-fields').querySelector('textarea:not([readonly])')?.focus({preventScroll:true}); });
+document.querySelector('.session-controls').insertBefore(writingButton, $('preparation'));
+
 
 function emit(type) {
   if (window.parent !== window && bridgeSession) window.parent.postMessage(JSON.stringify({
@@ -153,7 +169,7 @@ async function openPaper(url, first, last, initial) {
     pdf = null; $('paper-canvas').hidden = true; $('paper-content').hidden = true; $('retry-paper').hidden = true;
     $('paper-message').hidden = false; $('paper-message').textContent = t('Đang tải đề gốc…','Loading original paper…');
     try {
-      documentTask = getDocument({ url: new URL(url, import.meta.url).href,
+      documentTask = getDocument({ url: paperURL(url),
         cMapUrl: new URL('./vendor/pdfjs/cmaps/', import.meta.url).href, cMapPacked: true,
         standardFontDataUrl: new URL('./vendor/pdfjs/standard_fonts/', import.meta.url).href,
         wasmUrl: new URL('./vendor/pdfjs/wasm/', import.meta.url).href, isEvalSupported: false });
@@ -290,16 +306,10 @@ function movePage(delta) {
   }
   pendingQuestion=null; $('paper-scroll').scrollTop = 0; $('paper-scroll').scrollLeft = 0; updatePageControls(); queueRender();
 }
-function updateStart() { $('start').disabled = !(paperReady && audioReady && !session); }
-function audioStatus(message) { $('audio-status').textContent = message; }
-function prepareAudio() {
-  audio.pause(); audioReady = false; audioFailed = false; audioComplete = false; audioIndex = session ? 0 : Math.min(1, exam.tracks.length - 1);
-  if (!exam.phases.some(p => p.id === 'listening')) {
-    audio.removeAttribute('src'); audioIndex = -1; audioReady = true;
-    $('resume-audio').hidden = true; audioStatus(''); updateStart(); return;
-  }
-  audio.src = new URL(exam.tracks[audioIndex].url, import.meta.url).href; audio.load();
-  audioStatus(t('Đang chuẩn bị audio gốc…','Preparing original audio…')); updateStart();
+function updateStart() {
+  const ready=paperReady && audioReady && !session;
+  $('start').disabled = !ready;
+  const writingStart=$('writing-start'); if(writingStart) writingStart.disabled=!ready;
 }
 audio.addEventListener('canplay', () => {
   if (disposed || !exam?.phases.some(p => p.id === 'listening')) return;
@@ -352,13 +362,13 @@ function createResponse(phase, question) {
   field.dataset.phase = phase.id; field.dataset.question = question; field.tabIndex = -1;
   const legend = document.createElement('legend'); legend.textContent = t(`Trả lời câu ${question}`,`Answer question ${question}`); field.append(legend);
   if (phase.id === 'writing') {
-    const input = document.createElement('textarea'); input.maxLength = 10000; input.lang = 'ko'; input.spellcheck = false;
-    input.setAttribute('aria-label',t(`Trả lời câu ${question}`,`Answer to question ${question}`));
-    input.addEventListener('input',()=>{
-      if (session && answer(session,exam,phase.id,question,input.value,Date.now())) { persist(); updateAnswerCount(phase); }
+    const editor = createWritingEditor(document, question, t, value => {
+      if (session && answer(session,exam,phase.id,question,value,Date.now())) {
+        persist(); updateAnswerCount(phase); refreshInlineFeedback();
+      }
       else { tick(); refreshInlineFeedback(); }
     });
-    field.append(input);
+    field.append(editor);
   } else {
     const choices = document.createElement('div'); choices.className = 'inline-choices';
     for (let choice = 1; choice <= 4; choice++) {
@@ -408,13 +418,13 @@ function paintOriginalPage(bitmap, base, viewport) {
   refreshInlineFeedback();
 }
 function refreshInlineFeedback() {
-  for (const field of $('paper-content').querySelectorAll('.inline-response')) {
+  for (const field of document.querySelectorAll('#paper-content .inline-response, #answer-fields .inline-response')) {
     const phase=exam.phases.find(p=>p.id===field.dataset.phase), question=Number(field.dataset.question);
     const selected=session?.answers[phase.id]?.[question], feedback=field.querySelector('.question-feedback');
-    for (const input of field.querySelectorAll('input,textarea')) {
+    if (phase.id === 'writing') refreshWritingEditor(field, selected, editable(phase), session?.status, t);
+    for (const input of field.querySelectorAll('input')) {
       input.disabled = !editable(phase);
       if (input.type==='radio') input.checked=selected===Number(input.value);
-      else if (input.value !== (selected ?? '')) input.value=selected ?? '';
     }
     const finished=session?.status==='finished';
     if (!finished) { feedback.hidden=true; feedback.replaceChildren(); delete field.dataset.result; continue; }
@@ -422,9 +432,9 @@ function refreshInlineFeedback() {
     if (phase.id==='writing') {
       field.dataset.result='pending';
       if (!feedback.querySelector('details')) {
-        const note=document.createElement('p'); note.textContent=t('Bài viết đã khóa · Phần Viết cần chấm riêng.','Writing is locked · Writing requires separate grading.');
+        const note=document.createElement('p'); note.textContent=t('Chữa bài: đối chiếu bài đã viết với đáp án mẫu và hướng dẫn bên dưới. Phần Viết cần chấm riêng.', 'Review: compare your answer with the official model and guidance below. Writing requires separate grading.');
         const details=document.createElement('details'), summary=document.createElement('summary');
-        summary.textContent=t('Xem đáp án mẫu chính thức của câu này','View the official model answer for this question');
+        summary.textContent=t('Chữa bài · Xem đáp án mẫu chính thức','Review · View the official model answer');
         const target=document.createElement('div'); target.className='writing-model';
         details.append(summary,target); details.addEventListener('toggle',()=>{ if(details.open) renderWritingModel(question,target); });
         note.className='feedback-score'; feedback.replaceChildren(note,details);
@@ -524,7 +534,13 @@ async function loadReview() {
   try {
     if (!reviewData) {
       if (!reviewPromise) reviewPromise=within(fetch(new URL('./review-notes.json?v=12',import.meta.url)).then(async response=>{
-        if (!response.ok) throw new Error('Review unavailable'); return response.json();
+        if (!response.ok) throw new Error('Review unavailable');
+        const value=await response.json();
+        for(const [id,entry] of Object.entries(writingData?.reviewExams??{})) {
+          const current=value.exams[id];
+          value.exams[id]=current ? {...current,phases:{...current.phases,writing:entry.phases.writing}} : entry;
+        }
+        return value;
       }),20000);
       try { reviewData=await reviewPromise; } finally { reviewPromise=null; }
     }
@@ -538,6 +554,9 @@ async function loadReview() {
 }
 function renderAnswers(phase, locked) {
   const container=$('answer-fields'); container.replaceChildren(); displayedSection=phase.id; $('answer-count').textContent='';
+  const writing = phase.id === 'writing';
+  writingButton.hidden = !writing; $('answer-panel').classList.toggle('writing-panel', writing);
+  $('answer-heading').textContent = writing ? t('Phiếu trả lời Viết · 51–54', 'Writing answers · 51–54') : t('Tiến độ làm bài', 'Exam progress');
   if (phase.id==='break') {
     const p=document.createElement('p'); p.className='empty-message';
     p.textContent=t('Ca 1 đã khóa. Phần Đọc mở khi hết giờ nghỉ.','Session 1 is locked. Reading opens after the break.');
@@ -553,7 +572,21 @@ function renderAnswers(phase, locked) {
     const button=document.createElement('button'); button.type='button'; button.className='question-jump'; button.dataset.question=question; button.textContent=question;
     button.addEventListener('click',()=>jumpToQuestion(phase,question)); nav.append(button);
   }
-  container.append(hint,nav); updateAnswerCount(phase);
+  container.append(hint,nav);
+  if (writing) {
+    hint.textContent = locked === 'instructions'
+      ? t('Bấm Bắt đầu Viết để nhập bài. Phiếu có đủ câu 51–54; bài được lưu riêng cho từng đề trên trình duyệt này.', 'Press Start Writing to type. This sheet contains questions 51–54 and saves answers separately for each exam in this browser.')
+      : t('Nhập đủ câu 51–54 bên dưới hoặc trong trang đề. Câu 51–52: điền cả ㄱ và ㄴ. Bấm số câu để xem lại đề gốc.', 'Type answers 51–54 below or on the paper. For 51–52, complete both ㄱ and ㄴ. Select a question number to view the original question.');
+    if(!session) {
+      const begin=document.createElement('button');begin.type='button';begin.id='writing-start';begin.className='button primary';
+      begin.textContent=t('Bắt đầu Viết · 50 phút','Start Writing · 50 minutes');begin.disabled=!(paperReady&&audioReady);
+      begin.addEventListener('click',()=>{setTab('paper');startExam();setTab('answer');$('answer-fields').querySelector('textarea:not([readonly])')?.focus({preventScroll:true});});
+      container.append(begin);
+    }
+    for (const question of phase.questions) container.append(createResponse(phase, question));
+    refreshInlineFeedback();
+  }
+  updateAnswerCount(phase);
 }
 function updateAnswerCount(phase) {
   const count=Object.values(session?.answers[phase.id]??{}).filter(value=>value!=='').length;
@@ -589,7 +622,8 @@ async function writingBitmap(selected,attempt,page=2) {
   const cacheKey=selected.id+':'+page;
   const cached=modelRecords.get(cacheKey);
   if (cached && cached.attempt===attempt) return cached.promise;
-  const task=getDocument({url:new URL(selected.answerPdf,import.meta.url).href,isEvalSupported:false});
+  const modelSource=answerKeyData?.exams[officialExamId(selected)]?.writing?.source ?? selected.answerPdf;
+  const task=getDocument({url:paperURL(modelSource),isEvalSupported:false});
   const record={task,attempt,promise:null}; modelRecords.set(cacheKey,record);
   record.promise=(async()=>{
     const doc=await within(task.promise,20000);
@@ -660,7 +694,8 @@ async function loadResults() {
     if (!answerKeyData) {
       if (!answerKeyPromise) answerKeyPromise=within(fetch(new URL('./answer-keys.json?v=12',import.meta.url)).then(async response=>{
         if (!response.ok) throw new Error('Official answers unavailable');
-        const value=await response.json(); if(value.version!==1 || !value.exams) throw new Error('Invalid answer file'); return value;
+        const value=await response.json(); if(value.version!==1 || !value.exams) throw new Error('Invalid answer file');
+        value.exams={...writingData?.answerKeys,...value.exams}; return value;
       }),20000);
       try { answerKeyData=await answerKeyPromise; } finally { answerKeyPromise=null; }
     }
@@ -822,7 +857,8 @@ $('resume-audio').addEventListener('click',()=>{
 $('retry-paper').addEventListener('click',()=>{ const current=range, url=pdfUrl; pdfUrl=''; if (current && url) openPaper(url,current.first,current.last,page); });
 $('show-answers').addEventListener('click',()=>{
   if (session?.status !== 'finished') return;
-  const sources=[exam.answerPdf,...(exam.additionalAnswerPdfs??[])];
+  const writingSource=exam.practicePhase==='writing' && answerKeyData?.exams[officialExamId(exam)]?.writing?.source;
+  const sources=writingSource ? [writingSource] : [exam.answerPdf,...(exam.additionalAnswerPdfs??[])];
   openPaper(sources[reviewAnswerIndex++ % sources.length],1,100,1); setTab('paper');
   if(sources.length>1) $('show-answers').textContent=t(reviewAnswerIndex%2?'Xem đáp án Đọc chính thức':'Xem đáp án Nghe chính thức',reviewAnswerIndex%2?'View official reading answers':'View official listening answers');
 });
@@ -893,12 +929,14 @@ function setupAcademy() {
   start.addEventListener('click',()=>{const item=selected();if(item)selectExam(level==='II'?createPracticeExam(item,phaseId):item);});
   full.addEventListener('click',()=>{const item=selected();if(item)selectExam(item);});
   function render(){
-    const item=selected();if(!item){start.disabled=full.disabled=true;return;}
+    let item=selected();
+    if(!item){item=exams.find(e=>e.level===level);if(!item){start.disabled=full.disabled=true;return;}round=item.round;}
     start.disabled=full.disabled=false; title.textContent=t('Phòng luyện','Practice room')+' TOPIK '+level;caption.textContent=t(`Kỳ ${round} · Đề thi nguyên bản`,`Round ${round} · Original exam`);
     for(const b of levels.children)b.setAttribute('aria-pressed',String(b.dataset.academyLevel===level));
-    for(const b of rounds.children)b.setAttribute('aria-pressed',String(Number(b.dataset.academyRound)===round));
+    for(const b of rounds.children){b.setAttribute('aria-pressed',String(Number(b.dataset.academyRound)===round));b.disabled=!exams.some(e=>e.level===level&&e.round===Number(b.dataset.academyRound));}
     doors.replaceChildren();
-    const available=item.phases.filter(p=>p.id!=='break');
+    const available=item.phases.filter(p=>p.id!=='break' && (!item.writingOnly || p.id==='writing'));
+    if(!available.some(p=>p.id===phaseId)) phaseId=available[0].id;
     for(const p of available){const door=document.createElement('button');door.type='button';door.dataset.academyPhase=p.id;
       door.innerHTML=icon(p.id);const name=document.createElement('strong'),detail=document.createElement('span');name.textContent=p.label[language];detail.textContent=`${p.questions.length} ${t('câu','questions')} · ${p.seconds/60}′`;door.append(name,detail);
       door.setAttribute('aria-pressed',String(level==='II'&&p.id===phaseId));
@@ -910,7 +948,7 @@ function setupAcademy() {
     name.textContent=level==='II'?`${p.label[language]} · ${p.questions.length} ${t('câu','questions')}`:t('TOPIK I · Nghe và Đọc','TOPIK I · Listening and Reading');
     detail.textContent=level==='II'?`${p.id==='listening'?t('Audio gốc · ','Original audio · '):''}${p.seconds/60} ${t('phút làm bài','minutes')}`:t('70 câu · 100 phút làm bài','70 questions · 100 minutes');choice.append(name,detail);
     start.textContent=attemptLabel(level==='II'?createPracticeExam(item,phaseId):item,level==='II'?t(`Làm riêng phần ${p.label.vi}`,`Practise ${p.label.en}`):t('Vào thi TOPIK I','Take TOPIK I'));
-    full.hidden=level!=='II';full.textContent=attemptLabel(item,t('Thi đủ 3 phần · 180 phút + 30 phút nghỉ','All 3 sections · 180 minutes + 30-minute break'));
+    full.hidden=level!=='II'||Boolean(item.writingOnly);full.textContent=attemptLabel(item,t('Thi đủ 3 phần · 180 phút + 30 phút nghỉ','All 3 sections · 180 minutes + 30-minute break'));
   }
   function renderLog(){
     log.replaceChildren();const heading=document.createElement('h2');heading.textContent=t('Sổ ôn cá nhân','My study log');log.append(heading);let count=0;
@@ -927,9 +965,13 @@ function setupAcademy() {
 try {
   const response = await fetch(new URL('./catalog.json?v=12',import.meta.url));
   if (!response.ok) throw new Error('catalog'); exams=await response.json();
+  const writingResponse=await fetch(new URL('./writing-data.json?v=writing-20261012-1',import.meta.url));
+  if(!writingResponse.ok) throw new Error('Writing data unavailable'); writingData=await writingResponse.json();
+  for(const item of writingData.exams) if(!exams.some(e=>e.id===item.id)) exams.push({...item,writingOnly:true});
   const mapResponse = await fetch(new URL('./question-map.json?v=12',import.meta.url));
   if (!mapResponse.ok) throw new Error('question map');
-  questionMap = validateQuestionMap(await mapResponse.json(), exams); $('exam-list').replaceChildren();
+  const map=await mapResponse.json(); map.documents={...writingData.documents,...map.documents};
+  questionMap = validateQuestionMap(map, exams); $('exam-list').replaceChildren();
   for (const item of exams) {
     const card=document.createElement('article'); card.className='exam-card'; card.dataset.examId=item.id;
     const round=document.createElement('span'); round.className='round'; round.textContent=`제${item.round}회 · TOPIK PBT`;
@@ -940,11 +982,11 @@ try {
     const button=document.createElement('button'); button.type='button'; button.className='button primary'; button.dataset.examEntry=item.id;
     const saved=readSaved(browserStorage,item,Date.now()).session;
     button.textContent=saved?.status==='running' ? t('Tiếp tục bài thi','Continue exam') : saved?.status==='finished' ? t('Xem lần thi đã lưu','View saved attempt') : item.level==='II' ? t('Thi đủ 3 phần','Take all 3 sections') : t('Vào phòng thi','Enter exam');
-    button.addEventListener('click',()=>selectExam(item)); card.append(round,title,sections,duration,button);
+    button.addEventListener('click',()=>selectExam(item.writingOnly?createPracticeExam(item,'writing'):item)); card.append(round,title,sections,duration,button);
     if (item.level==='II') {
       const practice=document.createElement('div'); practice.className='practice-options';
       const heading=document.createElement('p'); heading.className='practice-heading'; heading.textContent=t('Làm riêng từng phần','Practise a section'); practice.append(heading);
-      for (const phaseId of ['listening','reading','writing']) {
+      for (const phaseId of item.writingOnly?['writing']:['listening','reading','writing']) {
         const selected=createPracticeExam(item,phaseId), phase=selected.phases[0], prior=readSaved(browserStorage,selected,Date.now()).session;
         const option=document.createElement('button'); option.type='button'; option.className='button practice-button'; option.dataset.practicePhase=phaseId;
         const label=document.createElement('strong'); label.textContent=phase.label[language];
@@ -962,4 +1004,3 @@ try {
   message.textContent=t('Chưa tải được danh sách đề. Kiểm tra kết nối và tải lại trang.','The exam list could not load. Check your connection and reload.');
   $('exam-list').append(message); $('exam-list').setAttribute('aria-busy','false');
 }
-
