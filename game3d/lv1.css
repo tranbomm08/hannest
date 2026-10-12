@@ -201,3 +201,71 @@
 .classroom-session-results button{min-height:44px;width:100%;margin-top:9px}
 #classroom-session-result-words{padding:10px;border:1px solid #d0ddc8;border-radius:10px;background:#f0f4e9}
 @media(max-width:700px),(pointer:coarse){.classroom-session-card{padding:8px}.classroom-session-card h2{font-size:12px}.classroom-session-card button{font-size:11px}.classroom-session-results{width:calc(100% - 24px);padding:18px;max-height:calc(100% - 24px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}.classroom-session-results h2{font-size:19px}.classroom-session-results p{font-size:13px}}
+
+/* Compact learning cards; keep readable text and full-size touch targets. */
+.story-card:not(.completion-card):not(.classroom-session-results) h2{font-size:28px;letter-spacing:-1px;line-height:1.25}
+#classroom-word{font-size:22px;line-height:1.4}
+.object-word{font-size:22px;line-height:1.4}
+.dialogue>p,.classroom-dialogue>#classroom-text{font-size:16px;line-height:1.6}
+.mission-card{width:270px;padding:12px 14px;max-height:calc(100% - 184px);overflow:auto;overscroll-behavior:contain;pointer-events:auto}
+.mission-card h1,.classroom-panel h1,.classroom-panel h2{font-size:16px;line-height:1.4;margin:7px 0 5px;overflow-wrap:anywhere;word-break:keep-all}
+.mission-card p{font-size:12px;line-height:1.55;overflow-wrap:anywhere}
+.mission-actions{display:grid;gap:6px;margin-top:9px;pointer-events:auto}
+.mission-actions button{width:100%;min-height:44px;border:1px solid #d0ddca;border-radius:9px;padding:8px 10px;background:var(--green);color:#fff;font-size:12px;font-weight:700;white-space:normal;overflow-wrap:anywhere}
+.nearby-object-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:7px;max-height:154px;overflow:auto;overscroll-behavior:contain;pointer-events:auto;touch-action:pan-y}
+.nearby-object-tools:empty{display:none}
+.nearby-object-tools button{min-width:0;max-width:100%;min-height:44px;margin:0;padding:8px;border:1px solid #d0ddca;border-radius:9px;background:#fcfaf4;color:var(--green);font-size:12px;line-height:1.4;white-space:normal;overflow-wrap:anywhere;word-break:keep-all}
+.nearby-object-choice{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.nearby-object-choice svg{display:block;width:32px;height:32px;flex:none;fill:none;stroke:var(--green);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.nearby-object-choice>span:last-child{min-width:0;max-width:100%;flex:initial}
+.notice{pointer-events:none}
+.movement-pad,.look-controls{z-index:3}
+.classroom-panel,.classroom-word-panel{min-width:0;overscroll-behavior:contain}
+.classroom-word-panel{overflow:auto}
+.classroom-session-choices button,#classroom-session-choices button{font-size:14px}
+
+@media(max-width:700px),(pointer:coarse){
+  .story-card:not(.completion-card):not(.classroom-session-results) h2{font-size:24px}
+  #classroom-word,.object-word{font-size:20px}
+  .dialogue>p,.classroom-dialogue>#classroom-text{font-size:14px}
+  .mission-card{left:max(12px,env(safe-area-inset-left,0px));top:12px;width:min(220px,calc(100% - 24px));padding:10px 12px;max-height:min(224px,calc(100% - 232px - env(safe-area-inset-bottom,0px)));touch-action:pan-y}
+  .mission-card h1,.classroom-panel h1,.classroom-panel h2{font-size:15px}
+  .mission-card p{font-size:12px}
+  .classroom-panel{width:calc(100% - 166px);max-width:220px}
+  .classroom-word-panel{top:64px;max-height:min(248px,calc(100% - 288px - env(safe-area-inset-bottom,0px)))}
+  .movement-pad button,.look-controls button,.interact-button,.classroom-interact,.classroom-exit,.object-actions button,.nearby-object-tools button{min-height:44px;touch-action:manipulation}
+  .movement-pad button{touch-action:none}
+  #classroom-session-choices button{font-size:14px}
+}
+
+/* A short landscape screen gets one reserved control strip, rather than
+   another large panel in front of its movement and camera buttons. */
+@media(max-height:520px) and (orientation:landscape){
+  .topbar{height:auto;min-height:52px;padding-top:4px;padding-bottom:4px;gap:4px}
+  .topbar-tools{gap:4px}
+  .topbar-tools button{min-height:44px}
+  .brand span:last-child,.next-level,.level-tag{display:none}
+  .mission-card,.classroom-panel{left:max(12px,env(safe-area-inset-left,0px));top:8px;width:min(250px,calc(50% - 76px));max-width:none;max-height:max(48px,calc(100% - 116px - env(safe-area-inset-bottom,0px)));padding:8px 10px}
+  .classroom-word-panel,.discovery-panel{right:max(12px,env(safe-area-inset-right,0px));top:8px;width:min(190px,calc(50% - 76px));max-height:max(48px,calc(100% - 116px - env(safe-area-inset-bottom,0px)));padding:8px 10px;overflow:auto}
+  .mission-card h1,.classroom-panel h1,.classroom-panel h2{font-size:14px;line-height:1.4}
+  .mission-card p{font-size:12px}
+  .classroom-goal,.goal-shape{display:none}
+  .nearby-object-tools{grid-template-columns:1fr;max-height:100px}
+  .movement-pad{left:max(12px,env(safe-area-inset-left,0px));bottom:calc(8px + env(safe-area-inset-bottom,0px));grid-template-columns:44px 44px 44px;grid-template-rows:44px 44px;gap:4px}
+  .look-controls{right:max(12px,env(safe-area-inset-right,0px));bottom:calc(8px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:44px 44px;gap:4px}
+  .movement-pad button,.look-controls button{width:44px;height:44px;min-height:44px}
+  .interact-button,.classroom-interact{left:50%;right:auto;bottom:calc(60px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(190px,calc(100% - 320px));min-width:0;min-height:44px;padding:7px 10px}
+  .classroom-exit{left:50%;bottom:calc(8px + env(safe-area-inset-bottom,0px));width:min(190px,calc(100% - 320px));min-height:44px;padding:7px 10px;white-space:normal}
+  .classroom-camera-reset{left:50%;right:auto;top:8px;transform:translateX(-50%);max-width:calc(100% - 552px);min-height:44px;padding:7px 10px;white-space:normal}
+  .scene-caption{display:none}
+  .dialogue,.classroom-dialogue{bottom:8px;width:calc(100% - 24px);max-height:calc(100% - 16px);padding:12px 14px}
+  .dialogue>p,.classroom-dialogue>#classroom-text{font-size:14px;line-height:1.55}
+}
+
+/* Controls sit above nonmodal cards; quizzes, help and dialogues retain the
+   entire foreground while the controller's existing modal logic is active. */
+.world:not(.is-classroom):has(>#intro:not([hidden]),>#completion:not([hidden]),>#help:not([hidden]),>#vocabulary-panel:not([hidden]),>#error:not([hidden]),>#loading:not([hidden]),>#dialogue:not([hidden])) .movement-pad,
+.world:not(.is-classroom):has(>#intro:not([hidden]),>#completion:not([hidden]),>#help:not([hidden]),>#vocabulary-panel:not([hidden]),>#error:not([hidden]),>#loading:not([hidden]),>#dialogue:not([hidden])) .look-controls,
+.world.is-classroom:has(>.classroom-ui:not([hidden]) .classroom-overlay:not([hidden]),>.classroom-ui:not([hidden]) .classroom-dialogue:not([hidden])) .movement-pad,
+.world.is-classroom:has(>.classroom-ui:not([hidden]) .classroom-overlay:not([hidden]),>.classroom-ui:not([hidden]) .classroom-dialogue:not([hidden])) .look-controls{visibility:hidden!important;pointer-events:none}
+

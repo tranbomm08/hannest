@@ -21,6 +21,7 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
   let storyAction=null,storyActionEpoch=0,storySaveWarning='';
   let boardVisuals=null,boardAction=null,boardEpoch=0,boardGuide=null;
   let sessionFocused=false,sessionReady=null,sessionAction=null,sessionEpoch=0,sessionWatch=null,sessionPractice=null,sessionFeedback='';
+  let nearbyChoiceKey='',nearbyCandidates=[],nearbyRefreshAt=-Infinity;
   const actors=new Map(),slots=new Map(),propOwners=new Map(),propRest=new Map(),reactions=new Map();
   const keys=new Set(),held=new Map(),removers=[],variantMaterials=new Set();
   const ray=new THREE.Raycaster(),occlusionRay=new THREE.Raycaster();
@@ -41,6 +42,7 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
       <section id="classroom-session-card" class="classroom-session-card" aria-labelledby="classroom-session-title"><h2 id="classroom-session-title">오늘의 놀이 수업</h2><p id="classroom-session-status"></p><p id="classroom-session-question" hidden lang="ko"></p><div class="classroom-session-tools"><button id="classroom-session-go" type="button">놀이 수업 시작하기</button><button id="classroom-session-back" type="button" hidden>물건 수업 계속하기</button></div><p id="classroom-session-feedback" role="status" aria-live="polite"></p><button id="classroom-session-hint" type="button" hidden>낱말 힌트 보기</button><div id="classroom-session-choices" class="dialogue-choices" hidden></div><p id="classroom-session-rewards"></p></section>
       <p id="classroom-location" class="classroom-location" hidden></p>
       <div id="classroom-find-tools" class="classroom-find-tools" hidden><button id="classroom-find-go" type="button">가까이 가기</button><button id="classroom-find-look" type="button">물건 쪽 보기</button></div>
+      <div id="classroom-nearby-tools" class="nearby-object-tools" role="group" aria-label="가까운 물건 고르기" hidden></div>
       <p id="classroom-prompt"></p><p id="classroom-memory" class="classroom-memory"></p>
       <button id="classroom-story-action" type="button" hidden>연필로 써 보기</button>
       <button id="classroom-rest-toggle" type="button" hidden>잠깐 졸기</button><p id="classroom-rest-status" class="classroom-memory" role="status" hidden>졸고 있어요. 「잠 깨기」를 누르면 다시 활동할 수 있어요.</p>
@@ -101,6 +103,7 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
     $('classroom-story-action').hidden=storyPhase!=='use-pencil';$('classroom-story-action').disabled=!interactive()||!writingSeat()||propOwners.get('board-eraser')==='hero';
     $('classroom-rest-toggle').hidden=!seated;$('classroom-rest-toggle').textContent=sleeping?'잠 깨기':'잠깐 졸기';$('classroom-rest-toggle').disabled=sleeping?!active():!interactive();$('classroom-rest-status').hidden=!sleeping;
     const seatGuide=storyPhase==='use-pencil'&&!storyAction&&!boardFocused;
+    const storyGuide=!boardFocused&&!sessionFocused&&storyMission?.target&&storyPhase!=='complete';
     if(seatGuide)$('classroom-prompt').textContent=sleeping?'졸고 있어요. 「잠 깨기」를 누른 뒤 써 봐요.':sitting||seatAlign?'자리에 앉고 있어요. 동작이 끝나면 쓸 수 있어요.':standing?'자리에서 일어나는 중이에요. 빈자리에 앉아 써 봐요.':writingSeat()?'책상이 있는 빈자리에 앉았어요. 「연필로 써 보기」를 눌러요.':storyMission.prompt;
     if(seatGuide&&propOwners.get('board-eraser')==='hero')$('classroom-prompt').textContent='칠판지우개를 먼저 제자리에 놓으면 빌린 연필로 쓸 수 있어요.';
     $('classroom-save').textContent=[saveWarning,storySaveWarning,activitySaveWarning,boardSaveWarning,sessionSaveWarning].filter(Boolean).join(' ')||'이야기와 배운 낱말을 저장해요. 중간에 나가도 이어서 할 수 있어요.';
@@ -114,8 +117,8 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
     $('classroom-hint').hidden=!hint;$('classroom-hint-title').textContent=hint?.title||'';$('classroom-hint-text').textContent=hint?.text||'';
     const assisted=!boardFocused&&storyPhase==='lesson'&&mission&&(phase==='learn'||hint?.showLocation),guide=assisted?getWordGuide(mission.target):null;
     $('classroom-location').hidden=!guide&&!seatGuide;$('classroom-location').textContent=seatGuide?'책상이 있는 빈자리면 어디서든 쓸 수 있어요. 가운데와 뒤쪽 가운데 자리가 비어 있어요.':guide?'찾을 물건: '+guide.word+' · '+guide.location:'';
-    $('classroom-find-tools').hidden=!guide&&!seatGuide;
-    $('classroom-find-go').textContent=seatGuide?'빈자리로 가기':'가까이 가기';$('classroom-find-look').textContent=seatGuide?'자리 쪽 보기':'물건 쪽 보기';
+    $('classroom-find-tools').hidden=!guide&&!seatGuide&&!storyGuide;
+    $('classroom-find-go').textContent=seatGuide?'빈자리로 가기':storyGuide&&actors.has(storyMission.target)?'친구에게 가기':'가까이 가기';$('classroom-find-look').textContent=seatGuide?'자리 쪽 보기':storyGuide&&actors.has(storyMission.target)?'친구 쪽 보기':'물건 쪽 보기';
     $('classroom-find-go').disabled=!interactive()||(seatGuide&&Boolean(writingSeat()));$('classroom-find-look').disabled=!interactive();
     const shape=boardFocused?null:OBJECT_BY_ID[storyPhase==='check-bag'?'bag':storyMission?null:hint?.showShape?mission?.target:mission?.goalIcon]?.shape;
     $('classroom-goal').hidden=!shape;$('classroom-goal').innerHTML=shape?'<svg viewBox="0 0 120 120" aria-hidden="true" fill="none" stroke="#527c6b" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">'+'<path d="'+shape+'"/>'+'</svg>':'';
@@ -127,6 +130,7 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
     $('classroom-word-panel').hidden=!reveal;
     $('classroom-dialogue').hidden=!dialogue;
     syncSessionUI();
+    syncNearbyTools(true);
     const modal=blocked();for(const b of [document.querySelector('.movement-pad'),document.getElementById('look-controls')])if(b)b.style.visibility=modal?'hidden':'';
   }
   function showHint(level){if(!active()||storyAction||getStoryPhase(story)!=='lesson')return;const next=getLessonHint(state,level??(hint?.level||0)+1);if(!next)return;hint=next;syncUI();}
@@ -380,6 +384,28 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
   function visible(node){while(node){if(!node.visible)return false;node=node.parent;}return true;}
   function belongsTo(node,parent){while(node){if(node===parent)return true;node=node.parent;}return false;}
   function lineOfSight(id){const item=room.objectsById.get(id),target=center(id),origin=hero.position.clone().add(new THREE.Vector3(0,seated?1.2:1.45,0)),delta=target.clone().sub(origin);occlusionRay.set(origin,delta.clone().normalize());const hit=occlusionRay.intersectObjects(room.cameraObstacles.filter(node=>visible(node)&&!belongsTo(node,item)),false).find(h=>h.distance<delta.length()-.07);return !hit;}
+  function nearbyClassroomObjects(){
+    if(!room||!hero||!interactive()||boardGuide||sessionFocused&&getSessionTask(sessions)?.type!=='object')return [];
+    return room.selectableObjects.filter(item=>visible(item)&&nearObject(item.userData.discoveryId)&&lineOfSight(item.userData.discoveryId))
+      .sort((a,b)=>center(a.userData.discoveryId).distanceToSquared(hero.position)-center(b.userData.discoveryId).distanceToSquared(hero.position));
+  }
+  function selectNearbyClassroomObject(id){
+    if(!nearbyClassroomObjects().some(item=>item.userData.discoveryId===id))return;
+    selectObject(id);canvas.focus({preventScroll:true});
+  }
+  function syncNearbyTools(force=false){
+    const host=$('classroom-nearby-tools');
+    if(!interactive()){host.hidden=true;nearbyCandidates=[];nearbyRefreshAt=-Infinity;return;}
+    if(!force&&time-nearbyRefreshAt<.18)return;nearbyRefreshAt=time;
+    const objects=nearbyClassroomObjects();nearbyCandidates=objects.map(item=>item.userData.discoveryId);
+    const key=nearbyCandidates.map(id=>id+':'+state.discovered.includes(id)).join('|');host.hidden=!objects.length;
+    if(key===nearbyChoiceKey)return;nearbyChoiceKey=key;host.replaceChildren();
+    objects.forEach((item,index)=>{
+      const id=item.userData.discoveryId,button=document.createElement('button');button.type='button';button.className='nearby-object-choice';button.dataset.classroomObjectChoice=id;
+      const shape=OBJECT_BY_ID[id]?.shape;if(shape){const icon=document.createElementNS('http://www.w3.org/2000/svg','svg');icon.setAttribute('viewBox','0 0 120 120');icon.setAttribute('aria-hidden','true');const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',shape);icon.append(path);button.append(icon);}
+      const known=state.discovered.includes(id),label=document.createElement('span');label.textContent=known?OBJECT_WORDS[id]:'물건 '+(index+1);button.append(label);button.setAttribute('aria-label',(known?OBJECT_WORDS[id]:'가까운 물건 '+(index+1))+' 고르기');host.append(button);
+    });
+  }
   function selectObject(id){
     if(!interactive()||!OBJECT_WORDS[id]||!nearObject(id)||!lineOfSight(id))return;
     if(sessionFocused){const task=getSessionTask(sessions);if(task?.type!=='object'){notify('지금 미션의 친구나 동작을 살펴보세요.');return;}clearInput();const correct=recordSessionAnswer(task,id);sessionFeedback=correct?'맞아요! '+OBJECT_SENTENCES[id]:OBJECT_WORDS[id]+' · '+getWordGuide(id).meaning+' 문장을 읽고 다시 골라요.';reveal={id};$('classroom-feedback').textContent=sessionFeedback;if(propOwners.get(id)==='world')reactions.set(id,time);syncUI();return;}
@@ -464,10 +490,10 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
     if(selected?.type==='activity'){const id=selected.id==='broom'?'jiun':'yuna';if(sessionFocused&&getSessionTask(sessions)?.type==='review'){const task=getSessionTask(sessions);if(task.actor===id){if(nearActor(id))startSessionWatch(task);else walkTo(room.targets[id],{type:'session-watch',key:task.key,actor:id});}else notify('미션에 나온 친구의 동작을 살펴보세요.');return;}if(nearActor(id)){learnActivity(selected.id);showActivityWord(selected.id);}else{const goal=approachActor(id);if(goal)walkTo(goal,{type:'actor',id});}return;}
     const ground=ray.intersectObjects(room.grounds,false)[0];if(ground&&(!first||first.object===ground.object||first.distance>=ground.distance-.05)&&isWalkable(ground.point.x,ground.point.z))walkTo(ground.point);
   }
-  function look(dx,dy){if(!interactive())return;guideFocus=null;yaw=Math.atan2(Math.sin(yaw+dx),Math.cos(yaw+dx));pitch=THREE.MathUtils.clamp(pitch+dy,-.95,.95);path=[];pending=null;}
-  function guideTarget(){if(getStoryPhase(story)==='use-pencil')return writingSeat()?.id||'student-seat';const mission=getCurrentMission(state);return getStoryPhase(story)==='lesson'&&mission&&(getPhase(state)==='learn'||hint?.showLocation)?mission.target:null;}
+  function look(dx,dy){if(!interactive())return;guideFocus=null;yaw=Math.atan2(Math.sin(yaw+dx),Math.cos(yaw+dx));pitch=THREE.MathUtils.clamp(pitch+dy,-.95,.95);}
+  function guideTarget(){const storyPhase=getStoryPhase(story);if(storyPhase==='use-pencil')return writingSeat()?.id||'student-seat';if(storyPhase!=='lesson')return getStoryMission(story,getCampusContext())?.target||null;const mission=getCurrentMission(state);return mission&&(getPhase(state)==='learn'||hint?.showLocation)?mission.target:null;}
   function lookAtObject(id){guideFocus=id;const delta=center(id).sub(hero.position.clone().add(new THREE.Vector3(0,seated?1.24:1.58,0)));yaw=Math.atan2(-delta.x,-delta.z);pitch=THREE.MathUtils.clamp(Math.atan2(delta.y,Math.hypot(delta.x,delta.z)),-.95,.95);}
-  function guideObject(walk){if(!interactive())return;const id=guideTarget();if(!id)return;reveal=null;const seat=room.seats.find(s=>s.id===id);if(walk){if(seat){if(seated!==id)walkTo(seat.approach,{type:'seat',id});}else walkTo(room.targets[id]);}lookAtObject(id);syncUI();}
+  function guideObject(walk){if(!interactive())return;const id=guideTarget();if(!id)return;reveal=null;const seat=room.seats.find(s=>s.id===id);if(walk){if(seat){if(seated!==id)walkTo(seat.approach,{type:'seat',id});}else if(actors.has(id)){if(nearActor(id))openDialogue(id);else{const target=approachActor(id);if(target)walkTo(target,{type:'actor',id});}}else if(room.targets[id])walkTo(room.targets[id]);}lookAtObject(id);syncUI();}
   function resetCamera(){if(!interactive())return;guideFocus=null;yaw=Math.atan2(Math.sin(hero.rotation.y-Math.PI),Math.cos(hero.rotation.y-Math.PI));pitch=-.08;dialogueRig=null;canvas.focus({preventScroll:true});}
   function safeCamera(origin,desired,reportClip=true){const point=cameraCollision.resolve(origin,desired);if(reportClip&&point.distanceToSquared(desired)>.0025)clipped=true;return point;}
   function dialoguePair(){const talker=actors.get(dialogue?.speaker)||actors.get(dialogue?.id),listener=actors.get(dialogue?.listener)||hero;return talker===hero?[hero,listener]:[listener,talker];}
@@ -539,8 +565,13 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
   }
   function nearestInteraction(){
     if(!room)return null;const boardType=getBoardMission(boardRequest).action;
-    if(!boardProtected&&boardGuide&&!seated&&['take','erase','put'].includes(boardType)&&hero.position.distanceTo(boardTarget(boardType))<.25)return{type:'board',id:boardType};
+    if(!boardProtected&&boardGuide){if(boardType==='teacher'&&nearActor('teacher'))return{type:'actor',id:'teacher'};if(!seated&&['take','erase','put'].includes(boardType)&&hero.position.distanceTo(boardTarget(boardType))<.25)return{type:'board',id:boardType};return null;}
+    if(sessionFocused){const task=getSessionTask(sessions);if(task?.type==='review'&&sessionReady===task.key)return null;if(sessionPractice&&task?.key===sessionPractice.key&&['take','erase','put'].includes(sessionPractice.stage)&&hero.position.distanceTo(boardTarget(sessionPractice.stage))<.25)return{type:'session-board',id:sessionPractice.stage};if(task?.actor&&nearActor(task.actor))return{type:'actor',id:task.actor};if(task&&task.type!=='object')return null;}
     if(!sessionFocused&&getStoryPhase(story)==='use-pencil'&&writingSeat()&&propOwners.get('board-eraser')!=='hero')return{type:'write',id:seated};
+    const storyMission=!sessionFocused?getStoryMission(story,getCampusContext()):null;
+    if(storyMission?.target&&actors.has(storyMission.target)&&nearActor(storyMission.target))return{type:'actor',id:storyMission.target};
+    if(storyMission?.target&&room.objectsById.has(storyMission.target)&&nearObject(storyMission.target)&&lineOfSight(storyMission.target))return{type:'object',id:storyMission.target};
+    if(!boardGuide&&(getStoryPhase(story)==='lesson'||sessionFocused&&getSessionTask(sessions)?.type==='object')){const id=nearbyCandidates.find(id=>nearObject(id)&&lineOfSight(id));if(id)return{type:'object',id};}
     const seat=!seated?room.seats.filter(s=>![...slots.values()].some(slot=>slot.seatId===s.id)).sort((a,b)=>hero.position.distanceTo(a.approach)-hero.position.distanceTo(b.approach))[0]:null;
     const seatDistance=seat?hero.position.distanceTo(seat.approach):Infinity;
     let best=null,d=Infinity,approachDistance=Infinity;
@@ -548,7 +579,7 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
     if(best&&approachDistance<.35&&seatDistance>.18)return best;
     if(seatDistance<1.05)return{type:'seat',id:seat.id};return best;
   }
-  function interact(){if(!interactive())return;const hit=nearestInteraction();if(hit?.type==='board')startBoardAction(hit.id);else if(hit?.type==='write')performStoryAction('USE_PENCIL');else if(hit?.type==='seat')sitAt(hit.id);else if(hit?.type==='actor')openDialogue(hit.id);}
+  function interact(){if(!interactive())return;const hit=nearestInteraction();if(hit?.type==='board')goBoard();else if(hit?.type==='session-board')goPracticeStep(hit.id);else if(hit?.type==='write')performStoryAction('USE_PENCIL');else if(hit?.type==='object')selectNearbyClassroomObject(hit.id);else if(hit?.type==='seat')sitAt(hit.id);else if(hit?.type==='actor')openDialogue(hit.id);}
   function collection(show){clearInput();resetTalkAnimation();$('classroom-collection').hidden=!show;if(show){$('classroom-collection-items').replaceChildren();for(const id of state.discovered){const row=document.createElement('div'),text=document.createElement('p');text.textContent=OBJECT_WORDS[id]+' · '+getWordGuide(id).meaning+' '+OBJECT_SENTENCES[id];row.append(text);$('classroom-collection-items').append(row);}if(!state.discovered.length&&!activityWords.length)$('classroom-collection-items').textContent='직접 고른 물건과 친구에게 배운 낱말이 여기에 모여요.';for(const id of activityWords){const row=document.createElement('div'),text=document.createElement('p'),word=ACTIVITY_WORDS[id];text.textContent='추가 낱말 · '+word.word+' · '+word.meaning+' '+word.sentence;row.append(text);$('classroom-collection-items').append(row);}for(const reward of getSessionRewards(sessions)){const row=document.createElement('div'),text=document.createElement('p');text.textContent=reward.symbol+' '+reward.label;row.append(text);$('classroom-collection-items').append(row);}}syncUI();}
 
   function exit(){sleeping=false;loadEpoch++;loadAbort?.abort();loadAbort=null;paused=false;cancelSessionMotion();cancelBoardAction();cancelStoryAction();seatActionEpoch++;sitHandle?.cancel?.();sitHandle=null;sitting=false;standHandle?.cancel?.();standHandle=null;standing=false;standingSeat=null;seatAlign=null;if(!entered&&!scene)return;clearInput();resetTalkAnimation();entered=false;seated=null;clearScene();mount.hidden=true;for(const node of [document.querySelector('.movement-pad'),document.getElementById('look-controls')])if(node)node.style.visibility='';}
@@ -591,7 +622,8 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
       else{sessionWatch.elapsed+=dt;if(sessionWatch.elapsed>=1.4){sessionReady=task.key;sessionWatch=null;learnActivity(task.wordId);syncUI();}}
     }
     const sessionTask=getSessionTask(sessions);if(sessionReady&&sessionTask?.actor&&!nearActor(sessionTask.actor)){sessionReady=null;syncUI();}
-    const near=interactive()?nearestInteraction():null;$('classroom-interact').hidden=!near;$('classroom-interact').textContent=near?.type==='board'?getBoardMission(boardRequest).button:near?.type==='write'?'연필로 써 보기':near?.type==='seat'?'빈자리에 앉기':'이야기하기';
+    syncNearbyTools();
+    const near=interactive()?nearestInteraction():null;$('classroom-interact').hidden=!near;$('classroom-interact').textContent=near?.type==='board'?getBoardMission(boardRequest).button:near?.type==='session-board'?'동작 이어 하기':near?.type==='object'?'가까운 물건 고르기':near?.type==='write'?'연필로 써 보기':near?.type==='seat'?'빈자리에 앉기':'이야기하기';
     updateCamera(dt);renderer.render(scene,camera);
   }
   function pause(){paused=true;clearInput();resetTalkAnimation();if(seatAlign){seatAlign=null;standingSeat=null;}}
@@ -599,7 +631,7 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
   function dispose(){if(disposed)return;exit();clearScene();disposed=true;pause();while(removers.length)removers.pop()();mount.replaceChildren();}
   function info(){return{session:{focused:sessionFocused,...getSessionProgress(sessions),task:getSessionTask(sessions),ready:sessionReady,action:sessionAction?.type||null,watching:sessionWatch?.actor||null,practice:sessionPractice?{...sessionPractice}:null},entered,active:active(),paused,disposed,phase:getPhase(state),player:hero?.position.toArray()||null,seated,sleeping,boardRequest:{...boardRequest},boardAction:boardAction?.type||null,boardVisuals:boardVisuals?.diagnostics()||null,boardTargets:room?{take:boardTarget('take').toArray(),erase:boardTarget('erase').toArray(),put:boardTarget('put').toArray()}:{},activityWords:[...activityWords],activityProps:activityProps?.diagnostics()||{},seating:seatAlign?.id||null,sitting,standing,walkable:hero&&!seated?isWalkable(hero.position.x,hero.position.z):true,viewMode:getViewMode(),cameraYaw:yaw,cameraPitch:pitch,cameraPosition:camera.position.toArray(),cameraClipped:clipped,playerVisible:hero?.visible??false,pathLength:path.length,pathGoal:path.at(-1)?.toArray()||null,dialogueOpen:Boolean(dialogue),dialogueSpeaker:dialogue?.speaker||dialogue?.id||null,speakingActor:speaker,lessonProgress:getProgress(state),inventory:getStoryInventory(story),storyPhase:getStoryPhase(story),storyProgress:story.completed.length,storyRevisited:story.revisited,storyAction:storyAction?.type||null,hint:hint?{...hint}:null,conversationStep:dialogue?.turns?dialogue.index+1:null,conversationTotal:dialogue?.turns?.length||0,dialogueListener:dialogue?.listener||null,seats:room?Object.fromEntries(room.seats.map(s=>[s.id,{position:[s.position.x,.75,s.position.z],approach:s.approach.toArray(),hasDesk:Boolean(s.desk),row:s.row,deskTop:s.deskTop.toArray(),occupied:[...slots.values()].some(slot=>slot.seatId===s.id)}])):{},targets:room?Object.fromEntries(Object.entries(room.targets).map(([k,v])=>[k,v.toArray()])):{},objects:room?Object.fromEntries(room.selectableObjects.map(o=>{const id=o.userData.discoveryId;return[id,{position:center(id).toArray(),visible:visible(o),owner:propOwners.get(id)}];})): {},actors:Object.fromEntries([...actors].map(([id,a])=>[id,{position:a.position.toArray(),activity:a.userData.behavior?.activity,outfit:a.userData.outfit,seatId:slots.get(id)?.seatId||null,seated:id==='hero'?Boolean(seated):slots.get(id)?.seated,gesture:a.userData.behavior?.gesture,speaking:speaker===id,native:Boolean(a.userData.humanBody),socketCount:Object.keys(a.userData.sockets||{}).length,nativeFace:a.userData.humanFace?.diagnostics?.()||a.userData.face?.diagnostics?.()||null,nativeAnimation:a.userData.humanBody?.getInfo?.()||a.userData.humanBody?.diagnostics?.()||null}])),guideFocus,cameraClear:cameraCollision?.isClear(camera.position)??true,cameraDialogueKey:dialogueRig?.key||null,resources:renderer.info.memory};}
   function projectPoint(id){let p;if(Array.isArray(id))p=new THREE.Vector3(...id);else if(room?.objectsById.has(id))p=center(id);else if(id==='student-seat')p=room.seats.find(s=>s.id===id).position.clone();else if(actors.has(id)){const actor=actors.get(id),head=actor.userData.humanFace?.group||actor.userData.rig?.head;head?.updateWorldMatrix(true,true);p=head?new THREE.Box3().setFromObject(head).getCenter(new THREE.Vector3()):actor.position.clone().add(new THREE.Vector3(0,1.25,0));}else p=room?.targets[id]?.clone();if(!p)return null;p.project(camera);const r=canvas.getBoundingClientRect();return{x:r.left+(p.x+1)*r.width/2,y:r.top+(1-p.y)*r.height/2};}
-  listen(mount,'click',e=>{const b=e.target.closest('button');if(!b||!active())return;if(b.dataset.classroomChoice)choose(b.dataset.classroomChoice);else if(b.dataset.classroomSessionChoice)chooseSessionWord(b.dataset.classroomSessionChoice);else if(b.hasAttribute('data-classroom-exit'))uiExit();});
+  listen(mount,'click',e=>{const b=e.target.closest('button');if(!b||!active())return;if(b.dataset.classroomChoice)choose(b.dataset.classroomChoice);else if(b.dataset.classroomSessionChoice)chooseSessionWord(b.dataset.classroomSessionChoice);else if(b.dataset.classroomObjectChoice)selectNearbyClassroomObject(b.dataset.classroomObjectChoice);else if(b.hasAttribute('data-classroom-exit'))uiExit();});
   listen($('classroom-session-go'),'click',goSession);
   listen($('classroom-session-back'),'click',()=>{if(!interactive())return;cancelSessionMotion();sessionFocused=false;guideFocus=null;syncUI();});
   listen($('classroom-session-hint'),'click',showSessionHint);
@@ -623,3 +655,4 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
   listen(canvas,'pointerdown',e=>{if(!interactive()||pointer)return;pointer={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,moved:false};canvas.setPointerCapture(e.pointerId);canvas.focus({preventScroll:true});});listen(canvas,'pointermove',e=>{if(!pointer||e.pointerId!==pointer.id)return;if(Math.hypot(e.clientX-pointer.x,e.clientY-pointer.y)>8)pointer.moved=true;if(pointer.moved){look(-(e.clientX-pointer.lastX)*.006,-(e.clientY-pointer.lastY)*.004);e.preventDefault();}pointer.lastX=e.clientX;pointer.lastY=e.clientY;});listen(canvas,'pointerup',e=>{if(pointer?.id!==e.pointerId)return;if(!pointer.moved)clickWorld(e);pointer=null;});for(const type of ['pointercancel','lostpointercapture'])listen(canvas,type,e=>{if(pointer?.id===e.pointerId)pointer=null;});
   return{enter,exit,tick,pause,resume,dispose,getInfo:info,getState:()=>JSON.parse(JSON.stringify(state)),getStoryState:()=>JSON.parse(JSON.stringify(story)),getBoardState:()=>({...boardRequest}),getSessionState:()=>JSON.parse(JSON.stringify(sessions)),projectPoint};
 }
+

@@ -19,6 +19,11 @@ const removers=[],timers=new Set(),worldResources={geometries:new Set(),material
 const actors=[],temporaryObjects=[],dialogueButtons=new Set(),vocabularyButtons=new Set();
 try{storage=localStorage;}catch(_){storage={getItem(){throw new Error('저장 불가');},setItem(){throw new Error('저장 불가');}};}
 const loaded=loadState(storage);state=loaded.state;savedWarning=loaded.warning||'';
+const missionActions=document.createElement('div');missionActions.className='mission-actions';
+const missionGo=document.createElement('button');missionGo.id='mission-go';missionGo.type='button';missionGo.textContent='목표로 가기';missionActions.append(missionGo);
+const missionObjectTools=document.createElement('div');missionObjectTools.id='mission-object-tools';missionObjectTools.className='nearby-object-tools';missionObjectTools.hidden=true;missionObjectTools.setAttribute('role','group');missionObjectTools.setAttribute('aria-label','가까운 물건 고르기');
+document.querySelector('.mission-card').append(missionActions,missionObjectTools);
+let missionObjectKey='';
 window.hannestPreviewReady=false;window.hannestPreviewError=null;
 const ambience=createSchoolAmbience({storage,onChange:syncAmbientUI});
 function syncAmbientUI(){const info=ambience.getInfo();$('ambient-toggle').textContent=info.enabled?'배경음 켜짐':'배경음 꺼짐';$('ambient-toggle').setAttribute('aria-pressed',String(info.enabled));$('ambient-status').textContent=info.unavailable?'배경음을 재생할 수 없어요. 글로 계속할 수 있어요.':'대화와 낱말은 글로 보여요. 배경음만 작게 재생해요.';}
@@ -80,7 +85,7 @@ async function enterClassroom(){
   const version=++classroomLoadVersion;classroomLoading=true;$('start-new-classroom').disabled=true;$('start-new-classroom').textContent='새 수업을 준비하고 있어요…';$('enter-classroom').disabled=true;$('enter-classroom').textContent='101호를 준비하고 있어요…';
   clearCampusInput();closeDialogue();resetTalkAnimation();
   try{
-    const {createClassroomController}=await import('./classroom-controller.js');
+    const {createClassroomController}=await import('./classroom-controller.js?v=controls-fix-20261013-1');
     if(disposed||!active()||version!==classroomLoadVersion||!canEnterClassroom(state))return;
     if(!classroomController)classroomController=createClassroomController({THREE,renderer,canvas:$('scene'),camera,mount:$('classroom-ui'),isActive:()=>active()&&classroomEntered,canEnter:()=>canEnterClassroom(state),getViewMode:()=>viewMode,setViewMode:mode=>{if(['shoulder','first-person'].includes(mode))viewMode=mode;},notify:notice,onExit:leaveClassroom,getCampusContext:()=>({metSua:state.completed.includes('greet-sua'),hasPencil:state.inventory.includes('pencil')})});
     classroomSnapshot={position:camera.position.clone(),quaternion:camera.quaternion.clone(),fov:camera.fov,near:camera.near,far:camera.far,yaw:cameraYaw,pitch:cameraPitch};
@@ -119,6 +124,34 @@ function phaseTarget(){
   const phase=objectReveal?.correct?objectReveal.phase:getPhase(state);return phase==='entrance'?'entrance':phase==='greet-sua'||phase==='thank-sua'?'sua':phase==='collect-documents'?'desk':phase.startsWith('find-')?'supplies':phase==='pack-bag'?'bag':phase==='ask-minsu'?'minsu':phase==='classroom101'?'classroom':null;
 }
 function discoveryPhase(phase=getPhase(state)){return phase.startsWith('find-')||phase==='pack-bag';}
+function nearbyCampusObjects(){
+  if(!campus||!interactive()||dialogueOpen||objectReveal?.correct||!getPhase(state).startsWith('find-')||!proximity('supplies'))return [];
+  return campus.selectableObjects.filter(item=>item.visible&&Object.hasOwn(OBJECT_WORDS,item.userData.discoveryId));
+}
+function selectNearbyCampusObject(id){
+  if(!nearbyCampusObjects().some(item=>item.userData.discoveryId===id))return;
+  selectObject(id);$('scene').focus({preventScroll:true});
+}
+function syncMissionControls(){
+  const target=phaseTarget(),available=interactive()&&!dialogueOpen&&!objectReveal?.correct&&Boolean(target)&&getPhase(state)!=='complete';
+  missionGo.hidden=!gameStarted||classroomEntered||!target||getPhase(state)==='complete';missionGo.disabled=!available;
+  missionGo.textContent=available&&proximity(target)?getPhase(state).startsWith('find-')?'가까운 물건 고르기':getPhase(state)==='pack-bag'?'준비물 넣기':'목표 확인하기':'목표로 가기';
+  const objects=nearbyCampusObjects(),key=objects.map(item=>item.userData.discoveryId+':'+(learnedWords.has(item.userData.discoveryId)||state.inventory.includes(item.userData.discoveryId))).join('|');
+  missionObjectTools.hidden=!objects.length;
+  if(key===missionObjectKey)return;missionObjectKey=key;missionObjectTools.replaceChildren();
+  objects.forEach((item,index)=>{
+    const id=item.userData.discoveryId,button=document.createElement('button');button.type='button';button.className='nearby-object-choice';button.dataset.missionObject=id;
+    const shape=$('goal-'+id)?.querySelector('svg');if(shape){const icon=shape.cloneNode(true);icon.setAttribute('aria-hidden','true');button.append(icon);}
+    else{const icon=document.createElement('span');icon.setAttribute('aria-hidden','true');icon.textContent=({book:'📖',bottle:'🧴',ruler:'📏'})[id]||'◇';button.append(icon);}
+    const known=learnedWords.has(id)||state.inventory.includes(id),label=document.createElement('span');label.textContent=known?OBJECT_WORDS[id]:'물건 '+(index+1);button.append(label);button.setAttribute('aria-label',(known?OBJECT_WORDS[id]:'가까운 물건 '+(index+1))+' 고르기');missionObjectTools.append(button);
+  });
+}
+function goToMission(){
+  if(!interactive()||dialogueOpen||objectReveal?.correct)return;
+  const key=phaseTarget(),target=key&&campus?.targets[key];if(!target)return;
+  if(proximity(key)){if(['entrance','classroom'].includes(key))updateProximity();else openInteraction(key);return;}
+  walkTo(target,key);$('scene').focus({preventScroll:true});
+}
 function syncDiscovery(){
   const phase=objectReveal?.phase||getPhase(state),show=discoveryPhase(phase);
   $('discovery-panel').hidden=!show;$('world').classList.toggle('is-discovery',show);
@@ -147,6 +180,7 @@ function syncUI(){
   $('completion-description').textContent=state.legacyComplete?'새로운 친구를 만나고, 학생증과 지도를 받아 101호에 도착했어요.': '친구를 만나고 필요한 물건을 직접 골라 챙긴 뒤 101호에 도착했어요.';
   syncClassroomEntry();syncAmbientUI();
   syncDiscovery();
+  syncMissionControls();
 }
 function closeDialogue(){dialogueOpen=false;dialogueSpeaker=null;$('dialogue').hidden=true;resetTalkAnimation();$('dialogue-feedback').textContent='';$('scene').focus({preventScroll:true});}
 function proximity(key){return player&&campus?.targets[key]&&player.position.distanceTo(campus.targets[key])<(['entrance','classroom'].includes(key)?1:1.65);}
@@ -281,6 +315,7 @@ function updateProximity(){
   $('interact').hidden=spatial||discoveryPhase()||!!objectReveal?.correct;$('interact').disabled=!canInteract;$('interact').firstElementChild.textContent=getPhase(state)==='collect-documents'?'지도와 학생증 받기':'이야기하기';$('interact').lastElementChild.textContent=canInteract?'눌러서 시작 · E':CONTENT.feedback.tooFar;
   $('pack-bag').disabled=!proximity('bag')||!interactive()||!!objectReveal?.correct;
   $('location-label').textContent=proximity('desk')?'안내 책상':proximity('classroom')?'101호 앞':proximity('entrance')?'학생회관 입구':'캠퍼스 산책길';
+  syncMissionControls();
 }
 function drawMap(){
   if($('map-panel').hidden||!campus||!player)return;const canvas=$('mini-map'),ctx=canvas.getContext('2d'),b=campus.walkBounds,sx=x=>(x-b.minX)/(b.maxX-b.minX)*canvas.width,sz=z=>(z-b.minZ)/(b.maxZ-b.minZ)*canvas.height;
@@ -294,7 +329,6 @@ function look(yaw,pitch){
   if(!interactive()||dialogueOpen)return;
   cameraYaw=Math.atan2(Math.sin(cameraYaw+yaw),Math.cos(cameraYaw+yaw));
   cameraPitch=THREE.MathUtils.clamp(cameraPitch+pitch,-.95,.95);
-  path=[];pendingInteraction=null;
 }
 function visibleMesh(mesh){let parent=mesh;while(parent){if(!parent.visible)return false;parent=parent.parent;}return true;}
 function safeCamera(origin,desired){const point=campusCameraCollision.resolve(origin,desired);cameraClipped=point.distanceToSquared(desired)>.0025;return point;}
@@ -420,6 +454,7 @@ listen($('start-new-classroom'),'click',enterClassroom);
 listen($('start-game'),'click',()=>{if(!active()||classroomEntered)return;update({type:'START'});gameStarted=true;ambience.setPlaying(true);ambience.unlock();$('intro').hidden=true;$('scene').focus({preventScroll:true});syncUI();});
 listen($('restart-game'),'click',()=>{if(!active()||classroomEntered)return;objectReveal=null;learnedWords.clear();gestures.clear();expressions.clear();update({type:'REPLAY'});gameStarted=false;ambience.setPlaying(false);closeDialogue();path=[];player.position.copy(campus.spawn);heading=Math.PI;player.rotation.y=heading;cameraYaw=0;cameraPitch=-.08;$('completion').hidden=true;$('intro').hidden=false;syncUI();});
 listen($('interact'),'click',()=>openInteraction());listen($('dialogue-close'),'click',closeDialogue);listen($('retry'),'click',()=>location.reload());
+listen(missionGo,'click',goToMission);listen(missionObjectTools,'click',event=>{const button=event.target.closest('[data-mission-object]');if(button&&missionObjectTools.contains(button))selectNearbyCampusObject(button.dataset.missionObject);});
 listen($('ambient-toggle'),'click',()=>{if(!active())return;ambience.setEnabled(!ambience.getInfo().enabled);ambience.setPlaying(gameStarted||classroomEntered);ambience.unlock();syncAmbientUI();});
 listen($('object-next'),'click',()=>{if(!interactive()||!objectReveal?.correct)return;resetTalkAnimation();objectReveal=null;syncUI();$('scene').focus({preventScroll:true});});
 listen($('pack-bag'),'click',packBag);
@@ -445,3 +480,4 @@ listen($('scene'),'pointermove',event=>{if(classroomEntered||!pointerDown||event
 listen($('scene'),'pointerup',event=>{if(classroomEntered||pointerDown?.id!==event.pointerId)return;if(!pointerDown.moved)clickWorld(event);pointerDown=null;});listen($('scene'),'pointercancel',event=>{if(pointerDown?.id===event.pointerId)pointerDown=null;});listen($('scene'),'webglcontextlost',event=>{event.preventDefault();fail(new Error('그래픽 연결이 끊겼어요. 다시 시도해 주세요.'));});
 listen($('scene'),'lostpointercapture',event=>{if(pointerDown?.id===event.pointerId)pointerDown=null;});
 resume();
+
