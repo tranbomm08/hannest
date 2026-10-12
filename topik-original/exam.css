@@ -78,3 +78,9 @@ body[data-exam-open=true]{overflow:hidden}body[data-exam-open=true] .topbar{disp
 .writing-count{display:block;font-size:12px;line-height:1.5;color:var(--muted);margin-top:8px}
 .inline-response textarea[readonly]{background:#f5f6f2;cursor:text}
 @media(max-width:539px){.writing-entry{font-size:13px;padding:8px}.writing-label{display:none}.writing-short{display:inline}.writing-panel .answer-heading h2{font-size:14px}}
+
+
+/* HANNEST writing split 20261013-1 */
+.writing-part{min-width:0;margin:12px 0}
+.writing-part label{display:block;max-width:100%;overflow-wrap:anywhere}
+.writing-part textarea{min-height:100px;max-width:100%}

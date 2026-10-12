@@ -9,7 +9,7 @@ import { validateReviewNotes, renderReviewNote } from './review-notes.mjs?v=13';
 import { createOriginalContextRenderer } from './review-context.mjs?v=13';
 import { createPracticeExam, officialExamId } from './practice-exam.mjs?v=13';
 import { PHONE_BREAKPOINT, paperLayout } from './mobile-layout.mjs?v=13';
-import { createWritingEditor, refreshWritingEditor } from './writing-fields.mjs?v=writing-20261012-1';
+import { createWritingEditor, refreshWritingEditor } from './writing-fields.mjs?v=writing-split-20261013-1';
 
 GlobalWorkerOptions.workerSrc = new URL('./vendor/pdfjs/pdf.worker.mjs?v=13', import.meta.url).href;
 const params = new URL(location.href).searchParams;
