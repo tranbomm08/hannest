@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex">
+  <title>HANNEST · Thi TOPIK nguyên bản</title>
+  <link rel="stylesheet" href="exam.css?v=12">
+  <script type="module" src="exam.mjs?v=12"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">H</span><div><strong>HANNEST</strong><span id="brand-subtitle">Thi TOPIK nguyên bản</span></div></div>
+    <button id="leave" class="button quiet" type="button">← Quay lại</button>
+  </header>
+  <main id="main">
+    <section id="catalog" class="catalog">
+      <p class="eyebrow">TOPIK · PBT</p>
+      <h1 id="catalog-title">Thi với đề gốc TOPIK</h1>
+      <p class="lead" id="catalog-lead">Nguyên trang đề chính thức, audio gốc và thời gian theo từng phần thi.</p>
+      <div id="exam-list" class="exam-list" aria-busy="true"><p>Đang tải đề thi…</p></div>
+      <p id="catalog-note" class="note">Các điều khiển và phiếu trả lời nằm ngoài trang đề.</p>
+    </section>
+    <section id="workspace" class="workspace" hidden aria-labelledby="exam-title">
+      <div id="notice" class="notice" role="status" hidden></div>
+      <div id="exam-layout" class="exam-layout">
+        <section id="paper-panel" class="paper-panel" aria-label="Đề thi gốc">
+          <div class="paper-toolbar">
+            <div class="session-controls">
+              <button id="leave-exam" class="icon-button" type="button" aria-label="Quay lại">←</button>
+              <div class="clock-block"><span id="clock-label" class="sr-only">Thời gian còn lại</span><output id="clock" aria-labelledby="clock-label" aria-live="off">40:00</output></div>
+              <button id="answer-tab" class="button progress-toggle" type="button" aria-expanded="false" aria-haspopup="dialog" aria-controls="answer-panel"><span aria-hidden="true">☷</span><span id="progress-label">Tiến độ</span></button>
+              <div id="preparation" class="preparation"><button id="start" class="button primary" type="button" disabled>Bắt đầu</button></div>
+              <button id="submit-paper" class="button primary" type="button" hidden>Nộp bài</button>
+            </div>
+            <div class="navigation-controls">
+              <div class="page-controls"><button id="previous-page" class="icon-button" type="button" aria-label="Trang trước">←</button><output id="page-label" aria-live="polite"></output><button id="next-page" class="icon-button" type="button" aria-label="Trang sau">→</button></div>
+              <details id="view-options" class="view-options">
+                <summary id="view-options-label" aria-label="Cỡ đề và cách xem">⋯</summary>
+                <div id="view-menu" class="view-menu">
+                  <p class="eyebrow" id="exam-round">한국어능력시험</p><h1 id="exam-title">TOPIK</h1><p id="phase-label"></p>
+                  <div class="zoom-controls"><button id="zoom-out" class="icon-button" type="button" aria-label="Thu nhỏ">−</button><button id="zoom-reset" class="zoom-reset" type="button" aria-label="Vừa chiều ngang"><output id="zoom-label">100%</output></button><button id="zoom-in" class="icon-button" type="button" aria-label="Phóng to">+</button></div>
+                  <button id="readable-paper" class="button readable-paper" type="button" aria-pressed="false">Đọc rõ</button>
+                  <details id="prepare-details"><summary id="prepare-heading">Trước khi thi</summary><p id="prepare-instructions"></p></details>
+                  <p id="paper-hint" class="paper-hint">Vuốt trái/phải để đổi trang. Chụm hai ngón để phóng to; kéo để đọc.</p>
+                  <p class="source-line"><span id="source-label">Nguồn:</span> <a id="source-link" target="_blank" rel="noopener noreferrer">TOPIK · 국립국제교육원</a></p>
+                </div>
+              </details>
+            </div>
+          </div>
+          <div id="paper-scroll" class="paper-scroll" tabindex="0" aria-label="Xem đề gốc; vuốt trái hoặc phải để chuyển trang" aria-describedby="paper-hint"><p id="paper-message" class="paper-message" role="status">Đang tải trang đề…</p><canvas id="paper-canvas" role="img" aria-label="Trang đề TOPIK gốc" hidden></canvas><div id="paper-content" class="paper-content" hidden></div><button id="retry-paper" class="button" type="button" hidden>Thử tải lại</button></div>
+        </section>
+        <button id="progress-backdrop" class="progress-backdrop" type="button" tabindex="-1" aria-label="Đóng tiến độ" hidden></button>
+        <aside id="answer-panel" class="answer-panel" role="dialog" aria-modal="true" aria-labelledby="answer-heading" hidden>
+          <div class="answer-heading"><h2 id="answer-heading">Tiến độ làm bài</h2><output id="answer-count"></output><button id="paper-tab" class="icon-button" type="button" aria-label="Đóng tiến độ">×</button></div>
+          <div id="result-summary" class="result-summary" role="status" hidden></div><button id="retry-results" class="button" type="button" hidden>Thử tải kết quả</button>
+          <div id="audio-panel" class="audio-panel"><span class="audio-icon" aria-hidden="true">♪</span><div><strong id="audio-title">Audio gốc</strong><p id="audio-status">Đang chuẩn bị audio…</p></div><label class="volume"><span id="volume-label">Âm lượng</span><input id="volume" type="range" min="0" max="1" step="0.05" value="1" aria-label="Âm lượng"></label><button id="resume-audio" class="button" type="button" hidden>Phát tiếp audio</button></div>
+          <div id="result-sections" hidden></div>
+          <div id="answer-fields" class="answer-fields"></div>
+          <div id="result-actions" hidden><button id="show-answers" class="button" type="button">Xem đáp án chính thức</button><button id="show-paper" class="button" type="button">Xem lại đề gốc</button><button id="download-responses" class="button" type="button">Lưu phiếu trả lời</button><button id="new-attempt" class="button primary" type="button">Làm lại bài thi</button></div>
+          <button id="submit" class="button submit" type="button" hidden>Nộp bài</button>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <noscript><p class="notice">Cần bật JavaScript để hiển thị đề và đồng hồ thi. Bạn có thể xem tài liệu gốc tại <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0100.do">TOPIK</a>.</p></noscript>
+</body>
+</html>

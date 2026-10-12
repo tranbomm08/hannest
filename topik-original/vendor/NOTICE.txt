@@ -1,0 +1,4 @@
+PDF.js 5.6.205, Mozilla and individual contributors. Apache License 2.0.
+https://github.com/mozilla/pdf.js
+Original TOPIK examination materials: National Institute for International Education (NIIED), https://www.topik.go.kr/
+TOPIK materials are separate from the PDF.js license.
