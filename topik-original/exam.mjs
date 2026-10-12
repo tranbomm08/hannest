@@ -1,4 +1,5 @@
 import { MediaURL as URL } from './hannest-media-url.mjs?v=9f7ea84d9b0d57cc88801fc7f1ed42d1';
+import { resolveWritingPaper } from './writing-paper-url.mjs?v=writing-fix-20261012-1';
 import { getDocument, GlobalWorkerOptions } from './vendor/pdfjs/pdf.mjs?v=13';
 import { CHANNEL, VERSION, newSession, phaseAt, audioPosition, updateSession,
   answer, submit, readSaved, saveSession, validMessage, playbackElapsedMs, introductionMs } from './exam-core.mjs?v=13';
@@ -33,6 +34,8 @@ let alignNewPage = true, renderedAvailableWidth = 0;
 let drawerReturnFocus = null;
 let writingData = null;
 function paperURL(value) {
+  const writingPaper = resolveWritingPaper(value, import.meta.url);
+  if (writingPaper) return writingPaper;
   try { return new URL(value, import.meta.url).href; }
   catch(error) {
     if(writingData?.localPapers.includes(value)) return new globalThis.URL(value, import.meta.url).href;
@@ -158,7 +161,7 @@ function paperFailure(message, error) {
   paperReady = false; updateStart();
   $('paper-canvas').hidden = true; $('paper-content').hidden = true; $('paper-message').hidden = false;
   $('paper-message').textContent = message; $('retry-paper').hidden = false;
-  console.error('HANNEST original PDF:', error);
+  console.error('HANNEST original PDF:', error?.name ?? 'Error', error?.message ?? String(error));
 }
 
 async function openPaper(url, first, last, initial) {
@@ -456,10 +459,13 @@ function refreshInlineFeedback() {
       if (!feedback.querySelector('details')) {
         const note=document.createElement('p'); note.textContent=t('Chữa bài: đối chiếu bài đã viết với đáp án mẫu và hướng dẫn bên dưới. Phần Viết cần chấm riêng.', 'Review: compare your answer with the official model and guidance below. Writing requires separate grading.');
         const details=document.createElement('details'), summary=document.createElement('summary');
-        summary.textContent=t('Chữa bài · Xem đáp án mẫu chính thức','Review · View the official model answer');
+        summary.textContent=question<=52
+          ? t(`Đáp án gợi ý câu ${question}`, `Suggested answer for question ${question}`)
+          : t(`Bài viết mẫu câu ${question}`, `Model response for question ${question}`);
         const target=document.createElement('div'); target.className='writing-model';
         details.append(summary,target); details.addEventListener('toggle',()=>{ if(details.open) renderWritingModel(question,target); });
         note.className='feedback-score'; feedback.replaceChildren(note,details);
+        details.open = true;
       }
     } else {
       const result=grading?.phases[phase.id]?.questions[question];
@@ -648,7 +654,10 @@ async function writingBitmap(selected,attempt,page=2) {
   const cached=modelRecords.get(cacheKey);
   if (cached && cached.attempt===attempt) return cached.promise;
   const modelSource=answerKeyData?.exams[officialExamId(selected)]?.writing?.source ?? selected.answerPdf;
-  const task=getDocument({url:paperURL(modelSource),isEvalSupported:false});
+  const task=getDocument({url:paperURL(modelSource),isEvalSupported:false,
+    cMapUrl:new URL('./vendor/pdfjs/cmaps/',import.meta.url).href,cMapPacked:true,
+    standardFontDataUrl:new URL('./vendor/pdfjs/standard_fonts/',import.meta.url).href,
+    wasmUrl:new URL('./vendor/pdfjs/wasm/',import.meta.url).href});
   const record={task,attempt,promise:null}; modelRecords.set(cacheKey,record);
   record.promise=(async()=>{
     const doc=await within(task.promise,20000);
@@ -1032,4 +1041,5 @@ try {
   message.textContent=t('Chưa tải được danh sách đề. Kiểm tra kết nối và tải lại trang.','The exam list could not load. Check your connection and reload.');
   $('exam-list').append(message); $('exam-list').setAttribute('aria-busy','false');
 }
+
 
