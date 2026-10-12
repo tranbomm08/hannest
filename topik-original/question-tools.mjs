@@ -52,10 +52,11 @@ export function validateAnswerKey(key, exam) {
     }
     if (total !== 100) throw new Error('Official section points differ');
   }
-  if (exam.level === 'II' && (key.writing?.page !== 2 || [51,52,53,54].some(q => !key.writing.regions[q] || key.writing.regions[q].to <= key.writing.regions[q].from))) throw new Error('Missing writing model');
+  if (exam.level === 'II' && (!Number.isSafeInteger(key.writing?.page) || key.writing.page < 1 || [51,52,53,54].some(q => !key.writing.regions[q] || key.writing.regions[q].to <= key.writing.regions[q].from))) throw new Error('Missing writing model');
   for(const [phase,source] of Object.entries(key.phaseSources??{})) {
     if(!['listening','reading'].includes(phase) || !(exam.additionalAnswerPdfs??[]).includes(source.source) || !/^[a-f0-9]{64}$/.test(source.sha256)) throw new Error('Invalid additional official answer source');
   }
+  if (key.writing?.source && (!(exam.additionalAnswerPdfs??[]).includes(key.writing.source) || !/^[a-f0-9]{64}$/.test(key.writing.sha256))) throw new Error('Invalid separate writing source');
   if(exam.level==='II' && [51,52,53,54].some(q=>!Number.isSafeInteger(key.writing.regions[q].page??key.writing.page) || (key.writing.regions[q].page??key.writing.page)<1)) throw new Error('Invalid writing model page');
   return key;
 }

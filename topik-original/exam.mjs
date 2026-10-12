@@ -1,16 +1,16 @@
-import { MediaURL as URL } from './hannest-media-url.mjs?v=8de1577a43f5fd889820f62fa80ca775';
-import { getDocument, GlobalWorkerOptions } from './vendor/pdfjs/pdf.mjs?v=12';
+import { MediaURL as URL } from './hannest-media-url.mjs?v=9f7ea84d9b0d57cc88801fc7f1ed42d1';
+import { getDocument, GlobalWorkerOptions } from './vendor/pdfjs/pdf.mjs?v=13';
 import { CHANNEL, VERSION, newSession, phaseAt, audioPosition, updateSession,
-  answer, submit, readSaved, saveSession, validMessage } from './exam-core.mjs?v=intro-20261012-1';
-import { attachPaperGestures } from './paper-gestures.mjs?v=12';
-import { validateQuestionMap, pixelSlices, questionPage, validateAnswerKey, scoreExam } from './question-tools.mjs?v=12';
-import { validateReviewNotes, renderReviewNote } from './review-notes.mjs?v=12';
-import { createOriginalContextRenderer } from './review-context.mjs?v=12';
-import { createPracticeExam, officialExamId } from './practice-exam.mjs?v=12';
-import { PHONE_BREAKPOINT, paperLayout } from './mobile-layout.mjs?v=12';
+  answer, submit, readSaved, saveSession, validMessage, playbackElapsedMs, introductionMs } from './exam-core.mjs?v=13';
+import { attachPaperGestures } from './paper-gestures.mjs?v=13';
+import { validateQuestionMap, pixelSlices, questionPage, validateAnswerKey, scoreExam } from './question-tools.mjs?v=13';
+import { validateReviewNotes, renderReviewNote } from './review-notes.mjs?v=13';
+import { createOriginalContextRenderer } from './review-context.mjs?v=13';
+import { createPracticeExam, officialExamId } from './practice-exam.mjs?v=13';
+import { PHONE_BREAKPOINT, paperLayout } from './mobile-layout.mjs?v=13';
 import { createWritingEditor, refreshWritingEditor } from './writing-fields.mjs?v=writing-20261012-1';
 
-GlobalWorkerOptions.workerSrc = new URL('./vendor/pdfjs/pdf.worker.mjs?v=12', import.meta.url).href;
+GlobalWorkerOptions.workerSrc = new URL('./vendor/pdfjs/pdf.worker.mjs?v=13', import.meta.url).href;
 const params = new URL(location.href).searchParams;
 const language = params.get('lang') === 'en' ? 'en' : 'vi';
 document.documentElement.lang = language;
@@ -33,8 +33,11 @@ let alignNewPage = true, renderedAvailableWidth = 0;
 let drawerReturnFocus = null;
 let writingData = null;
 function paperURL(value) {
-  return writingData?.localPapers.includes(value)
-    ? new globalThis.URL(value, import.meta.url).href : new URL(value, import.meta.url).href;
+  try { return new URL(value, import.meta.url).href; }
+  catch(error) {
+    if(writingData?.localPapers.includes(value)) return new globalThis.URL(value, import.meta.url).href;
+    throw error;
+  }
 }
 const audio = new Audio(); audio.preload = 'auto';
 const browserStorage = { getItem: key => window.localStorage.getItem(key),
@@ -136,7 +139,7 @@ function onOutsideOptions(event) {
 function stopInterval() { clearInterval(interval); interval = null; }
 function originalListeningTail() {
   return exam?.practicePhase === 'listening' && session?.status === 'finished' && session.finishReason === 'timeout' && !audioComplete &&
-    Date.now() - session.audioStartedAt < exam.tracks.reduce((total,track)=>total+track.seconds*1000,0);
+    playbackElapsedMs(exam, session, Date.now()) < exam.tracks.reduce((total,track)=>total+track.seconds*1000,0);
 }
 function armInterval() { stopInterval(); if (active && !document.hidden && (session?.status === 'running' || originalListeningTail())) interval = setInterval(tick, 1000); }
 
@@ -314,7 +317,7 @@ function updateStart() {
 audio.addEventListener('canplay', () => {
   if (disposed || !exam?.phases.some(p => p.id === 'listening')) return;
   audioReady = true; updateStart();
-  if (!session) audioStatus(t('Sẵn sàng · Bỏ qua giới thiệu, nghe từ câu 1','Ready · Skip the introduction and start at question 1'));
+  if (!session) audioStatus(t('Sẵn sàng · Audio sẽ phát khi bắt đầu','Ready · Audio plays when you start'));
   else syncAudio();
 });
 audio.addEventListener('error', () => {
@@ -328,7 +331,7 @@ audio.addEventListener('ended', () => syncAudio(true));
 function syncAudio(ended = false) {
   if (disposed || !session || !exam.phases.some(p => p.id === 'listening') || (session.status !== 'running' && !originalListeningTail()) || !active || document.hidden) { audio.pause(); return; }
   // Broadcast follows wall time. The original closing seconds play in full.
-  let position = audioPosition(exam.tracks, Date.now() - session.audioStartedAt);
+  let position = audioPosition(exam.tracks, playbackElapsedMs(exam, session, Date.now()));
   if (!position || audioComplete) { audioComplete = true; audio.pause(); audioStatus(t('Đã phát hết audio gốc','Original audio has finished')); $('resume-audio').hidden = true; return; }
   // MP3 metadata can include encoder padding beyond the ended event.
   if (position.index === audioIndex - 1) position = { index:audioIndex, seconds:0 };
@@ -470,7 +473,10 @@ function refreshReviewNote(feedback,phase,question) {
   if (target.dataset.state===state) return;
   target.dataset.state=state;
   const note=reviewEntry?.phases?.[phase]?.[question];
-  if (note) { renderReviewNote(target,note,language); refreshOriginalContext(details,phase,question); return; }
+  if (note) {
+    if (note.kind === 'study-guide' && phase !== 'writing') details.querySelector('summary').textContent=t('Nội dung gốc, cách làm và từ vựng','Original content, study guide and vocabulary');
+    renderReviewNote(target,note,language); refreshOriginalContext(details,phase,question); return;
+  }
   const message=document.createElement('p');
   message.textContent=reviewState==='failed' ? t('Chưa tải được giải thích và từ vựng. Phiếu trả lời và điểm vẫn được giữ.','Study notes could not load. Your answer sheet and scores are kept.') : t('Đang tải giải thích và từ vựng…','Loading explanations and vocabulary…');
   target.replaceChildren(message);
@@ -533,7 +539,7 @@ async function loadReview() {
   reviewState='loading'; refreshInlineFeedback();
   try {
     if (!reviewData) {
-      if (!reviewPromise) reviewPromise=within(fetch(new URL('./review-notes.json?v=12',import.meta.url)).then(async response=>{
+      if (!reviewPromise) reviewPromise=within(fetch(new URL('./review-notes.json?v=13',import.meta.url)).then(async response=>{
         if (!response.ok) throw new Error('Review unavailable');
         const value=await response.json();
         for(const [id,entry] of Object.entries(writingData?.reviewExams??{})) {
@@ -692,7 +698,7 @@ async function loadResults() {
   $('result-summary').hidden=false; $('result-summary').textContent=t('Đang tải kết quả…','Loading results…'); $('retry-results').hidden=true;
   try {
     if (!answerKeyData) {
-      if (!answerKeyPromise) answerKeyPromise=within(fetch(new URL('./answer-keys.json?v=12',import.meta.url)).then(async response=>{
+      if (!answerKeyPromise) answerKeyPromise=within(fetch(new URL('./answer-keys.json?v=13',import.meta.url)).then(async response=>{
         if (!response.ok) throw new Error('Official answers unavailable');
         const value=await response.json(); if(value.version!==1 || !value.exams) throw new Error('Invalid answer file');
         value.exams={...writingData?.answerKeys,...value.exams}; return value;
@@ -767,10 +773,13 @@ async function selectExam(selected, forceNew = false) {
   $('prepare-instructions').textContent = first.id !== 'listening'
     ? t(`Làm riêng phần ${first.label.vi}: ${first.questions.length} câu, ${first.seconds/60} phút. Đồng hồ và ô trả lời mở ngay khi bấm Bắt đầu. Nộp phần này hoặc hết giờ sẽ mở phần xem lại. Đổi tab hoặc tải lại vẫn tính thời gian.`, `Practise ${first.label.en}: ${first.questions.length} questions, ${first.seconds/60} minutes. The clock and answers start immediately when you press Start. Review opens after this section is submitted or time is up. Timing continues across tab switches and reloads.`)
     : exam.practicePhase
-    ? t('Làm riêng Nghe: 50 câu, 60 phút. Bài mới bỏ qua đoạn giới thiệu và bắt đầu audio câu 1 cùng đồng hồ làm bài. Nộp phần Nghe hoặc hết giờ sẽ mở kết quả và giải thích. Đổi tab hoặc tải lại vẫn tính thời gian.', 'Practise Listening: 50 questions, 60 minutes. New attempts skip the introduction and start question 1 audio with the section clock. Results and explanations open after submitting Listening or time is up. Timing continues across tab switches and reloads.')
-    : t('Bài mới bỏ qua đoạn giới thiệu, phát từ câu 1 và mở ô trả lời cùng đồng hồ làm bài. Các phần tự chuyển khi hết giờ. Đổi tab hoặc tải lại vẫn tính thời gian.', 'New attempts skip the introduction, start question 1 audio and unlock answers with the section clock. Sections change automatically. Timing continues across tab switches and reloads.');
+    ? t('Làm riêng Nghe: 50 câu, 60 phút. Bỏ qua đoạn giới thiệu đầu: audio câu 1, đồng hồ và ô trả lời bắt đầu ngay khi bấm Bắt đầu. Nộp phần Nghe hoặc hết giờ sẽ mở kết quả và giải thích. Đổi tab hoặc tải lại vẫn tính thời gian.', 'Practise Listening: 50 questions, 60 minutes. The opening introduction is skipped: question 1 audio, the clock and answers start as soon as you press Start. Results and explanations open after submitting Listening or time is up. Timing continues across tab switches and reloads.')
+    : t('Bỏ qua đoạn giới thiệu đầu phần Nghe. Bấm Bắt đầu để nghe audio câu 1, tính giờ và trả lời ngay. Các phần tự chuyển khi hết giờ. Đổi tab hoặc tải lại vẫn tính thời gian.', 'The opening Listening introduction is skipped. Press Start to play question 1, start the clock and answer immediately. Sections change automatically. Timing continues across tab switches and reloads.');
   notice(writable ? '' : t('Bản lưu cũ hoặc cài đặt trình duyệt không tương thích. Bài này chỉ được giữ trong phiên đang mở.', 'An older save or browser setting is incompatible. This attempt is kept only in this open session.'));
   if (session) {
+    // Persist a migrated legacy introduction once the attempt is selected.
+    // Catalog previews remain read-only and do not start another attempt.
+    if (saved.migrated) persist();
     prepareAudio(); tick(); armInterval();
   } else {
     $('phase-label').textContent = exam.practicePhase ? t(`Làm riêng · ${first.label.vi}`,`Practice · ${first.label.en}`) : t('Chuẩn bị thi','Exam preparation'); $('clock-label').textContent = first.label[language];
@@ -780,7 +789,7 @@ async function selectExam(selected, forceNew = false) {
 }
 function startExam() {
   if (!paperReady || !audioReady || session) return;
-  session = newSession(exam, Date.now(), { skipIntroduction: true }); persist();
+  session = newSession(exam, Date.now()); persist();
   if (pdfUrl === exam.phases[0].pdf && range) { session.pages[exam.phases[0].id] = page; persist(); }
   // Invoke play during the actual click, preserving browser user activation.
   syncAudio(); tick(); armInterval();
@@ -860,7 +869,7 @@ $('show-answers').addEventListener('click',()=>{
   const writingSource=exam.practicePhase==='writing' && answerKeyData?.exams[officialExamId(exam)]?.writing?.source;
   const sources=writingSource ? [writingSource] : [exam.answerPdf,...(exam.additionalAnswerPdfs??[])];
   openPaper(sources[reviewAnswerIndex++ % sources.length],1,100,1); setTab('paper');
-  if(sources.length>1) $('show-answers').textContent=t(reviewAnswerIndex%2?'Xem đáp án Đọc chính thức':'Xem đáp án Nghe chính thức',reviewAnswerIndex%2?'View official reading answers':'View official listening answers');
+  if(sources.length>1) $('show-answers').textContent=t('Xem bảng đáp án chính thức tiếp theo','View the next official answer sheet');
 });
 let reviewPaperIndex = 0, reviewAnswerIndex = 0;
 $('show-paper').addEventListener('click',()=>{
@@ -963,12 +972,12 @@ function setupAcademy() {
 }
 
 try {
-  const response = await fetch(new URL('./catalog.json?v=12',import.meta.url));
+  const response = await fetch(new URL('./catalog.json?v=13',import.meta.url));
   if (!response.ok) throw new Error('catalog'); exams=await response.json();
   const writingResponse=await fetch(new URL('./writing-data.json?v=writing-20261012-1',import.meta.url));
   if(!writingResponse.ok) throw new Error('Writing data unavailable'); writingData=await writingResponse.json();
   for(const item of writingData.exams) if(!exams.some(e=>e.id===item.id)) exams.push({...item,writingOnly:true});
-  const mapResponse = await fetch(new URL('./question-map.json?v=12',import.meta.url));
+  const mapResponse = await fetch(new URL('./question-map.json?v=13',import.meta.url));
   if (!mapResponse.ok) throw new Error('question map');
   const map=await mapResponse.json(); map.documents={...writingData.documents,...map.documents};
   questionMap = validateQuestionMap(map, exams); $('exam-list').replaceChildren();

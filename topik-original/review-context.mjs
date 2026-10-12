@@ -1,4 +1,4 @@
-import { MediaURL as URL } from './hannest-media-url.mjs?v=8de1577a43f5fd889820f62fa80ca775';
+import { MediaURL as URL } from './hannest-media-url.mjs?v=9f7ea84d9b0d57cc88801fc7f1ed42d1';
 // Render the supplied original PDF page. No OCR text or recreated passage is used.
 export function createOriginalContextRenderer({ getDocument, document, baseUrl, within }) {
   let generation = 0, ticket = 0;

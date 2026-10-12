@@ -13,7 +13,7 @@ export function createPracticeExam(original, phaseId) {
     sourceExamId: original.id,
     practicePhase: phaseId,
     phases: [phase],
-    // The existing session clock uses track 0 for its introduction offset.
+    // Listening retains every original track; playback skips only track 0.
     // Reading and writing start immediately and never load or play audio.
     tracks: phaseId === 'listening' ? original.tracks : [{url:null,seconds:0}],
     fullPapers: [phase.pdf],

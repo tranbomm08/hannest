@@ -28,28 +28,44 @@ export function audioPosition(tracks, elapsedMs) {
   return null;
 }
 
-export function newSession(exam, now, { skipIntroduction = false } = {}) {
-  // Keep the original audio timeline and existing save format.
-  // Only new attempts opt into skipping track 00; old attempts resume unchanged.
-  const introductionMs = Math.round(exam.tracks[0].seconds * 1000);
-  const audioStartedAt = skipIntroduction ? now - introductionMs : now;
-  return { version: VERSION, examId: exam.id, audioStartedAt,
-    startedAt: audioStartedAt + introductionMs, status: 'running',
+export function introductionMs(exam) {
+  if (exam.phases[0]?.id !== 'listening') return 0;
+  return Number.isFinite(exam.listeningIntroSeconds)
+    ? exam.listeningIntroSeconds * 1000
+    : exam.tracks.length > 1 ? exam.tracks[0].seconds * 1000 : 0;
+}
+
+// Keep every original track intact; new attempts start at question 1.
+export function playbackElapsedMs(exam, session, now) {
+  return Math.max(0, now - session.audioStartedAt) +
+    (session.skipIntro ? introductionMs(exam) : 0);
+}
+
+export function newSession(exam, now) {
+  return { version: VERSION, examId: exam.id, audioStartedAt: now,
+    startedAt: now, skipIntro: true, status: 'running',
     finishedAt: null, finishReason: null, answers: {}, pages: {} };
 }
 
 export function restoreSession(raw, exam, now) {
   if (!raw || typeof raw !== 'object' || raw.version !== VERSION ||
-      raw.examId !== exam.id || !Number.isSafeInteger(raw.startedAt) ||
+      raw.examId !== exam.id || (raw.skipIntro !== undefined && typeof raw.skipIntro !== 'boolean') || !Number.isSafeInteger(raw.startedAt) ||
       raw.startedAt <= 0 || raw.startedAt > now + Math.max(120000, Math.round(exam.tracks[0].seconds * 1000) + 5000) ||
       !Number.isSafeInteger(raw.audioStartedAt) || raw.audioStartedAt > now + 5000 ||
-      raw.startedAt !== raw.audioStartedAt + Math.round(exam.tracks[0].seconds * 1000) ||
+      raw.startedAt !== raw.audioStartedAt + (raw.skipIntro ? 0 : Math.round(introductionMs(exam))) ||
       !['running', 'finished'].includes(raw.status) ||
       !raw.answers || typeof raw.answers !== 'object' || Array.isArray(raw.answers)) return null;
   if (raw.status === 'finished' &&
       (!Number.isSafeInteger(raw.finishedAt) || raw.finishedAt < raw.audioStartedAt ||
        !['timeout', 'submitted'].includes(raw.finishReason))) return null;
   const result = newSession(exam, raw.audioStartedAt);
+  result.skipIntro = raw.skipIntro === true;
+  result.startedAt = raw.startedAt;
+  // A saved legacy attempt still in its introduction starts now without
+  // discarding answers or spending any of its timed section.
+  if (raw.status === 'running' && !result.skipIntro && raw.startedAt > now) {
+    result.skipIntro = true; result.audioStartedAt = now; result.startedAt = now;
+  }
   result.status = raw.status;
   result.finishedAt = raw.status === 'finished' ? raw.finishedAt : null;
   result.finishReason = raw.status === 'finished' ? raw.finishReason : null;
@@ -111,8 +127,9 @@ export function readSaved(storage, exam, now) {
     const text = storage.getItem(storageKey(exam.id));
     if (text === null) return { session: null, writable: true };
     if (text.length > 100000) return { session: null, writable: false };
-    const session = restoreSession(JSON.parse(text), exam, now);
-    return { session, writable: session !== null };
+    const raw = JSON.parse(text), session = restoreSession(raw, exam, now);
+    return { session, writable: session !== null,
+      migrated: session !== null && raw.skipIntro !== true && session.skipIntro === true };
   } catch { return { session: null, writable: false }; }
 }
 
@@ -121,4 +138,3 @@ export function saveSession(storage, session, writable) {
   try { storage.setItem(storageKey(session.examId), JSON.stringify(session)); return true; }
   catch { return false; }
 }
-

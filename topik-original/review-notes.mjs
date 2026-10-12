@@ -36,7 +36,7 @@ export function validateReviewNotes(data, exam, map, key) {
 export function renderReviewNote(target, note, language = 'vi') {
   target.lang = 'vi';
   const document = target.ownerDocument;
-  const heading = document.createElement('strong'); heading.textContent = language === 'en' ? 'Explanation (Vietnamese)' : 'Giải thích';
+  const heading = document.createElement('strong'); heading.textContent = note.kind === 'study-guide' ? (language === 'en' ? 'Study guide (Vietnamese)' : 'Cách làm') : (language === 'en' ? 'Explanation (Vietnamese)' : 'Giải thích');
   const explanation = document.createElement('p'); explanation.textContent = note.explanation;
   const label = document.createElement('strong'); label.textContent = language === 'en' ? 'Vocabulary to review (Vietnamese)' : 'Từ vựng cần ôn';
   const list = document.createElement('dl'); list.className = 'review-vocabulary';

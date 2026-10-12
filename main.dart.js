@@ -150311,7 +150311,7 @@ $.aU.bf$.push(p)},
 a53(){var s,r=$.bSz(),q=J.cj(4,t.N)
 for(s=0;s<4;++s)q[s]=A.j.W(A.n.k5(r.p9(4294967296),16),8,"0")
 this.x=A.e.qz(q)},
-aBh(a){var s=this,r=v.G,q=B.kl(r.document.baseURI,0,null).Z("topik-original/index.html"),p=s.a.c?"en":"vi",o=s.x,n=q.YO(B.aD(["v","12","lang",p,"session",o,"active",!r.document.hidden?"1":"0"],t.N,t.z))
+aBh(a){var s=this,r=v.G,q=B.kl(r.document.baseURI,0,null).Z("topik-original/index.html"),p=s.a.c?"en":"vi",o=s.x,n=q.YO(B.aD(["v","13","lang",p,"session",o,"active",!r.document.hidden?"1":"0"],t.N,t.z))
 s.y=n.gGc()
 s.d=a
 r=s.a.c?"Original TOPIK paper exam":"Thi TOPIK nguy\xean b\u1ea3n"
