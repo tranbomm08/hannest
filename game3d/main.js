@@ -3,6 +3,7 @@ import {createActor,animateActor,disposeCharacters} from './characters.js';
 import {createCampus} from './campus.js';
 import {createCameraCollision} from './camera-rig.js';
 import {createSchoolAmbience} from './school-ambience.js';
+import {createResponsiveHUD} from './mobile-hud.js?v=mobile-hud-fix-20261013-1';
 import {initialState,transition,loadState,saveState,getPhase,getProgress,getCurrentMission,canEnterClassroom,MISSIONS,CONTENT,OBJECT_WORDS} from './lv1-state.js';
 
 const $=id=>document.getElementById(id);
@@ -26,6 +27,7 @@ document.querySelector('.mission-card').append(missionActions,missionObjectTools
 let missionObjectKey='';
 window.hannestPreviewReady=false;window.hannestPreviewError=null;
 const ambience=createSchoolAmbience({storage,onChange:syncAmbientUI});
+const responsiveHUD=createResponsiveHUD({world:$('world'),canvas:$('scene'),toolbar:document.querySelector('.topbar-tools'),onResize:()=>{if(!disposed&&renderer&&camera)resizeGameViewport();},onCloseMap:()=>toggleMap(false)});
 function syncAmbientUI(){const info=ambience.getInfo();$('ambient-toggle').textContent=info.enabled?'배경음 켜짐':'배경음 꺼짐';$('ambient-toggle').setAttribute('aria-pressed',String(info.enabled));$('ambient-status').textContent=info.unavailable?'배경음을 재생할 수 없어요. 글로 계속할 수 있어요.':'대화와 낱말은 글로 보여요. 배경음만 작게 재생해요.';}
 
 
@@ -36,7 +38,7 @@ function interactive(){return active()&&!classroomEntered&&gameStarted&&$('intro
 function resetTalkAnimation(){speakingActor=null;for(const actor of actors)if(actor.userData.behavior)actor.userData.behavior.speaking=false;}
 function pause(){ambience.setPlaying(false);if(classroomLoading)classroomLoadVersion++;if(raf){cancelAnimationFrame(raf);raf=0;}keys.clear();heldDirections.clear();path=[];pendingInteraction=null;pointerDown=null;objectReveal=null;classroomController?.pause();if(campus&&!disposed&&!failed&&!classroomEntered)syncUI();for(const button of document.querySelectorAll('[data-direction]'))button.classList.remove('is-held');resetTalkAnimation();}
 function dispose(){
-  if(disposed)return;disposed=true;hostActive=false;ambience.dispose();classroomLoadVersion++;pause();try{classroomController?.dispose();}catch(_){}classroomController=null;classroomEntered=false;classroomSnapshot=null;for(const button of [...dialogueButtons,...vocabularyButtons])button.onclick=null;dialogueButtons.clear();vocabularyButtons.clear();while(removers.length){try{removers.pop()();}catch(_){}}for(const timer of timers)clearTimeout(timer);timers.clear();
+  if(disposed)return;disposed=true;hostActive=false;responsiveHUD.dispose();ambience.dispose();classroomLoadVersion++;pause();try{classroomController?.dispose();}catch(_){}classroomController=null;classroomEntered=false;classroomSnapshot=null;for(const button of [...dialogueButtons,...vocabularyButtons])button.onclick=null;dialogueButtons.clear();vocabularyButtons.clear();while(removers.length){try{removers.pop()();}catch(_){}}for(const timer of timers)clearTimeout(timer);timers.clear();
   // Campus and character factories own their shared resources; only dispose
   // this module's document props here to avoid releasing pooled assets twice.
   for(const root of temporaryObjects)root.traverse(object=>{if(object.geometry)worldResources.geometries.add(object.geometry);const materials=Array.isArray(object.material)?object.material:[object.material];for(const material of materials){if(!material)continue;worldResources.materials.add(material);for(const value of Object.values(material))if(value?.isTexture)worldResources.textures.add(value);}});
@@ -85,9 +87,9 @@ async function enterClassroom(){
   const version=++classroomLoadVersion;classroomLoading=true;$('start-new-classroom').disabled=true;$('start-new-classroom').textContent='새 수업을 준비하고 있어요…';$('enter-classroom').disabled=true;$('enter-classroom').textContent='101호를 준비하고 있어요…';
   clearCampusInput();closeDialogue();resetTalkAnimation();
   try{
-    const {createClassroomController}=await import('./classroom-controller.js?v=controls-fix-20261013-1');
+    const {createClassroomController}=await import('./classroom-controller.js?v=mobile-hud-fix-20261013-1');
     if(disposed||!active()||version!==classroomLoadVersion||!canEnterClassroom(state))return;
-    if(!classroomController)classroomController=createClassroomController({THREE,renderer,canvas:$('scene'),camera,mount:$('classroom-ui'),isActive:()=>active()&&classroomEntered,canEnter:()=>canEnterClassroom(state),getViewMode:()=>viewMode,setViewMode:mode=>{if(['shoulder','first-person'].includes(mode))viewMode=mode;},notify:notice,onExit:leaveClassroom,getCampusContext:()=>({metSua:state.completed.includes('greet-sua'),hasPencil:state.inventory.includes('pencil')})});
+    if(!classroomController)classroomController=createClassroomController({THREE,renderer,canvas:$('scene'),camera,mount:$('classroom-ui'),isActive:()=>active()&&classroomEntered,canEnter:()=>canEnterClassroom(state),getViewMode:()=>viewMode,setViewMode:mode=>{if(['shoulder','first-person'].includes(mode))viewMode=mode;},notify:notice,onExit:leaveClassroom,onWordReveal:()=>responsiveHUD.show('word'),getCampusContext:()=>({metSua:state.completed.includes('greet-sua'),hasPencil:state.inventory.includes('pencil')})});
     classroomSnapshot={position:camera.position.clone(),quaternion:camera.quaternion.clone(),fov:camera.fov,near:camera.near,far:camera.far,yaw:cameraYaw,pitch:cameraPitch};
     $('map-panel').hidden=true;$('vocabulary-panel').hidden=true;$('help').hidden=true;$('notice').hidden=true;
     if(noticeTimer){clearTimeout(noticeTimer);timers.delete(noticeTimer);noticeTimer=0;}
@@ -242,12 +244,12 @@ function selectObject(id){
   if(!proximity('supplies')){walkTo(campus.targets.supplies,'supplies');return;}
   if(!Object.hasOwn(OBJECT_WORDS,id)||!campus.selectableObjects.some(item=>item.userData.discoveryId===id&&item.visible))return;
   resetTalkAnimation();path=[];pendingInteraction=null;keys.clear();heldDirections.clear();const phase=getPhase(state),correct=update({type:'SELECT_OBJECT',item:id});
-  learnedWords.add(id);objectReveal={id,correct,phase};react(player,correct?'receive':'think',correct?'friendly':'thinking',1.2);syncUI();
+  learnedWords.add(id);objectReveal={id,correct,phase};react(player,correct?'receive':'think',correct?'friendly':'thinking',1.2);syncUI();responsiveHUD.show('word');
 }
 function packBag(){
   if(!interactive()||dialogueOpen||objectReveal?.correct||getPhase(state)!=='pack-bag'||!proximity('bag'))return;
   resetTalkAnimation();path=[];pendingInteraction=null;keys.clear();heldDirections.clear();if(!update({type:'PACK_BAG'}))return;
-  learnedWords.add('bag');objectReveal={id:'bag',correct:true,phase:'pack-bag'};react(player,'give','friendly',1.2);syncUI();
+  learnedWords.add('bag');objectReveal={id:'bag',correct:true,phase:'pack-bag'};react(player,'give','friendly',1.2);syncUI();responsiveHUD.show('word');
 }
 function createDocument(kind,position){
   const group=new THREE.Group();group.position.copy(position);group.position.y+=.045;group.userData.item=kind;
@@ -480,4 +482,5 @@ listen($('scene'),'pointermove',event=>{if(classroomEntered||!pointerDown||event
 listen($('scene'),'pointerup',event=>{if(classroomEntered||pointerDown?.id!==event.pointerId)return;if(!pointerDown.moved)clickWorld(event);pointerDown=null;});listen($('scene'),'pointercancel',event=>{if(pointerDown?.id===event.pointerId)pointerDown=null;});listen($('scene'),'webglcontextlost',event=>{event.preventDefault();fail(new Error('그래픽 연결이 끊겼어요. 다시 시도해 주세요.'));});
 listen($('scene'),'lostpointercapture',event=>{if(pointerDown?.id===event.pointerId)pointerDown=null;});
 resume();
+
 

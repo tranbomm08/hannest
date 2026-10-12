@@ -11,7 +11,7 @@ import {SESSION_STORAGE_KEY,loadSessionState,saveSessionState,startSession,answe
 
 // The host owns the renderer, RAF and lifecycle. This controller owns only the
 // classroom scene, its listeners and its separate classroom progress record.
-export function createClassroomController({THREE,renderer,canvas,camera,mount,isActive,getViewMode,setViewMode,notify=()=>{},onExit=()=>{},getCampusContext=()=>({}),canEnter=()=>true}) {
+export function createClassroomController({THREE,renderer,canvas,camera,mount,isActive,getViewMode,setViewMode,notify=()=>{},onExit=()=>{},onWordReveal=()=>{},getCampusContext=()=>({}),canEnter=()=>true}) {
   let entered=false,disposed=false,paused=false,scene=null,room=null,hero=null;
   let yaw=0,pitch=-.08,time=0,path=[],pending=null,pointer=null,seated=null,seatAlign=null;
   let dialogue=null,reveal=null,hint=null,speaker=null,guideFocus=null,dialogueRig=null,cameraCollision=null;
@@ -134,12 +134,12 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
     const modal=blocked();for(const b of [document.querySelector('.movement-pad'),document.getElementById('look-controls')])if(b)b.style.visibility=modal?'hidden':'';
   }
   function showHint(level){if(!active()||storyAction||getStoryPhase(story)!=='lesson')return;const next=getLessonHint(state,level??(hint?.level||0)+1);if(!next)return;hint=next;syncUI();}
-  function showReveal(id,result){reveal={id,advanced:result?.advanced===true};$('classroom-feedback').textContent=result?.reviewCorrect?CONTENT.feedback.correctReview:result?.wasReview?CONTENT.feedback.wrongReview:result?.advanced?CONTENT.feedback.correctObject:result?.changed?CONTENT.feedback.discovered:CONTENT.feedback.alreadyDiscovered;syncUI();}
+  function showReveal(id,result){reveal={id,advanced:result?.advanced===true};$('classroom-feedback').textContent=result?.reviewCorrect?CONTENT.feedback.correctReview:result?.wasReview?CONTENT.feedback.wrongReview:result?.advanced?CONTENT.feedback.correctObject:result?.changed?CONTENT.feedback.discovered:CONTENT.feedback.alreadyDiscovered;syncUI();onWordReveal();}
   function actorName(id){return CONTENT.classmates[id]||CLASSMATE_NAMES[id]||({hero:'나'}[id])||'친구';}
   function writingSeat(){return room?.seats.find(s=>s.id===seated&&s.desk&&![...slots.values()].some(slot=>slot.seatId===s.id))||null;}
   function toggleRest(){if(!active())return;if(sleeping){sleeping=false;syncUI();return;}if(!interactive()||!seated)return;clearInput();reveal=null;resetTalkAnimation();sleeping=true;syncUI();}
   function learnActivity(id){const previous=activityWords,result=learnActivityWords(storage,previous,id);activityWords=result.words;if(result.words!==previous||result.warning)activitySaveWarning=result.warning;}
-  function showActivityWord(id){reveal={activity:id};$('classroom-feedback').textContent='친구의 활동을 보고 배운 낱말이에요.';syncUI();}
+  function showActivityWord(id){reveal={activity:id};$('classroom-feedback').textContent='친구의 활동을 보고 배운 낱말이에요.';syncUI();onWordReveal();}
   function sessionContext(){return(getSessionRun(sessions)?.id||'')+':'+(getSessionTask(sessions)?.key||'complete');}
   function cancelSessionMotion(){
     sessionEpoch++;sessionAction?.handle?.cancel?.();sessionAction=null;sessionWatch=null;sessionReady=null;
@@ -408,7 +408,7 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
   }
   function selectObject(id){
     if(!interactive()||!OBJECT_WORDS[id]||!nearObject(id)||!lineOfSight(id))return;
-    if(sessionFocused){const task=getSessionTask(sessions);if(task?.type!=='object'){notify('지금 미션의 친구나 동작을 살펴보세요.');return;}clearInput();const correct=recordSessionAnswer(task,id);sessionFeedback=correct?'맞아요! '+OBJECT_SENTENCES[id]:OBJECT_WORDS[id]+' · '+getWordGuide(id).meaning+' 문장을 읽고 다시 골라요.';reveal={id};$('classroom-feedback').textContent=sessionFeedback;if(propOwners.get(id)==='world')reactions.set(id,time);syncUI();return;}
+    if(sessionFocused){const task=getSessionTask(sessions);if(task?.type!=='object'){notify('지금 미션의 친구나 동작을 살펴보세요.');return;}clearInput();const correct=recordSessionAnswer(task,id);sessionFeedback=correct?'맞아요! '+OBJECT_SENTENCES[id]:OBJECT_WORDS[id]+' · '+getWordGuide(id).meaning+' 문장을 읽고 다시 골라요.';reveal={id};$('classroom-feedback').textContent=sessionFeedback;if(propOwners.get(id)==='world')reactions.set(id,time);syncUI();onWordReveal();return;}
     if(boardGuide)clearInput();boardGuide=null;
     const result=update({type:'SELECT_OBJECT',item:id});
     guideFocus=null;if(result.wasReview&&!result.reviewCorrect&&getStoryPhase(story)==='lesson')hint=getLessonHint(state,2);
@@ -655,4 +655,5 @@ export function createClassroomController({THREE,renderer,canvas,camera,mount,is
   listen(canvas,'pointerdown',e=>{if(!interactive()||pointer)return;pointer={id:e.pointerId,x:e.clientX,y:e.clientY,lastX:e.clientX,lastY:e.clientY,moved:false};canvas.setPointerCapture(e.pointerId);canvas.focus({preventScroll:true});});listen(canvas,'pointermove',e=>{if(!pointer||e.pointerId!==pointer.id)return;if(Math.hypot(e.clientX-pointer.x,e.clientY-pointer.y)>8)pointer.moved=true;if(pointer.moved){look(-(e.clientX-pointer.lastX)*.006,-(e.clientY-pointer.lastY)*.004);e.preventDefault();}pointer.lastX=e.clientX;pointer.lastY=e.clientY;});listen(canvas,'pointerup',e=>{if(pointer?.id!==e.pointerId)return;if(!pointer.moved)clickWorld(e);pointer=null;});for(const type of ['pointercancel','lostpointercapture'])listen(canvas,type,e=>{if(pointer?.id===e.pointerId)pointer=null;});
   return{enter,exit,tick,pause,resume,dispose,getInfo:info,getState:()=>JSON.parse(JSON.stringify(state)),getStoryState:()=>JSON.parse(JSON.stringify(story)),getBoardState:()=>({...boardRequest}),getSessionState:()=>JSON.parse(JSON.stringify(sessions)),projectPoint};
 }
+
 

@@ -269,3 +269,82 @@
 .world.is-classroom:has(>.classroom-ui:not([hidden]) .classroom-overlay:not([hidden]),>.classroom-ui:not([hidden]) .classroom-dialogue:not([hidden])) .movement-pad,
 .world.is-classroom:has(>.classroom-ui:not([hidden]) .classroom-overlay:not([hidden]),>.classroom-ui:not([hidden]) .classroom-dialogue:not([hidden])) .look-controls{visibility:hidden!important;pointer-events:none}
 
+/* On small screens the HUD owns a separate region below the canvas.
+   The helper supplies exact pixel heights after header/viewport changes. */
+.hud-tools{display:flex;align-items:center;flex-wrap:wrap;gap:5px;min-width:0;max-width:100%}
+.topbar-tools .hud-tools button{min-width:44px;min-height:44px;padding:8px 11px;font-size:12px;line-height:1.4;white-space:normal;overflow-wrap:anywhere}
+.hud-tools button[aria-pressed="true"]{background:var(--green);color:white;border-color:var(--green)}
+.hud-status{flex-basis:100%;min-width:0;max-width:100%;font-size:11px;line-height:1.45;max-height:36px;overflow:auto;overflow-wrap:anywhere;margin:0;color:#5a6d60}
+.hud-status:empty{display:none}
+.game-shell:has(.world.hud-docked[data-hud-blocked="true"]) .hud-tools{visibility:hidden;pointer-events:none}
+
+/* A very short viewport scrolls the shell instead of squeezing its controls.
+   The header wraps independently and has its own bounded scroll area. */
+.game-shell:has(>.world.hud-docked){overflow-y:auto;overscroll-behavior-y:contain}
+.game-shell:has(>.world.hud-docked)>.topbar{height:auto;min-height:60px;max-height:min(196px,40dvh);overflow-y:auto;flex-wrap:wrap;gap:6px;padding:8px max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px));align-items:center}
+.game-shell:has(>.world.hud-docked) .topbar-tools{flex:1 1 260px;min-width:0;max-width:100%;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.game-shell:has(>.world.hud-docked) .topbar-tools>button{min-height:44px}
+.game-shell:has(>.world.hud-docked) .hud-tools{margin-left:auto;justify-content:flex-end}
+
+.world.hud-docked{--hud-safe-bottom:env(safe-area-inset-bottom,0px);--hud-safe-left:env(safe-area-inset-left,0px);--hud-safe-right:env(safe-area-inset-right,0px);--hud-inline-left:max(12px,var(--hud-safe-left));--hud-inline-right:max(12px,var(--hud-safe-right));--hud-usable-width:calc(100% - var(--hud-inline-left) - var(--hud-inline-right));--hud-height:calc(164px + var(--hud-safe-bottom));--scene-height:calc(100% - var(--hud-height));--hud-action-width:calc((var(--hud-usable-width) - 8px)/3);--hud-inline-centre:calc(var(--hud-inline-left) + var(--hud-usable-width)/2);min-height:calc(308px + var(--hud-safe-bottom));touch-action:pan-y;isolation:isolate}
+.world.hud-docked:not([data-hud-mode="controls"]){--hud-height:calc(228px + var(--hud-safe-bottom));min-height:calc(372px + var(--hud-safe-bottom))}
+.world.hud-docked #scene{position:absolute;left:0;top:0;width:100%;height:var(--scene-height);z-index:0}
+.world.hud-docked::after{content:"";position:absolute;left:0;right:0;top:var(--scene-height);bottom:0;background:#f7f4ed;border-top:1px solid #ccd7c7;pointer-events:none;z-index:0}
+.world.hud-docked #reticle{top:calc(var(--scene-height)/2)}
+.world.hud-docked .notice,.world.hud-docked .scene-caption{display:none!important}
+
+/* One full-width information card at a time, entirely outside scene pixels. */
+.world.hud-docked .mission-card,
+.world.hud-docked .classroom-panel,
+.world.hud-docked .discovery-panel,
+.world.hud-docked .classroom-word-panel,
+.world.hud-docked .map-panel,
+.world.hud-docked .dialogue,
+.world.hud-docked .classroom-dialogue{left:var(--hud-inline-left);right:auto;top:calc(var(--scene-height) + 8px);bottom:auto;transform:none;width:var(--hud-usable-width);max-width:none;max-height:max(0px,calc(var(--hud-height) - 16px));min-width:0;overflow:auto;overscroll-behavior:contain;touch-action:pan-y;padding:10px 12px max(10px,var(--hud-safe-bottom));margin:0;z-index:2}
+.world.hud-docked .dialogue,.world.hud-docked .classroom-dialogue{z-index:4}
+.world.hud-docked .mission-card h1,.world.hud-docked .classroom-panel h1,.world.hud-docked .classroom-panel h2{font-size:15px;line-height:1.4}
+.world.hud-docked .mission-card p{font-size:12px;line-height:1.55}
+.world.hud-docked .dialogue>p,.world.hud-docked .classroom-dialogue>#classroom-text{font-size:14px;line-height:1.55}
+.world.hud-docked .map-panel canvas{width:100%;height:auto;max-height:110px;object-fit:contain}
+.world.hud-docked .goal-shape,.world.hud-docked .classroom-goal{display:grid;place-items:center;min-height:48px;margin:6px 0;border-radius:10px}
+.world.hud-docked .goal-shape svg,.world.hud-docked .classroom-goal svg{width:48px;height:48px}
+.world.hud-docked .nearby-object-tools{max-height:none}
+
+.world.hud-docked[data-hud-mode="controls"] .mission-card,
+.world.hud-docked[data-hud-mode="controls"] .discovery-panel,
+.world.hud-docked[data-hud-mode="controls"] .map-panel,
+.world.hud-docked[data-hud-mode="mission"] .discovery-panel,
+.world.hud-docked[data-hud-mode="mission"][data-hud-map="true"]>.mission-card,
+.world.hud-docked[data-hud-mode="mission"]:not([data-hud-map="true"]) .map-panel,
+.world.hud-docked[data-hud-mode="word"] .mission-card,
+.world.hud-docked[data-hud-mode="word"] .map-panel,
+.world.hud-docked[data-hud-mode="dialogue"] .mission-card,
+.world.hud-docked[data-hud-mode="dialogue"] .discovery-panel,
+.world.hud-docked[data-hud-mode="dialogue"] .map-panel{display:none!important}
+
+/* Default portrait controls: one action row and two 44px direction rows. */
+.world.hud-docked .movement-pad{left:var(--hud-inline-left);top:calc(100% - 100px - var(--hud-safe-bottom));bottom:auto;grid-template-columns:44px 44px 44px;grid-template-rows:44px 44px;gap:4px;z-index:3}
+.world.hud-docked .look-controls{left:auto;right:var(--hud-inline-right);top:calc(100% - 100px - var(--hud-safe-bottom));bottom:auto;display:grid;grid-template-columns:44px 44px;grid-template-rows:44px 44px;gap:4px;z-index:3}
+.world.hud-docked .movement-pad button,.world.hud-docked .look-controls button{width:44px;height:44px;min-width:44px;min-height:44px}
+.world.hud-docked :is(.interact-button,.classroom-interact,.classroom-exit,.classroom-camera-reset){left:var(--hud-inline-left);right:auto;top:calc(var(--scene-height) + 8px);bottom:auto;transform:none;width:var(--hud-action-width);max-width:none;min-width:44px;min-height:44px;height:44px;overflow:hidden;padding:6px 7px;font-size:11px;line-height:1.3;white-space:normal;overflow-wrap:anywhere;z-index:3;margin:0}
+.world.hud-docked .classroom-interact{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.world.hud-docked .classroom-exit{left:calc(var(--hud-inline-left) + 4px + var(--hud-action-width))}
+.world.hud-docked .classroom-camera-reset{left:calc(var(--hud-inline-left) + 8px + var(--hud-action-width) + var(--hud-action-width))}
+.world.hud-docked .interact-button>span{font-size:12px;line-height:1.3}
+.world.hud-docked .interact-button>small{display:none}
+.world.hud-docked:not(.is-classroom)>#interact{width:var(--hud-usable-width)}
+.world.hud-docked:not([data-hud-mode="controls"]) :is(.movement-pad,.look-controls,#interact,.classroom-interact,.classroom-exit,.classroom-camera-reset),
+.world.hud-docked[data-hud-blocked="true"] :is(.movement-pad,.look-controls,#interact,.classroom-interact,.classroom-exit,.classroom-camera-reset){display:none!important}
+
+/* This flag comes from the actual world size and usable width, after headers
+   and side insets, rather than a viewport-only orientation query. */
+.world.hud-docked[data-hud-landscape="true"]{--hud-height:calc(68px + var(--hud-safe-bottom));--hud-action-width:min(76px,calc((var(--hud-usable-width) - 400px)/3));min-height:calc(212px + var(--hud-safe-bottom))}
+.world.hud-docked[data-hud-landscape="true"]:not([data-hud-mode="controls"]){--hud-height:calc(144px + var(--hud-safe-bottom));min-height:calc(288px + var(--hud-safe-bottom))}
+.world.hud-docked[data-hud-landscape="true"] .movement-pad{top:calc(var(--scene-height) + 8px);grid-template-columns:repeat(4,44px);grid-template-rows:44px}
+.world.hud-docked[data-hud-landscape="true"] .movement-pad :is(.up,.left,.down,.right){grid-column:auto;grid-row:auto}
+.world.hud-docked[data-hud-landscape="true"] .look-controls{top:calc(var(--scene-height) + 8px);grid-template-columns:repeat(4,44px);grid-template-rows:44px}
+.world.hud-docked[data-hud-landscape="true"] :is(.interact-button,.classroom-interact,.classroom-exit,.classroom-camera-reset){top:calc(var(--scene-height) + 8px);transform:translateX(-50%)}
+.world.hud-docked[data-hud-landscape="true"] :is(.interact-button,.classroom-interact){left:calc(var(--hud-inline-centre) - var(--hud-action-width) - 4px)}
+.world.hud-docked[data-hud-landscape="true"] .classroom-exit{left:var(--hud-inline-centre)}
+.world.hud-docked[data-hud-landscape="true"] .classroom-camera-reset{left:calc(var(--hud-inline-centre) + var(--hud-action-width) + 4px)}
+.world.hud-docked[data-hud-landscape="true"]:not(.is-classroom)>#interact{left:var(--hud-inline-centre);width:calc(var(--hud-action-width) + var(--hud-action-width) + var(--hud-action-width) + 8px)}
