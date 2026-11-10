@@ -2,6 +2,8 @@
 let nextId = 0;
 const composing = new WeakSet();
 const overflowDrafts = new WeakSet();
+const editorRecords = new WeakMap();
+let editRevision = 0;
 const MAX_ANSWER_LENGTH = 10000;
 
 function splitAnswer(value) {
@@ -68,13 +70,36 @@ export function createWritingEditor(document, question, t, onChange) {
   const limit = document.createElement('p'); limit.className = 'writing-hint writing-limit'; limit.hidden = true;
   limit.textContent = t('Nội dung vượt giới hạn lưu của câu này. Hãy rút ngắn hai ô để lưu; phần đang nhập vẫn được giữ trên màn hình.', 'This response exceeds the saved-answer limit. Shorten the two boxes to save; your current draft remains on screen.');
   const inputs = [];
-  const change = () => {
-    const value = combinedAnswer(inputs);
+  const observed = new Map();
+  const expectedValues = new Map();
+  const record = { question, revision: 0, superseded: false,
+    changed: () => !record.superseded && inputs.some(input => observed.get(input) !== input.value),
+    remember: input => observed.set(input, input.value),
+    expect: (input, value) => expectedValues.set(input, value),
+    active: () => inputs.includes(document.activeElement),
+    overflow: () => combinedAnswer(inputs).length > MAX_ANSWER_LENGTH,
+    snapshot: () => combinedAnswer(inputs),
+    flush: value => change(value),
+  };
+  const change = pendingValue => {
+    // A removed paper/sidebar can still receive a late blur/composition event.
+    // It must never replace answers already restored in the new editor.
+    if (!wrap.isConnected) return;
+    if (record.superseded) {
+      for (const input of inputs) if (!composing.has(input)) {
+        input.value = expectedValues.get(input) ?? '';
+        record.remember(input);
+      }
+      updateCount(inputs, count, t);
+      return;
+    }
+    const value = typeof pendingValue === 'string' ? pendingValue : combinedAnswer(inputs);
     updateCount(inputs, count, t);
     if (value.length > MAX_ANSWER_LENGTH) {
       overflowDrafts.add(wrap); limit.hidden = false; return;
     }
     overflowDrafts.delete(wrap); limit.hidden = true;
+    for (const input of inputs) record.remember(input);
     onChange(value);
   };
   wrap.append(hint);
@@ -98,14 +123,53 @@ export function createWritingEditor(document, question, t, onChange) {
       block.append(label, input); wrap.append(block);
     } else wrap.append(input);
     inputs.push(input);
-    input.addEventListener('compositionstart', () => composing.add(input));
+    input.addEventListener('compositionstart', () => {
+      composing.add(input); record.superseded = false; record.revision = ++editRevision;
+    });
     input.addEventListener('compositionend', () => { composing.delete(input); change(); });
-    input.addEventListener('input', change);
+    input.addEventListener('input', () => {
+      // Some IMEs emit a final input after compositionend on the blurred copy.
+      if (record.superseded && !record.active()) { change(); return; }
+      record.superseded = false; record.revision = ++editRevision; change();
+    });
     input.addEventListener('change', change);
+    record.remember(input);
   }
   wrap.append(legacy, count, state, limit);
+  editorRecords.set(wrap, record);
   updateCount(inputs, count, t);
   return wrap;
+}
+
+// Call before replacing paper/sidebar nodes or submitting. Korean IME can have
+// updated the DOM before its final input event arrives. Compare each field with
+// its last synchronized value; an untouched duplicate is never an answer edit.
+export function flushWritingEditors(container) {
+  const selected = new Map();
+  const changed = [];
+  for (const wrap of container.querySelectorAll('.writing-editor')) {
+    const record = editorRecords.get(wrap);
+    if (!wrap.isConnected || !record?.changed()) continue;
+    changed.push(record);
+    const previous = selected.get(record.question);
+    if (!previous || (record.active() && !previous.active()) ||
+        (record.active() === previous.active() && record.revision > previous.revision)) {
+      selected.set(record.question, record);
+    }
+  }
+  // Keep an oversized pending draft on screen instead of destroying its node.
+  if ([...selected.values()].some(record => record.overflow())) {
+    for (const record of selected.values()) if (record.overflow()) record.flush();
+    return false;
+  }
+  for (const record of changed) {
+    if (selected.get(record.question) !== record) record.superseded = true;
+  }
+  // One save can refresh every editor. Capture every pending question first so
+  // that callback cannot erase the next question before it has been committed.
+  const snapshots = [...selected.values()].map(record => [record, record.snapshot()]);
+  for (const [record, value] of snapshots) record.flush(value);
+  return true;
 }
 
 export function refreshWritingEditor(field, value, enabled, status, t) {
@@ -118,9 +182,13 @@ export function refreshWritingEditor(field, value, enabled, status, t) {
     input.disabled = false; input.readOnly = !enabled;
     input.setAttribute('aria-readonly', String(!enabled));
     const expected = split ? parsed[input.dataset.writingPart] : value ?? '';
+    editorRecords.get(wrap)?.expect(input, expected);
     // A result refresh, page zoom or keyboard resize must not interrupt Korean IME.
     // Oversized old drafts remain visible until the learner shortens them to save.
-    if (!composing.has(input) && !overflowDrafts.has(wrap) && input.value !== expected) input.value = expected;
+    if (!composing.has(input) && !overflowDrafts.has(wrap)) {
+      if (input.value !== expected) input.value = expected;
+      editorRecords.get(wrap)?.remember(input);
+    }
   }
   const legacy = field.querySelector('.writing-legacy');
   if (legacy) legacy.hidden = !parsed?.legacy;

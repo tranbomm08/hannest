@@ -1,4 +1,3 @@
-import { MediaURL as URL } from './hannest-media-url.mjs?v=9f7ea84d9b0d57cc88801fc7f1ed42d1';
 import { resolveWritingPaper } from './writing-paper-url.mjs?v=writing-fix-20261012-1';
 import { getDocument, GlobalWorkerOptions } from './vendor/pdfjs/pdf.mjs?v=13';
 import { CHANNEL, VERSION, newSession, phaseAt, audioPosition, updateSession,
@@ -9,7 +8,7 @@ import { validateReviewNotes, renderReviewNote } from './review-notes.mjs?v=13';
 import { createOriginalContextRenderer } from './review-context.mjs?v=13';
 import { createPracticeExam, officialExamId } from './practice-exam.mjs?v=13';
 import { PHONE_BREAKPOINT, paperLayout } from './mobile-layout.mjs?v=13';
-import { createWritingEditor, refreshWritingEditor } from './writing-fields.mjs?v=writing-split-20261013-1';
+import { createWritingEditor, refreshWritingEditor, flushWritingEditors } from './writing-fields.mjs?v=writing-draft-20261021-r1';
 
 GlobalWorkerOptions.workerSrc = new URL('./vendor/pdfjs/pdf.worker.mjs?v=13', import.meta.url).href;
 const params = new URL(location.href).searchParams;
@@ -85,9 +84,9 @@ writingButton.addEventListener('click', () => { setTab('answer'); $('answer-fiel
 document.querySelector('.session-controls').insertBefore(writingButton, $('preparation'));
 
 
-function emit(type) {
+function emit(type, details = {}) {
   if (window.parent !== window && bridgeSession) window.parent.postMessage(JSON.stringify({
-    channel: CHANNEL, version: VERSION, session: bridgeSession, type }), location.origin);
+    channel: CHANNEL, version: VERSION, session: bridgeSession, type, ...details }), location.origin);
 }
 function notice(message) { $('notice').textContent = message; $('notice').hidden = !message; }
 function persist() {
@@ -95,8 +94,16 @@ function persist() {
     'Trình duyệt chưa lưu được phiếu trả lời. Bài đang tiếp tục trong phiên này.',
     'This browser could not save your answers. The current exam session continues.'));
 }
+let flushingWriting = false;
+function flushWritingDrafts() {
+  if (flushingWriting || session?.status !== 'running') return true;
+  flushingWriting = true;
+  try { return flushWritingEditors(document); }
+  finally { flushingWriting = false; }
+}
 function formatTime(seconds) { return `${Math.floor(seconds / 60).toString().padStart(2,'0')}:${(seconds % 60).toString().padStart(2,'0')}`; }
 function setTab(tab) {
+  if (!flushWritingDrafts()) return;
   const open = tab === 'answer', wasOpen = !$('answer-panel').hidden;
   if (open && !wasOpen) drawerReturnFocus = document.activeElement;
   $('view-options').open = false;
@@ -165,6 +172,7 @@ function paperFailure(message, error) {
 }
 
 async function openPaper(url, first, last, initial) {
+  if (!flushWritingDrafts()) return;
   gestures?.reset(); zoomAnchor = null; alignNewPage = true;
   $('paper-scroll').scrollTop = 0; $('paper-scroll').scrollLeft = 0;
   range = { first, last }; page = initial; paperReady = false; $('paper-content').hidden = true; $('paper-canvas').hidden = true; updateStart(); updatePageControls();
@@ -289,7 +297,7 @@ async function queueRender() {
       transform:dpr === 1 ? null : [dpr,0,0,dpr,0,0] });
     await within(renderTask.promise, 20000);
     if (disposed || generation !== renderGeneration) return;
-    paintOriginalPage(canvas, base, viewport);
+    if (paintOriginalPage(canvas, base, viewport) === false) return false;
     restoreZoomAnchor(zoomAnchor, viewport.width, $('paper-content').scrollHeight || parseFloat($('paper-content').style.height)); zoomAnchor = null;
     if (alignNewPage) { scroll.scrollLeft = layout.leadingScroll; alignNewPage = false; }
     scrollToQuestion();
@@ -305,7 +313,7 @@ async function queueRender() {
 function movePage(delta) {
   if (!range) return;
   const next = Math.max(range.first, Math.min(range.last, page + delta));
-  if (next === page) return;
+  if (next === page || !flushWritingDrafts()) return;
   gestures?.reset(); zoomAnchor = null; alignNewPage = true; page = next;
   if (session?.status === 'running') {
     session.pages[displayedSection] = page; persist();
@@ -413,6 +421,7 @@ function createResponse(phase, question) {
   return field;
 }
 function paintOriginalPage(bitmap, base, viewport) {
+  if (!flushWritingDrafts()) return false;
   const entry = questionMap.documents[pdfUrl]?.pages[page];
   if (entry && (Math.abs(entry.width-base.width)>1 || Math.abs(entry.height-base.height)>1)) throw new Error('Original page dimensions differ');
   const phase = entry && exam.phases.find(p=>p.id === entry.phase && p.pdf === pdfUrl);
@@ -584,6 +593,7 @@ async function loadReview() {
   refreshInlineFeedback();
 }
 function renderAnswers(phase, locked) {
+  if (!flushWritingDrafts()) return false;
   const container=$('answer-fields'); container.replaceChildren(); displayedSection=phase.id; $('answer-count').textContent='';
   const writing = phase.id === 'writing';
   writingButton.hidden = !writing; $('answer-panel').classList.toggle('writing-panel', writing);
@@ -639,7 +649,7 @@ function scrollToQuestion() {
 function jumpToQuestion(phase,question) {
   const current = session?.status === 'running' ? phaseAt(exam,session.startedAt,Date.now())?.phase : !session ? exam.phases[0] : null;
   if (session?.status !== 'finished' && current?.id !== phase.id) { tick(); return; }
-  const target=Number(questionPage(questionMap,phase,question)); if (!target) return;
+  const target=Number(questionPage(questionMap,phase,question)); if (!target || !flushWritingDrafts()) return;
   pendingQuestion={phase:phase.id,q:question}; setTab('paper');
   if (pdfUrl===phase.pdf && page===target && paperReady) { scrollToQuestion(); return; }
   if (session?.status==='running') { session.pages[phase.id]=target; persist(); }
@@ -710,8 +720,16 @@ function setPhase(info) {
     else openPaper(phase.pdf, phase.firstPage, phase.lastPage, initial);
   }
 }
+let communitySubmission = null;
+function communityDetails() { return {examId:'topik-original-'+exam.id,title:
+  'TOPIK '+exam.level+' · Kỳ '+exam.round+(exam.practicePhase?' · '+exam.phases[0].label.vi:' · Cả đề'),
+  scoreLabel: exam.phases.some(p=>p.id==='writing') ? 'Nghe/đọc · chưa tính viết' : 'Điểm luyện tập'}; }
 function updateResultSummary() {
   if (session?.status !== 'finished' || !grading) return;
+  if (communitySubmission === session && grading.possible > 0) {
+    emit('exam-result', {...communityDetails(),submitted:true,fullAttempt:true,score:grading.earned,maximum:grading.possible});
+    communitySubmission = null;
+  }
   const labels=exam.phases.filter(p=>grading.phases[p.id]).map(p=>`${p.label[language]}: ${grading.phases[p.id].earned}/100`);
   if (grading.writingPending) labels.push(t('Phần Viết: cần chấm riêng (100 điểm).','Writing: separate grading required (100 points).'));
   else if (grading.possible > 100) labels.push(t(`Tổng: ${grading.earned}/${grading.possible} điểm.`,`Total: ${grading.earned}/${grading.possible} points.`));
@@ -762,9 +780,10 @@ function showResults() {
 }
 function tick() {
   if (!session || disposed) return;
+  const wasRunning = session.status === 'running';
   updateSession(session, exam, Date.now());
   if (session.status === 'finished') {
-    if (currentPhaseKey !== 'finished') { persist(); showResults(); }
+    if (currentPhaseKey !== 'finished') { if(wasRunning) communitySubmission=session; persist(); showResults(); }
     else if(originalListeningTail()) syncAudio();
     else { audio.pause(); $('audio-panel').hidden=true; stopInterval(); }
     return;
@@ -778,9 +797,12 @@ function tick() {
   syncAudio();
 }
 async function selectExam(selected, forceNew = false) {
+  if (!flushWritingDrafts()) return;
+  // Remove old editors before assigning a different exam/session.
+  $('paper-content').replaceChildren(); $('answer-fields').replaceChildren();
   reviewAnswerIndex=0;
   $('show-answers').textContent=t('Xem đáp án chính thức','View official answers');
-  stopInterval(); audio.pause(); contextRenderer.clear(); exam = selected; session = null; currentPhaseKey = ''; zoom = 1; grading = null; reviewEntry=null; reviewState='idle'; ++reviewGeneration; ++feedbackGeneration; paintedPageKey = ''; pendingQuestion = null; clearWritingModel();
+  stopInterval(); audio.pause(); contextRenderer.clear(); exam = selected; session = null; communitySubmission = null; emit('exam-context',communityDetails()); currentPhaseKey = ''; zoom = 1; grading = null; reviewEntry=null; reviewState='idle'; ++reviewGeneration; ++feedbackGeneration; paintedPageKey = ''; pendingQuestion = null; clearWritingModel();
   viewMode = window.innerWidth <= PHONE_BREAKPOINT ? 'readable' : 'fit'; alignNewPage = true;
   document.body.dataset.examOpen = 'true'; syncViewport();
   const saved = readSaved(browserStorage, exam, Date.now()); writable = saved.writable;
@@ -823,21 +845,23 @@ function startExam() {
   syncAudio(); tick(); armInterval();
 }
 function finishExam() {
-  if (session?.status !== 'running') return;
+  if (session?.status !== 'running' || !flushWritingDrafts()) return;
   const remaining = exam.phases.filter(p => p.id !== 'break').reduce((n,p) => n + p.questions.filter(q => !(session.answers[p.id]?.[q])).length, 0);
   const message=exam.practicePhase
     ? t(`Nộp và kết thúc riêng phần ${exam.phases[0].label.vi}? Còn ${remaining} câu chưa trả lời. Sau khi nộp không thể sửa bài.`, `Submit and finish ${exam.phases[0].label.en}? ${remaining} questions are unanswered. Your answers will be locked.`)
     : t(`Nộp và kết thúc toàn bộ bài thi? Còn ${remaining} câu chưa trả lời. Sau khi nộp không thể sửa bài.`, `Submit and finish the entire exam? ${remaining} questions are unanswered. Your answers will be locked.`);
   if (!confirm(message)) return;
-  updateSession(session, exam, Date.now()); submit(session,Date.now()); persist(); showResults(); setTab('paper');
+  updateSession(session, exam, Date.now()); submit(session,Date.now()); communitySubmission=session; persist(); showResults(); setTab('paper');
 }
 function requestExit() {
   if (session?.status === 'running' && !confirm(t('Rời màn hình thi? Đồng hồ vẫn tiếp tục chạy. Phiếu đã chọn được giữ trên trình duyệt này.', 'Leave the exam? The clock keeps running. Your selected answers stay in this browser.'))) return;
+  if (!flushWritingDrafts()) return;
   persist(); cleanup();
   if (window.parent !== window && bridgeSession) emit('exit');
   else history.length > 1 ? history.back() : location.assign(new URL('../../', import.meta.url));
 }
 function setActive(value) {
+  if (!value || document.hidden) flushWritingDrafts();
   active = value;
   gestures?.reset();
   if (!value || document.hidden) { stopInterval(); audio.pause(); renderTask?.cancel(); }
@@ -857,7 +881,7 @@ function onHostMessage(event) {
   if (window.parent === window || event.source !== window.parent || event.origin !== location.origin || typeof event.data !== 'string' || event.data.length > 1024) return;
   let value; try { value = JSON.parse(event.data); } catch { return; }
   if (!validMessage(value,bridgeSession,'host')) return;
-  if (value.action === 'dispose') { persist(); cleanup(); }
+  if (value.action === 'dispose') { flushWritingDrafts(); persist(); cleanup(); }
   if (value.action === 'request-exit') requestExit();
   if (value.action === 'visibility') setActive(value.visible);
 }
@@ -918,7 +942,7 @@ $('new-attempt').addEventListener('click',()=>{
 });
 window.addEventListener('message',onHostMessage);
 document.addEventListener('visibilitychange',()=>setActive(!document.hidden));
-window.addEventListener('pagehide',()=>{ persist(); stopInterval(); audio.pause(); renderTask?.cancel(); });
+window.addEventListener('pagehide',()=>{ flushWritingDrafts(); persist(); stopInterval(); audio.pause(); renderTask?.cancel(); });
 window.addEventListener('pageshow',()=>{ if (!disposed) setActive(!document.hidden); });
 function scheduleRender() {
   syncViewport(); clearTimeout(resizeTimer);
@@ -934,7 +958,7 @@ window.addEventListener('resize',scheduleRender);
 window.visualViewport?.addEventListener('resize',scheduleRender);
 const paperObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(scheduleRender) : null;
 paperObserver?.observe($('paper-panel'));
-window.addEventListener('beforeunload',event=>{ if (session?.status==='running') { persist(); event.preventDefault(); event.returnValue=''; } });
+window.addEventListener('beforeunload',event=>{ if (session?.status==='running') { flushWritingDrafts(); persist(); event.preventDefault(); event.returnValue=''; } });
 
 // Academy navigation delegates to the existing exam engine; storage and original content are unchanged.
 function setupAcademy() {
@@ -1041,5 +1065,3 @@ try {
   message.textContent=t('Chưa tải được danh sách đề. Kiểm tra kết nối và tải lại trang.','The exam list could not load. Check your connection and reload.');
   $('exam-list').append(message); $('exam-list').setAttribute('aria-busy','false');
 }
-
-

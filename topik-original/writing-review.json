@@ -1,0 +1,317 @@
+{
+  "version": 1,
+  "models": {
+    "official-91-II-writing": {
+      "51": {
+        "image": "writing-models/91-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 109
+      },
+      "52": {
+        "image": "writing-models/91-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 109
+      },
+      "53": {
+        "image": "writing-models/91-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 274
+      },
+      "54": {
+        "image": "writing-models/91-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 663
+      }
+    },
+    "official-96-II-writing": {
+      "51": {
+        "image": "writing-models/96-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 109
+      },
+      "52": {
+        "image": "writing-models/96-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 109
+      },
+      "53": {
+        "image": "writing-models/96-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 274
+      },
+      "54": {
+        "image": "writing-models/96-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 663
+      }
+    },
+    "official-102-II-writing": {
+      "51": {
+        "image": "writing-models/102-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 109
+      },
+      "52": {
+        "image": "writing-models/102-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 109
+      },
+      "53": {
+        "image": "writing-models/102-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 274
+      },
+      "54": {
+        "image": "writing-models/102-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 628
+      }
+    },
+    "official-83-II-writing": {
+      "51": {
+        "image": "writing-models/83-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 120
+      },
+      "52": {
+        "image": "writing-models/83-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 120
+      },
+      "53": {
+        "image": "writing-models/83-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 260
+      },
+      "54": {
+        "image": "writing-models/83-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 447
+      }
+    },
+    "official-64-II-writing": {
+      "51": {
+        "image": "writing-models/64-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 116
+      },
+      "52": {
+        "image": "writing-models/64-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 113
+      },
+      "53": {
+        "image": "writing-models/64-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 234
+      },
+      "54": {
+        "image": "writing-models/64-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1191,
+        "height": 496
+      }
+    },
+    "official-60-II-writing": {
+      "51": {
+        "image": "writing-models/60-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 441
+      },
+      "52": {
+        "image": "writing-models/60-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 419
+      },
+      "53": {
+        "image": "writing-models/60-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 542
+      },
+      "54": {
+        "image": "writing-models/60-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 768
+      }
+    },
+    "official-52-II-writing": {
+      "51": {
+        "image": "writing-models/52-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1186,
+        "height": 157
+      },
+      "52": {
+        "image": "writing-models/52-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1186,
+        "height": 174
+      },
+      "53": {
+        "image": "writing-models/52-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1186,
+        "height": 303
+      },
+      "54": {
+        "image": "writing-models/52-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1186,
+        "height": 482
+      }
+    },
+    "official-47-II-writing": {
+      "51": {
+        "image": "writing-models/47-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 898,
+        "height": 270
+      },
+      "52": {
+        "image": "writing-models/47-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 898,
+        "height": 260
+      },
+      "53": {
+        "image": "writing-models/47-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 898,
+        "height": 339
+      },
+      "54": {
+        "image": "writing-models/47-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 903,
+        "height": 689
+      }
+    },
+    "official-41-II-writing": {
+      "51": {
+        "image": "writing-models/41-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 229
+      },
+      "52": {
+        "image": "writing-models/41-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 224
+      },
+      "53": {
+        "image": "writing-models/41-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 457
+      },
+      "54": {
+        "image": "writing-models/41-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 949
+      }
+    },
+    "official-35-II-writing": {
+      "51": {
+        "image": "writing-models/35-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 92
+      },
+      "52": {
+        "image": "writing-models/35-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 93
+      },
+      "53": {
+        "image": "writing-models/35-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 273
+      },
+      "54": {
+        "image": "writing-models/35-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 602
+      }
+    },
+    "official-36-II-writing": {
+      "51": {
+        "image": "writing-models/36-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 207
+      },
+      "52": {
+        "image": "writing-models/36-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 166
+      },
+      "53": {
+        "image": "writing-models/36-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 188
+      },
+      "54": {
+        "image": "writing-models/36-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 566
+      }
+    },
+    "official-37-II-writing": {
+      "51": {
+        "image": "writing-models/37-II-51.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 160
+      },
+      "52": {
+        "image": "writing-models/37-II-52.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 180
+      },
+      "53": {
+        "image": "writing-models/37-II-53.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 243
+      },
+      "54": {
+        "image": "writing-models/37-II-54.webp",
+        "label": "Đáp án mẫu",
+        "width": 1190,
+        "height": 506
+      }
+    }
+  }
+}

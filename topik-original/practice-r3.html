@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="vi">
+<head><script src="./login-entry-r5.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex">
+  <title>HANNEST · Luyện TOPIK</title>
+  <link rel="stylesheet" href="practice-room-r3.css?v=r11-clean-writing-20261110">
+  <script type="module" src="practice-room-r3.mjs?v=community-20261110"></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="../" aria-label="Trang chủ HANNEST"><span class="brand-mark">H</span><span><strong>HANNEST</strong><small>Luyện thi TOPIK</small></span></a><button id="leave" class="quiet" type="button">← Trang chủ</button></header>
+  <main id="main">
+    <section id="library" aria-labelledby="library-title">
+      <div class="hero"><p class="eyebrow">PHÒNG LUYỆN TOPIK</p><h1 id="library-title">Chọn đề. Luyện từng câu.</h1><p>Nghe audio, chọn đáp án và viết bài ngay trong phòng luyện.</p><p id="library-summary" class="summary" role="status">Đang chuẩn bị kho đề…</p></div>
+      <div class="filters" aria-label="Chọn đề luyện">
+        <div id="level-filter" class="segmented" role="group" aria-label="Cấp độ"><button type="button" data-value="all" aria-pressed="true">Tất cả</button><button type="button" data-value="I" aria-pressed="false">TOPIK I</button><button type="button" data-value="II" aria-pressed="false">TOPIK II</button></div>
+        <div class="filter-row"><label class="search-label">Tìm đề<input id="search" type="search" placeholder="Số đề, ví dụ 34 hoặc 102" autocomplete="off"></label><label>Kỹ năng<select id="skill-filter"><option value="all">Tất cả kỹ năng</option><option value="listening">Nghe</option><option value="reading">Đọc</option><option value="writing">Viết</option></select></label><label>Loại đề<select id="kind-filter"><option value="all">Tất cả loại đề</option><option value="official">Đề công khai</option><option value="legacy">Đề cấu trúc cũ</option><option value="supplement">Đề bổ sung</option></select></label></div>
+      </div>
+      <div class="catalog-heading"><h2 id="results-heading">Kho đề luyện</h2><output id="result-count" aria-live="polite"></output></div>
+      <p id="catalog-notice" class="notice" role="status" hidden></p>
+      <div id="records" class="records" aria-labelledby="results-heading" aria-busy="true"><p>Đang tải danh sách…</p></div>
+      <button id="load-more" class="secondary load-more" type="button" hidden>Xem thêm đề</button>
+    </section>
+    <section id="workspace" hidden aria-labelledby="practice-title">
+      <div class="practice-header"><button id="back-library" class="quiet" type="button">← Kho đề</button><span id="save-status" role="status">Tự động lưu trên trình duyệt này</span></div>
+      <div class="practice-heading"><div><p id="practice-kind" class="eyebrow"></p><h1 id="practice-title"></h1><p id="practice-description"></p></div><div class="study-clock"><span>Thời gian luyện</span><output id="elapsed">00:00</output></div></div>
+      <p id="practice-notice" class="notice" role="status" hidden></p>
+      <section id="audio-panel" class="audio-panel" aria-label="Phần nghe" hidden><div class="audio-heading"><strong>🎧 Bài nghe</strong><label id="track-label">Đoạn nghe<select id="track-select" aria-label="Chọn đoạn nghe"></select></label></div><audio id="audio" controls preload="none"></audio><p id="audio-notice" class="muted" role="status"></p></section>
+      <div id="video-panel" class="video-panel" hidden></div>
+      <div class="practice-layout">
+        <div><article class="question-card"><div class="question-heading"><h2 id="question-heading"></h2><output id="question-position"></output></div><details id="question-context" class="question-context" hidden><summary>Đoạn chung và ngữ cảnh</summary><div id="context-content"></div></details><div id="question-content" class="question-content" aria-busy="true"></div><div id="response" class="response"></div><section id="question-feedback" class="feedback" aria-live="polite" hidden></section></article><div class="question-navigation"><button id="previous" class="secondary" type="button">← Câu trước</button><button id="next" class="primary" type="button">Câu tiếp →</button></div><section id="result" class="result" hidden aria-live="polite"></section></div>
+        <aside class="question-sidebar" aria-labelledby="question-list-title"><div class="sidebar-heading"><h2 id="question-list-title">Tiến độ</h2><output id="answered-count"></output></div><progress id="progress" value="0" max="1" aria-label="Tiến độ làm bài"></progress><div id="question-grid" class="question-grid" aria-label="Chọn câu hỏi"></div><button id="check-answers" class="primary" type="button">Kiểm tra bài</button><button id="new-attempt" class="quiet" type="button">Làm lượt mới</button><p class="muted">Câu chưa có đáp án được giữ để tự ôn. Bài viết được lưu riêng theo đề.</p></aside>
+      </div>
+    </section>
+  </main>
+  <footer>HANNEST · Mỗi ngày, một chút tiếng Hàn.</footer>
+  <noscript><p class="notice">Bật JavaScript để mở bài luyện.</p></noscript>
+</body>
+</html>

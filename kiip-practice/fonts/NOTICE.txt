@@ -1,0 +1,4 @@
+Subset of Noto Sans KR Regular from Google Fonts.
+Source: https://fonts.gstatic.com/s/notosanskr/v40/PbyxFmXiEBPT4ITbgNA5Cgms3VYcOA-vvnIzzuoyeLQ.ttf
+License: SIL OFL 1.1, included in OFL.txt.
+Subset and renamed Hannest Study Korean for the KIIP question corpus and Vietnamese explanations, 30/10/2026.
