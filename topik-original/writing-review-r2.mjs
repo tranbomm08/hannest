@@ -74,8 +74,17 @@ export function shortWritingReference(entry) {
 
   const answers = new Map();
   const introduction = [];
+  const notes = [];
   let current;
+  let readingNotes = false;
   for (const line of entry.text.split(/\r?\n/)) {
+    if (answers.size === labels.length && /^Relevant Grammar:\s*$/i.test(line.trim())) {
+      readingNotes = true;
+    }
+    if (readingNotes) {
+      notes.push(line);
+      continue;
+    }
     const marker = referenceMarker.exec(line.trim());
     if (marker) {
       const label = referenceLabels[marker[1] || marker[2]];
@@ -96,5 +105,14 @@ export function shortWritingReference(entry) {
   }));
   if (groups.some(group => !group.options.length)) return null;
   const intro = introduction.join('\n').trim();
-  return { groups, intro: referenceHeading.test(intro) ? '' : intro, extra: '' };
+  return { groups, intro: referenceHeading.test(intro) ? '' : intro, extra: notes.join('\n').trim() };
+}
+
+// The blank lines separate paragraphs. A single line break can come from
+// wrapping in a scan and should not force a break on a learner's screen.
+export function writingReferenceParagraphs(text) {
+  return text.replace(/\r\n?/g, '\n')
+    .split(/\n(?:[ \t]*\n)+/)
+    .map(paragraph => paragraph.replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
 }

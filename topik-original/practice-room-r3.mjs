@@ -1,7 +1,7 @@
 import {questionView,isolatePdfQuestion} from './question-layout-r8.mjs?v=writing-images-r4-20261111';
 import {displayWritingPrompt} from './writing-prompt-r4.mjs?v=writing-images-r4-20261111';
 import {applyWritingReplacements} from './practice-core-r3.mjs?v=writing-images-r4-20261111';
-import {shortWritingReference,writingChecklist} from './writing-review-r2.mjs?v=writing-reference-r1-20261111';
+import {shortWritingReference,writingChecklist,writingReferenceParagraphs} from './writing-review-r2.mjs?v=writing-reference-r2-20261111';
 import {answered,questionKey,loadProgress,saveProgress,resultFor,freshProgress,keyFor} from './practice-core-r3.mjs?v=writing-images-r4-20261111';
 
 const $=id=>document.getElementById(id);
@@ -242,7 +242,13 @@ function renderTextReview(host, entry, question) {
       if (entry.parts[part]) host.append(element('p', part + ': ' + entry.parts[part]));
     }
   }
-  if (text) host.append(element('div', text, 'writing-model-text'));
+  if (text) {
+    const sample = element('div', undefined, 'writing-model-text');
+    for (const paragraph of writingReferenceParagraphs(text)) {
+      sample.append(element('p', paragraph));
+    }
+    if (sample.childElementCount) host.append(sample);
+  }
   if (entry.characterCount) {
     host.append(element('p', entry.characterCount + ' ký tự, tính cả khoảng trắng.', 'muted'));
   }
@@ -396,7 +402,7 @@ async function boot(){const names=params.get('dataset')==='official'?['official-
   const loaded=await Promise.allSettled(names.map(async name=>{const response=await fetch(new URL(`${name}?v=writing-images-r4-20261111`,import.meta.url));if(!response.ok)throw new Error(name);const data=await response.json();if(data.version!==1||!Array.isArray(data.records))throw new Error(name);return data.records;}));
   const seen=new Set();for(const result of loaded){if(result.status!=='fulfilled')continue;for(const item of result.value){if(!item||!item.id||seen.has(item.id)||!Array.isArray(item.questions)||Number(item.round)===108||item.questions.length===0)continue;seen.add(item.id);records.push(item);}}
   try {
-    const expanded=await fetch(new URL('./writing-expanded-r3.json?v=writing-images-r4-20261111',import.meta.url));
+    const expanded=await fetch(new URL('./writing-expanded-r3.json?v=writing-reference-r2-20261111',import.meta.url));
     if(!expanded.ok)throw new Error('Writing data unavailable');
     records=applyWritingReplacements(records,await expanded.json());
   }catch{
