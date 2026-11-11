@@ -399,7 +399,7 @@ window.addEventListener('message',event=>{if(event.origin!==location.origin||eve
 });
 
 async function boot(){const names=params.get('dataset')==='official'?['official-question-data.json']:['official-question-data.json','legacy-question-data.json','supplement-question-data.json'];
-  const loaded=await Promise.allSettled(names.map(async name=>{const response=await fetch(new URL(`${name}?v=writing-images-r4-20261111`,import.meta.url));if(!response.ok)throw new Error(name);const data=await response.json();if(data.version!==1||!Array.isArray(data.records))throw new Error(name);return data.records;}));
+  const loaded=await Promise.allSettled(names.map(async name=>{const response=await fetch(new URL(`${name}?v=topik62-q53-20261112`,import.meta.url));if(!response.ok)throw new Error(name);const data=await response.json();if(data.version!==1||!Array.isArray(data.records))throw new Error(name);return data.records;}));
   const seen=new Set();for(const result of loaded){if(result.status!=='fulfilled')continue;for(const item of result.value){if(!item||!item.id||seen.has(item.id)||!Array.isArray(item.questions)||Number(item.round)===108||item.questions.length===0)continue;seen.add(item.id);records.push(item);}}
   try {
     const expanded=await fetch(new URL('./writing-expanded-r3.json?v=writing-reference-r2-20261111',import.meta.url));
