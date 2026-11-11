@@ -57,6 +57,18 @@
 
   <title>HANNEST – Học tiếng Hàn, luyện TOPIK và KIIP miễn phí</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- HANNEST search and learning guides -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:image" content="https://hannestapp.com/icons/Icon-512.png">
+  <meta property="og:image:alt" content="Biểu tượng HANNEST">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HANNEST – Học tiếng Hàn, TOPIK và KIIP miễn phí">
+  <meta name="twitter:description" content="Học Hangul, từ vựng, ngữ pháp; luyện TOPIK I, TOPIK II và ôn KIIP cấp 0–5 cùng HANNEST.">
+  <meta name="twitter:image" content="https://hannestapp.com/icons/Icon-512.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://hannestapp.com/#organization","name":"HANNEST","url":"https://hannestapp.com/","logo":"https://hannestapp.com/icons/Icon-512.png"},{"@type":"WebSite","@id":"https://hannestapp.com/#website","name":"HANNEST","alternateName":"HANNEST học tiếng Hàn","url":"https://hannestapp.com/","inLanguage":["vi","en"],"description":"Học tiếng Hàn miễn phí, luyện TOPIK I, TOPIK II và KIIP.","publisher":{"@id":"https://hannestapp.com/#organization"}}]}</script>
+  <style>#hannest-guides{position:fixed;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:1000;font:14px/1.5 system-ui,sans-serif;color:#403359}#hannest-guides summary{cursor:pointer;border:1px solid #d9cfed;border-radius:20px;background:#fff;padding:8px 14px;box-shadow:0 2px 8px #33225514}#hannest-guides nav{position:absolute;bottom:48px;right:0;width:min(280px,calc(100vw - 24px));padding:14px;background:#fff;border:1px solid #d9cfed;border-radius:14px;box-shadow:0 4px 18px #33225524}#hannest-guides a{display:block;color:#6041b7;padding:10px 8px;text-decoration:none}#hannest-guides a:hover{background:#f1ecfc}#hannest-guides :focus-visible{outline:3px solid #c28b12;outline-offset:2px}</style>
 </head>
 <body>
   <!--
@@ -69,5 +81,8 @@
   -->
   <script src="facebook-browser-help.js?v=20261111-1" defer></script>
   <script src="flutter_bootstrap.js?v=c81ea726aec61c58" async></script>
+
+  <details id="hannest-guides"><summary>Hướng dẫn học</summary><nav aria-label="Hướng dẫn học tiếng Hàn, TOPIK và KIIP"><a href="/hoc-tieng-han/">Học tiếng Hàn</a><a href="/luyen-thi-topik/">Luyện TOPIK</a><a href="/hoc-kiip/">Học KIIP</a><a href="/bang-chu-cai-tieng-han/">Bảng chữ cái Hangul</a></nav></details>
+  <script>(function(){var guides=document.getElementById('hannest-guides');function update(){var route=location.hash.split('?')[0];guides.hidden=!['','#/','#/vietnamese','#/language'].includes(route)}window.addEventListener('hashchange',update);update()})();</script>
 </body>
 </html>
