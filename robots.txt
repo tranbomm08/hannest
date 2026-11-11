@@ -1,3 +1,7 @@
+# ChatGPT Search discovery. Existing rules for other crawlers are preserved.
+User-agent: OAI-SearchBot
+Allow: /
+
 User-agent: *
 Allow: /
 
