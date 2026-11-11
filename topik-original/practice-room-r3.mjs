@@ -1,8 +1,8 @@
-import {questionView,isolatePdfQuestion} from './question-layout-r8.mjs?v=r11-clean-writing-20261110';
-import {displayWritingPrompt} from './writing-prompt-r4.mjs?v=r11-clean-writing-20261110';
-import {applyWritingReplacements} from './practice-core-r3.mjs?v=r11-clean-writing-20261110';
+import {questionView,isolatePdfQuestion} from './question-layout-r8.mjs?v=writing-images-r4-20261111';
+import {displayWritingPrompt} from './writing-prompt-r4.mjs?v=writing-images-r4-20261111';
+import {applyWritingReplacements} from './practice-core-r3.mjs?v=writing-images-r4-20261111';
 import {writingChecklist} from './writing-review-r2.mjs';
-import {answered,questionKey,loadProgress,saveProgress,resultFor,freshProgress,keyFor} from './practice-core-r3.mjs?v=r11-clean-writing-20261110';
+import {answered,questionKey,loadProgress,saveProgress,resultFor,freshProgress,keyFor} from './practice-core-r3.mjs?v=writing-images-r4-20261111';
 
 const $=id=>document.getElementById(id);
 const params=new URL(location.href).searchParams;
@@ -122,7 +122,7 @@ async function renderContent(q,host,token,{context=false}={}){
   const slices=context?(q.contextSlices||[]):(q.slices||[]);
   const imageSlices=context?(q.contextImageSlices||[]):(q.imageSlices||[]);
   if(!context&&q.promptText)host.append(element('div',record.writingReplacementVersion===3?displayWritingPrompt(q.promptText,q.number):q.promptText,'prompt-text'));
-  if(!context&&q.figureData){
+  if(!context&&q.figureData&&!q.imageUrl){
     const figure=q.figureData,wrap=element('section',undefined,'writing-data-table');
     wrap.append(element('h3',figure.title));
     if(figure.agency)wrap.append(element('p','조사기관: '+figure.agency,'muted'));
@@ -149,6 +149,7 @@ async function renderContent(q,host,token,{context=false}={}){
     wrap.append(element('p','Bảng số liệu của câu hỏi.','reference-note'));
     host.append(wrap);
   }
+  if(!context&&q.reviewNotice)host.append(element('p',q.reviewNotice,'reference-note'));
   if(!context&&q.imageUrl){const image=document.createElement('img');image.className='prompt-image';image.src=webURL(q.imageUrl)||'';image.alt=`Nội dung ${questionLabel(q,progress.current).toLowerCase()}`;image.addEventListener('error',()=>{if(token===generation&&host.isConnected)message($('practice-notice'),'Ảnh câu hỏi chưa tải được. Hãy tải lại trang để thử lại; bài đã nhập vẫn được giữ.');});host.append(image);}
   imageSlices.forEach(slice=>imageSlice(slice,host,token));
   if(slices.length){
@@ -174,6 +175,7 @@ function renderResponse(q){const host=$('response');host.replaceChildren();const
       host.append(parts);if(typeof saved==='string'&&saved.trim())host.append(element('p',`Bài đã lưu trước đây: ${saved}`,'muted'));
     }else{const label=element('label',q.type==='writing'?'Bài viết của bạn':'Ghi câu trả lời / nội dung tự ôn');const field=document.createElement('textarea');field.maxLength=10000;field.value=typeof saved==='string'?saved:'';
       field.setAttribute('aria-label',`Trả lời ${questionLabel(q,progress.current).toLowerCase()}`);const count=element('output',`${field.value.length} ký tự`,'writing-counter');field.addEventListener('input',()=>{count.textContent=`${field.value.length} ký tự`;storeAnswer(field.value);});label.append(field);host.append(label,count);}
+    if(q.type==='writing'){const show=element('button','Xem bài mẫu tham khảo','secondary');show.type='button';show.addEventListener('click',()=>{progress.checked=true;persist();feedback(q);$('question-feedback').scrollIntoView({block:'nearest',behavior:'smooth'});});host.append(show);}
     if(q.type==='writing')host.append(element('p','Bài được lưu để luyện viết và tự đối chiếu; chưa có điểm chấm của giám khảo.','muted'));
   }
 }
@@ -226,7 +228,7 @@ async function writingFeedback(q,box,sequence) {
   try {
     if(q.referenceReview){renderTextReview(model,q.referenceReview);return;}
     if(selected.writingReplacementVersion===3&&Number(q.number)===54){
-      textModelPromise??=fetch(new URL('./writing-model-text-r3.json?v=r11-clean-writing-20261110',import.meta.url)).then(async response=>{
+      textModelPromise??=fetch(new URL('./writing-model-text-r3.json?v=writing-images-r4-20261111',import.meta.url)).then(async response=>{
         if(!response.ok)throw new Error('Model unavailable');return await response.json();
       }).catch(error=>{textModelPromise=null;throw error;});
       const textModels=await textModelPromise;
@@ -234,7 +236,7 @@ async function writingFeedback(q,box,sequence) {
       const entry=textModels.models?.[selected.id]?.[String(q.number)];
       if(entry){renderTextReview(model,entry);return;}
     }
-    writingModelPromise??=fetch(new URL('./writing-review.json?v=r11-clean-writing-20261110',import.meta.url)).then(async response=>{
+    writingModelPromise??=fetch(new URL('./writing-review.json?v=writing-images-r4-20261111',import.meta.url)).then(async response=>{
       if(!response.ok)throw new Error('Model unavailable');
       const value=await response.json();if(value.version!==1||!value.models)throw new Error('Invalid model data');return value;
     }).catch(error=>{writingModelPromise=null;throw error;});
@@ -356,10 +358,10 @@ window.addEventListener('message',event=>{if(event.origin!==location.origin||eve
 });
 
 async function boot(){const names=params.get('dataset')==='official'?['official-question-data.json']:['official-question-data.json','legacy-question-data.json','supplement-question-data.json'];
-  const loaded=await Promise.allSettled(names.map(async name=>{const response=await fetch(new URL(`${name}?v=r11-clean-writing-20261110`,import.meta.url));if(!response.ok)throw new Error(name);const data=await response.json();if(data.version!==1||!Array.isArray(data.records))throw new Error(name);return data.records;}));
+  const loaded=await Promise.allSettled(names.map(async name=>{const response=await fetch(new URL(`${name}?v=writing-images-r4-20261111`,import.meta.url));if(!response.ok)throw new Error(name);const data=await response.json();if(data.version!==1||!Array.isArray(data.records))throw new Error(name);return data.records;}));
   const seen=new Set();for(const result of loaded){if(result.status!=='fulfilled')continue;for(const item of result.value){if(!item||!item.id||seen.has(item.id)||!Array.isArray(item.questions)||Number(item.round)===108||item.questions.length===0)continue;seen.add(item.id);records.push(item);}}
   try {
-    const expanded=await fetch(new URL('./writing-expanded-r3.json?v=r11-clean-writing-20261110',import.meta.url));
+    const expanded=await fetch(new URL('./writing-expanded-r3.json?v=writing-images-r4-20261111',import.meta.url));
     if(!expanded.ok)throw new Error('Writing data unavailable');
     records=applyWritingReplacements(records,await expanded.json());
   }catch{

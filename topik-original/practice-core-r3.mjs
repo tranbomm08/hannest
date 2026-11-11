@@ -45,9 +45,10 @@ export function applyWritingReplacements(records,dataset){
   const byId=new Map(records.map(r=>[r.id,r]));
   const seen=new Set();
   for(const replacement of dataset.records){
-    const previous=byId.get(replacement.id);
+    const standalone=replacement.id==='supp-108-writing'&&replacement.standaloneWriting===true;
+    const previous=byId.get(replacement.id)||(standalone?{...replacement,questions:[]}:null);
     if(!previous||seen.has(replacement.id)||replacement.id!==`supp-${replacement.round}-writing`||
-       replacement.round===108||previous.round!==replacement.round||replacement.section!=='writing'||
+       (!standalone&&replacement.round===108)||previous.round!==replacement.round||replacement.section!=='writing'||
        !/^[a-f0-9]{16}$/.test(replacement.writingRevision??'')||!Array.isArray(replacement.questions)||
        replacement.questions.length<=previous.questions.length||replacement.questions.length>4)throw new Error('Invalid writing replacement record');
     const numbers=replacement.questions.map(q=>q.number);
@@ -59,5 +60,5 @@ export function applyWritingReplacements(records,dataset){
     if(replacement.complete&&[51,52,53,54].some(n=>!numbers.includes(n)))throw new Error('Incomplete paper marked complete');
     seen.add(replacement.id);byId.set(replacement.id,{...replacement,previousRecord:previous});
   }
-  return records.map(r=>byId.get(r.id));
+  return [...byId.values()];
 }
