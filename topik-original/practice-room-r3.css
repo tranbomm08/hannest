@@ -16,3 +16,37 @@
 
 /* Native charts: readable text and data, without third-party image logos. */
 .writing-clean-chart{display:grid;gap:16px;margin:20px 0}.writing-clean-chart-row{display:grid;grid-template-columns:75px 1fr;align-items:center;gap:12px}.writing-clean-chart-track{min-width:0;background:#edf3f7;border-radius:5px}.writing-clean-chart-bar{box-sizing:border-box;min-width:100px;padding:12px 8px;background:#326e9a;color:white;border-radius:5px;font-weight:700;white-space:nowrap}.writing-data-table{overflow-x:auto}
+
+.writing-model-parts {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+}
+.writing-model-part {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 10px 12px;
+  border: 1px solid #dce8dc;
+  border-radius: 8px;
+  background: #fff;
+  line-height: 1.65;
+}
+.writing-model-part dt {
+  color: #14674e;
+  font-weight: 700;
+}
+.writing-model-part dd {
+  margin: 0;
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.writing-model-part ul {
+  margin: 0;
+  padding-inline-start: 1.2rem;
+}
+.writing-model-part li + li {
+  margin-top: 3px;
+}

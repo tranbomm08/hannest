@@ -1,7 +1,7 @@
 import {questionView,isolatePdfQuestion} from './question-layout-r8.mjs?v=writing-images-r4-20261111';
 import {displayWritingPrompt} from './writing-prompt-r4.mjs?v=writing-images-r4-20261111';
 import {applyWritingReplacements} from './practice-core-r3.mjs?v=writing-images-r4-20261111';
-import {writingChecklist} from './writing-review-r2.mjs';
+import {shortWritingReference,writingChecklist} from './writing-review-r2.mjs?v=writing-reference-r1-20261111';
 import {answered,questionKey,loadProgress,saveProgress,resultFor,freshProgress,keyFor} from './practice-core-r3.mjs?v=writing-images-r4-20261111';
 
 const $=id=>document.getElementById(id);
@@ -208,13 +208,48 @@ function renderPreviousResponse(q){
     $('response').append(panel);
   }
 }
-function renderTextReview(host,entry){
-  host.replaceChildren(element('h4','Đáp án tham khảo'));
-  if(entry.parts){for(const part of ['ㄱ','ㄴ'])if(entry.parts[part])host.append(element('p',part+': '+entry.parts[part]));}
-  if(entry.text)host.append(element('div',entry.text,'writing-model-text'));
-  if(entry.characterCount)host.append(element('p',entry.characterCount+' ký tự, tính cả khoảng trắng.','muted'));
-  if(entry.explanationVi)host.append(element('p',entry.explanationVi,'reference-note'));
-  host.append(element('p','Dùng để đối chiếu; phần này không đưa ra điểm chấm AI hoặc điểm của giám khảo.','muted'));
+function renderReferenceParts(host, reference) {
+  if (reference.intro) host.append(element('p', reference.intro, 'reference-note'));
+  const list = element('dl', undefined, 'writing-model-parts');
+  list.lang = 'ko';
+  for (const { label, options } of reference.groups) {
+    const group = element('div', undefined, 'writing-model-part');
+    const answer = element('dd');
+    if (options.length === 1) {
+      answer.textContent = options[0];
+    } else {
+      const alternatives = element('ul');
+      for (const option of options) alternatives.append(element('li', option));
+      answer.append(alternatives);
+    }
+    group.append(element('dt', label), answer);
+    list.append(group);
+  }
+  host.append(list);
+}
+
+function renderTextReview(host, entry, question) {
+  host.replaceChildren(element('h4', 'Đáp án tham khảo'));
+  const reference = [51, 52].includes(Number(question.number))
+    ? shortWritingReference(entry)
+    : null;
+  let text = entry.text;
+  if (reference) {
+    renderReferenceParts(host, reference);
+    text = reference.extra;
+  } else if (entry.parts) {
+    for (const part of ['ㄱ', 'ㄴ']) {
+      if (entry.parts[part]) host.append(element('p', part + ': ' + entry.parts[part]));
+    }
+  }
+  if (text) host.append(element('div', text, 'writing-model-text'));
+  if (entry.characterCount) {
+    host.append(element('p', entry.characterCount + ' ký tự, tính cả khoảng trắng.', 'muted'));
+  }
+  if (entry.explanationVi) {
+    host.append(element('p', entry.explanationVi, 'reference-note'));
+  }
+  host.append(element('p', 'Dùng để đối chiếu; phần này không đưa ra điểm chấm AI hoặc điểm của giám khảo.', 'muted'));
 }
 
 async function writingFeedback(q,box,sequence) {
@@ -226,7 +261,7 @@ async function writingFeedback(q,box,sequence) {
   const model=element('div',undefined,'writing-model');
   model.append(element('p','Đang tải đáp án mẫu…','muted'));box.append(model);
   try {
-    if(q.referenceReview){renderTextReview(model,q.referenceReview);return;}
+    if(q.referenceReview){renderTextReview(model,q.referenceReview,q);return;}
     if(selected.writingReplacementVersion===3&&Number(q.number)===54){
       textModelPromise??=fetch(new URL('./writing-model-text-r3.json?v=writing-images-r4-20261111',import.meta.url)).then(async response=>{
         if(!response.ok)throw new Error('Model unavailable');return await response.json();
@@ -234,7 +269,7 @@ async function writingFeedback(q,box,sequence) {
       const textModels=await textModelPromise;
       if(record!==selected||progress!==attempt||!attempt.checked||feedbackSequence!==sequence)return;
       const entry=textModels.models?.[selected.id]?.[String(q.number)];
-      if(entry){renderTextReview(model,entry);return;}
+      if(entry){renderTextReview(model,entry,q);return;}
     }
     writingModelPromise??=fetch(new URL('./writing-review.json?v=writing-images-r4-20261111',import.meta.url)).then(async response=>{
       if(!response.ok)throw new Error('Model unavailable');

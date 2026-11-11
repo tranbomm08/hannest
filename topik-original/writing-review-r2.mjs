@@ -27,3 +27,74 @@ export function writingChecklist(record, question, answer) {
   }
   return notes;
 }
+
+const referenceLabels = {
+  'ㄱ': 'ㄱ', '㉠': 'ㄱ', '가': 'ㄱ',
+  'ㄴ': 'ㄴ', '㉡': 'ㄴ', '나': 'ㄴ',
+};
+const referenceMarker = /^(?:\(\s*([ㄱㄴ㉠㉡가나])\s*\)\s*[:：.]?\s*|([ㄱㄴ㉠㉡가나])\s*[:：.]\s*)(.*)$/u;
+const referenceBullet = /^(?:[·•.]|\d+\.)(?=\s|$)\s*/u;
+const referenceHeading = /^(?:[\d\s:./]*|s:?|\/?\s*(?:예시\s*)?(?:답안|정답))$/iu;
+
+function referenceOptions(lines) {
+  const options = [];
+  let words = [];
+  function finishOption() {
+    if (words.length) options.push(words.join(' ').replace(/\s+/g, ' '));
+    words = [];
+  }
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line || line === '📌') {
+      finishOption();
+      continue;
+    }
+    if (referenceBullet.test(line)) finishOption();
+    const phrase = line.replace(referenceBullet, '');
+    if (phrase) words.push(phrase);
+  }
+  finishOption();
+  return options;
+}
+
+// Short-answer models include older text copied from a scan as well as newer
+// structured parts. Keep slashes inside a single option: some share a suffix.
+export function shortWritingReference(entry) {
+  const labels = ['ㄱ', 'ㄴ'];
+  if (entry.parts) {
+    const groups = labels.flatMap(label => {
+      const answer = entry.parts[label];
+      if (typeof answer !== 'string') return [];
+      const options = referenceOptions(answer.split(/\r?\n/));
+      return options.length ? [{ label, options }] : [];
+    });
+    if (groups.length) return { groups, intro: '', extra: entry.text || '' };
+  }
+  if (typeof entry.text !== 'string') return null;
+
+  const answers = new Map();
+  const introduction = [];
+  let current;
+  for (const line of entry.text.split(/\r?\n/)) {
+    const marker = referenceMarker.exec(line.trim());
+    if (marker) {
+      const label = referenceLabels[marker[1] || marker[2]];
+      if (answers.has(label)) return null;
+      current = [marker[3]];
+      answers.set(label, current);
+    } else if (current) {
+      current.push(line);
+    } else {
+      introduction.push(line);
+    }
+  }
+
+  if (answers.size !== labels.length) return null;
+  const groups = labels.map(label => ({
+    label,
+    options: referenceOptions(answers.get(label)),
+  }));
+  if (groups.some(group => !group.options.length)) return null;
+  const intro = introduction.join('\n').trim();
+  return { groups, intro: referenceHeading.test(intro) ? '' : intro, extra: '' };
+}
