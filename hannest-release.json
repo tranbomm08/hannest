@@ -1,6 +1,13 @@
 {
-  "version": "c8ed9a0ee811949d",
-  "mainSha256": "c8ed9a0ee811949d5d01bc9b34df28e1cd2c5c6df28aaeff2043c379358befb6",
+  "version": "064817e709442c4d",
+  "mainSha256": "064817e709442c4df556240bd79f1691fa27ce7727c6ccf9b810c9b0120f331a",
   "publishedDate": "2026-11-11",
-  "previousCommit": "69e5cc0b0367414510e8e3a26994584c84adc152"
+  "previousCommit": "9bfe221b2906db6474e4dc7a7bc08d05f3a9de3b",
+  "feature": "topik-i-grammar",
+  "paths": [
+    "main.dart.js",
+    "index.html",
+    "flutter_bootstrap.js",
+    "hannest-release.json"
+  ]
 }
