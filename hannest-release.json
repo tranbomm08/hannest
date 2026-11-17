@@ -1,9 +1,9 @@
 {
-  "version": "c81ea726aec61c58",
-  "mainSha256": "c81ea726aec61c587fdf1b8907c476194489eb5d45407b067b88efd66cbf587d",
-  "previousCommit": "ef4fbf3c18a144f2b22f567f4c5136912c64b9ff",
-  "publishedDate": "2026-11-11",
-  "feature": "analytics-by-section-and-complete-topik-ii-catalog",
+  "version": "fdfec2ae72b30232",
+  "mainSha256": "fdfec2ae72b302322b57233d7c7926f5b3570d3f0438744c9601c7079547dbf9",
+  "previousCommit": "8502975a8e8cefe8b8b9bae9f11f58f5c9b53db9",
+  "publishedDate": "2026-11-17",
+  "feature": "open-learning-map-directly-without-onboarding",
   "paths": [
     "main.dart.js",
     "index.html",
