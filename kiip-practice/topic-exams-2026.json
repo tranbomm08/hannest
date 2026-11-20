@@ -1,0 +1,4461 @@
+{
+  "version": 1,
+  "contentKind": "original-practice",
+  "author": "HANNEST",
+  "createdAt": "2026-11-20",
+  "description": "10 bài thi riêng theo chủ đề; không có đề tổng hợp ghép.",
+  "sets": [
+    {
+      "id": "hannest-kiip5-topic-politics-2026",
+      "title": "Chính trị · 정치",
+      "category": "level-5-topics",
+      "originalTitle": "정치",
+      "topicKey": "politics",
+      "topicLabel": "Chính trị",
+      "year": 2026,
+      "paperNumber": 1,
+      "kiipLevel": 5,
+      "keyType": "original",
+      "partial": false,
+      "timeLimitSeconds": 2400,
+      "sources": [
+        {
+          "title": "Hiến pháp Hàn Quốc · KLRI",
+          "url": "https://elaw.klri.re.kr/eng_service/lawTwoView.do?hseq=1"
+        }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "format": "text",
+          "prompt": "국민이 나라의 주인이라는 생각과 가장 가까운 것은?",
+          "choices": [
+            "왕권 신수설",
+            "국민 주권",
+            "신분 세습",
+            "군주의 절대 권력"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Chủ quyền nhân dân nghĩa là quyền lực nhà nước bắt nguồn từ nhân dân, theo Điều 1 Hiến pháp."
+        },
+        {
+          "number": 2,
+          "format": "text",
+          "prompt": "새로운 법률안을 심의하고 의결하는 국가기관은 어디인가?",
+          "choices": [
+            "대법원",
+            "중앙선거관리위원회",
+            "국회",
+            "한국은행"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Quốc hội thảo luận và biểu quyết luật. Quyền lập pháp thuộc Quốc hội theo Điều 40."
+        },
+        {
+          "number": 3,
+          "format": "text",
+          "prompt": "정부가 법률에 따라 정책을 실행하는 활동은 무엇인가?",
+          "choices": [
+            "행정",
+            "재판",
+            "헌법 개정",
+            "입법"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Hành chính là tổ chức thực hiện pháp luật và chính sách; khác với làm luật và xét xử."
+        },
+        {
+          "number": 4,
+          "format": "text",
+          "prompt": "민사 분쟁에 대해 법에 따라 판결하는 기관은 어디인가?",
+          "choices": [
+            "법원",
+            "주민자치회",
+            "한국은행",
+            "국회"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Tòa án giải quyết vụ kiện và đưa ra phán quyết. Quyền tư pháp thuộc tòa án."
+        },
+        {
+          "number": 5,
+          "format": "text",
+          "prompt": "한 기관에 권력이 지나치게 집중되는 것을 막는 원리는?",
+          "choices": [
+            "권력 세습",
+            "신분 차별",
+            "언론 통제",
+            "권력 분립"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Phân chia quyền lập pháp, hành pháp và tư pháp giúp các cơ quan kiểm soát lẫn nhau."
+        },
+        {
+          "number": 6,
+          "format": "text",
+          "prompt": "유권자가 누구에게 투표했는지 다른 사람이 알 수 없도록 하는 원칙은?",
+          "choices": [
+            "공개 선거",
+            "간접 선거",
+            "비밀 선거",
+            "차등 선거"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Bỏ phiếu kín bảo vệ việc lựa chọn của cử tri khỏi sự theo dõi hoặc ép buộc."
+        },
+        {
+          "number": 7,
+          "format": "text",
+          "prompt": "재산이 많은 사람도 적은 사람도 한 표의 가치를 같게 하는 원칙은?",
+          "choices": [
+            "공개 선거",
+            "차등 선거",
+            "평등 선거",
+            "간접 선거"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Bầu cử bình đẳng nghĩa là lá phiếu có giá trị ngang nhau, không phụ thuộc tài sản."
+        },
+        {
+          "number": 8,
+          "format": "text",
+          "prompt": "유권자가 대표자를 다른 사람에게 맡기지 않고 직접 뽑는 원칙은?",
+          "choices": [
+            "공개 선거",
+            "신분 선거",
+            "간접 선거",
+            "직접 선거"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Bầu cử trực tiếp là cử tri tự chọn người đại diện, không qua một nhóm đại cử tri."
+        },
+        {
+          "number": 9,
+          "format": "text",
+          "prompt": "일정한 법적 요건을 갖춘 국민에게 재산이나 학력과 관계없이 선거권을 주는 원칙은?",
+          "choices": [
+            "공개 선거",
+            "간접 선거",
+            "보통 선거",
+            "제한 선거"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Phổ thông đầu phiếu không đặt điều kiện về tài sản hay học vấn, nhưng vẫn có các điều kiện do luật quy định."
+        },
+        {
+          "number": 10,
+          "format": "text",
+          "prompt": "국회의원의 한 임기는 몇 년인가?",
+          "choices": [
+            "7년",
+            "5년",
+            "2년",
+            "4년"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Điều 42 Hiến pháp quy định nhiệm kỳ nghị sĩ Quốc hội là 4 năm."
+        },
+        {
+          "number": 11,
+          "format": "text",
+          "prompt": "현행 헌법상 대통령의 임기에 대한 설명으로 맞는 것은?",
+          "choices": [
+            "4년이며 세 번 연임한다",
+            "국회가 매년 새로 정한다",
+            "6년이며 제한 없이 연임한다",
+            "5년이며 중임할 수 없다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Điều 70 quy định nhiệm kỳ tổng thống 5 năm và không được giữ chức tổng thống thêm nhiệm kỳ nữa."
+        },
+        {
+          "number": 12,
+          "format": "text",
+          "prompt": "국가 예산안을 심의하고 확정하는 기관은 어디인가?",
+          "choices": [
+            "선거관리위원회",
+            "국회",
+            "대법원",
+            "헌법재판소"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Chính phủ lập dự toán ngân sách; Quốc hội thảo luận và quyết định theo Điều 54."
+        },
+        {
+          "number": 13,
+          "format": "text",
+          "prompt": "정부의 일을 조사하고 잘못된 점을 살피는 국회의 활동은?",
+          "choices": [
+            "국정 감사",
+            "화폐 발행",
+            "여권 발급",
+            "형사 재판"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Quốc hội thực hiện giám sát nhà nước để kiểm tra hoạt động của chính phủ; không trực tiếp xét xử hình sự."
+        },
+        {
+          "number": 14,
+          "format": "text",
+          "prompt": "대통령이 외국에 대하여 국가를 대표한다는 설명은 어떤 지위와 관계있는가?",
+          "choices": [
+            "민간 기업 대표",
+            "국가 원수",
+            "법원 서기",
+            "지방의회 의원"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Theo Điều 66, tổng thống là nguyên thủ quốc gia và đại diện đất nước trong quan hệ đối ngoại."
+        },
+        {
+          "number": 15,
+          "format": "text",
+          "prompt": "선거와 국민투표를 공정하게 관리하는 헌법기관은?",
+          "choices": [
+            "선거관리위원회",
+            "국립중앙박물관",
+            "국립국어원",
+            "한국은행"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Ủy ban bầu cử quản lý bầu cử và trưng cầu dân ý nhằm bảo đảm tính công bằng."
+        },
+        {
+          "number": 16,
+          "format": "text",
+          "prompt": "주민이 자기 지역의 일을 스스로 결정하고 처리하는 제도는?",
+          "choices": [
+            "신분 제도",
+            "식민 통치",
+            "절대 왕정",
+            "지방 자치"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Tự trị địa phương cho phép cộng đồng địa phương quản lý công việc của mình theo pháp luật."
+        },
+        {
+          "number": 17,
+          "format": "text",
+          "prompt": "시의 예산과 조례를 심의하는 지방의 기관은?",
+          "choices": [
+            "국무회의",
+            "대법원",
+            "시의회",
+            "중앙은행"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Hội đồng thành phố là cơ quan nghị quyết ở địa phương, xem xét ngân sách và quy định của thành phố."
+        },
+        {
+          "number": 18,
+          "format": "text",
+          "prompt": "지방자치단체가 법령의 범위 안에서 정하는 지역의 규범은?",
+          "choices": [
+            "조례",
+            "국제 조약",
+            "판결문",
+            "헌법"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "조례 là quy định do địa phương ban hành trong phạm vi pháp luật, không được trái luật cấp trên."
+        },
+        {
+          "number": 19,
+          "format": "text",
+          "prompt": "여러 정당이 서로 경쟁할 수 있도록 하는 제도는?",
+          "choices": [
+            "왕위 계승제",
+            "일당 독재",
+            "신분 세습제",
+            "복수 정당제"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Điều 8 bảo đảm chế độ đa đảng và quyền tự do thành lập chính đảng."
+        },
+        {
+          "number": 20,
+          "format": "text",
+          "prompt": "선거에서 후보자를 고를 때 가장 바람직한 판단 기준은?",
+          "choices": [
+            "투표 인증 사진의 수",
+            "정책과 공약의 내용",
+            "제공하는 선물의 가격",
+            "소문을 전달한 사람의 수"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Nên đánh giá chính sách và cam kết của ứng viên, đồng thời kiểm chứng thông tin trước khi lựa chọn."
+        },
+        {
+          "number": 21,
+          "format": "text",
+          "prompt": "소수 의견을 가진 시민을 대하는 민주적인 태도는?",
+          "choices": [
+            "발언을 무조건 금지한다",
+            "투표할 자격을 빼앗는다",
+            "의견을 말할 기회를 보장한다",
+            "신분을 공개하고 비난한다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Dân chủ vừa dùng nguyên tắc đa số vừa tôn trọng quyền của thiểu số."
+        },
+        {
+          "number": 22,
+          "format": "text",
+          "prompt": "국가의 최고 규범으로 국가 조직과 기본권의 기초를 정하는 것은?",
+          "choices": [
+            "상품 설명서",
+            "헌법",
+            "회사 취업 규칙",
+            "아파트 관리 공고"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Hiến pháp quy định nền tảng tổ chức nhà nước và các quyền cơ bản; văn bản cấp dưới phải phù hợp với Hiến pháp."
+        },
+        {
+          "number": 23,
+          "format": "text",
+          "prompt": "법률이 헌법에 어긋나는지 심판하는 헌법기관은?",
+          "choices": [
+            "헌법재판소",
+            "통계청",
+            "주민센터",
+            "국립도서관"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Tòa án Hiến pháp có thẩm quyền xem xét tính hợp hiến của luật theo thủ tục hiến định."
+        },
+        {
+          "number": 24,
+          "format": "text",
+          "prompt": "국무총리는 대통령을 보좌하며 누구의 명을 받아 행정 각 부를 통할하는가?",
+          "choices": [
+            "대법원장",
+            "시·도지사",
+            "국회의원 개인",
+            "대통령"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Điều 86 quy định thủ tướng giúp tổng thống và điều phối các bộ hành chính theo lệnh tổng thống."
+        },
+        {
+          "number": 25,
+          "format": "text",
+          "prompt": "헌법 개정안이 국회에서 의결된 뒤 국민에게 찬반을 묻는 절차는?",
+          "choices": [
+            "지방 조례 공포",
+            "국민투표",
+            "형사 재판",
+            "국정 감사"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Sửa đổi Hiến pháp phải qua trưng cầu dân ý sau khi được Quốc hội thông qua, theo Điều 130."
+        },
+        {
+          "number": 26,
+          "format": "text",
+          "prompt": "시민이 공공 문제에 관한 의견을 국가기관에 문서로 제출하는 권리는?",
+          "choices": [
+            "저작권",
+            "상속권",
+            "청원권",
+            "소유권"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Quyền kiến nghị cho phép công dân gửi kiến nghị bằng văn bản đến cơ quan nhà nước theo luật."
+        },
+        {
+          "number": 27,
+          "format": "text",
+          "prompt": "공무원이 특정 개인이 아니라 국민 전체를 위해 일해야 한다는 설명은?",
+          "choices": [
+            "국민 전체에 대한 봉사자이다",
+            "공직을 자녀에게 물려준다",
+            "특정 정당만을 위한 직원이다",
+            "개인 재산에 따라 민원을 처리한다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Điều 7 xác định công chức là người phục vụ toàn thể nhân dân và chịu trách nhiệm trước nhân dân."
+        },
+        {
+          "number": 28,
+          "format": "text",
+          "prompt": "국가 정책을 비판하는 언론의 역할과 가장 관계있는 것은?",
+          "choices": [
+            "권력 감시",
+            "법률의 최종 의결",
+            "국가 예산 집행",
+            "형사 처벌 결정"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Báo chí cung cấp thông tin và giám sát quyền lực; không thay Quốc hội, tòa án hay cơ quan hành chính."
+        },
+        {
+          "number": 29,
+          "format": "text",
+          "prompt": "다수결로 결정했더라도 지켜야 하는 것은?",
+          "choices": [
+            "다수자의 무제한 권력",
+            "소수자의 기본권",
+            "반대자의 재산 몰수",
+            "비판 의견의 금지"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Một quyết định theo đa số vẫn phải tôn trọng Hiến pháp và quyền cơ bản của người có ý kiến khác."
+        },
+        {
+          "number": 30,
+          "format": "text",
+          "prompt": "정책 토론에서 상대의 의견에 반대할 때 알맞은 태도는?",
+          "choices": [
+            "인신공격으로 말을 막는다",
+            "근거를 제시하고 상대의 말을 듣는다",
+            "확인하지 않은 소문을 퍼뜨린다",
+            "토론 결과를 폭력으로 바꾼다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Thảo luận dân chủ dựa trên lý lẽ, lắng nghe và trao đổi ôn hòa, thay vì công kích cá nhân."
+        }
+      ]
+    },
+    {
+      "id": "hannest-kiip5-topic-law-2026",
+      "title": "Pháp luật · 법",
+      "category": "level-5-topics",
+      "originalTitle": "법",
+      "topicKey": "law",
+      "topicLabel": "Pháp luật",
+      "year": 2026,
+      "paperNumber": 2,
+      "kiipLevel": 5,
+      "keyType": "original",
+      "partial": false,
+      "timeLimitSeconds": 2400,
+      "sources": [
+        {
+          "title": "Hiến pháp Hàn Quốc · KLRI",
+          "url": "https://elaw.klri.re.kr/eng_service/lawTwoView.do?hseq=1"
+        }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "format": "text",
+          "prompt": "형사 피고인을 유죄 판결이 확정되기 전까지 어떻게 보아야 하는가?",
+          "choices": [
+            "언제나 유죄로 확정한다",
+            "무죄로 추정한다",
+            "가족의 책임으로 돌린다",
+            "재판 없이 처벌한다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Điều 27 bảo đảm suy đoán vô tội cho đến khi bản án có tội có hiệu lực."
+        },
+        {
+          "number": 2,
+          "format": "text",
+          "prompt": "행위 당시 범죄가 아니었던 일을 나중에 만든 법으로 처벌하지 않는 원칙은?",
+          "choices": [
+            "형벌 불소급의 원칙",
+            "공개 투표의 원칙",
+            "권력 세습의 원칙",
+            "혈연 책임의 원칙"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Không được dùng luật hình sự ban hành sau để kết tội hành vi vốn không phải tội phạm khi xảy ra."
+        },
+        {
+          "number": 3,
+          "format": "text",
+          "prompt": "동일한 범죄에 대하여 거듭 처벌받지 않는다는 원칙은?",
+          "choices": [
+            "다수결의 원칙",
+            "직접 선거의 원칙",
+            "시장 경쟁의 원칙",
+            "일사부재리의 원칙"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Điều 13 bảo vệ cá nhân khỏi việc bị xử phạt hình sự lặp lại cho cùng một tội."
+        },
+        {
+          "number": 4,
+          "format": "text",
+          "prompt": "체포되거나 구속된 사람이 도움을 받을 권리가 있는 전문가는?",
+          "choices": [
+            "변호인",
+            "주택 중개인만",
+            "세무 공무원만",
+            "여행 안내원"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Người bị bắt hoặc giam giữ có quyền được luật sư trợ giúp theo Điều 12."
+        },
+        {
+          "number": 5,
+          "format": "text",
+          "prompt": "고문으로 억지로 받은 자백에 대한 설명으로 맞는 것은?",
+          "choices": [
+            "다른 확인 없이 처벌할 수 있다",
+            "서명만 있으면 언제나 유효하다",
+            "유죄의 증거로 삼을 수 없다",
+            "항상 가장 중요한 증거이다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Hiến pháp không cho dùng lời thú nhận do tra tấn, bạo lực hay ép buộc làm chứng cứ kết tội."
+        },
+        {
+          "number": 6,
+          "format": "text",
+          "prompt": "자기에게 불리한 진술을 강요받지 않을 권리와 관계있는 것은?",
+          "choices": [
+            "선거권",
+            "진술 거부권",
+            "청구서 발급권",
+            "상속권"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Quyền từ chối khai báo bảo vệ người bị buộc tội khỏi việc bị ép tự đưa ra lời khai bất lợi cho mình."
+        },
+        {
+          "number": 7,
+          "format": "text",
+          "prompt": "범죄 혐의가 있다는 이유만으로 가족까지 불이익을 주지 않는다는 원칙은?",
+          "choices": [
+            "차등 선거",
+            "연좌제 금지",
+            "신분 세습",
+            "가족 공동 처벌"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Điều 13 cấm gây bất lợi cho một người chỉ vì hành vi của thân nhân."
+        },
+        {
+          "number": 8,
+          "format": "text",
+          "prompt": "법 앞의 평등에 어긋나는 처우는?",
+          "choices": [
+            "같은 요건의 신청을 같은 기준으로 심사한다",
+            "재판에서 양쪽의 주장을 듣는다",
+            "법이 정한 절차를 따른다",
+            "종교만을 이유로 불리하게 대우한다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Bất lợi chỉ vì tôn giáo là hành vi phân biệt đối xử; Điều 11 quy định bình đẳng trước pháp luật."
+        },
+        {
+          "number": 9,
+          "format": "text",
+          "prompt": "개인의 집에 대한 자유와 관계있는 기본권은?",
+          "choices": [
+            "주거의 자유",
+            "선거권",
+            "교육을 받을 권리",
+            "국가 배상 청구권"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Quyền bất khả xâm phạm về chỗ ở bảo vệ nơi cư trú; việc khám xét phải tuân thủ yêu cầu hiến định và pháp luật."
+        },
+        {
+          "number": 10,
+          "format": "text",
+          "prompt": "남의 편지나 통신 내용을 함부로 살피지 못하게 하는 권리는?",
+          "choices": [
+            "납세의 의무",
+            "근로의 의무",
+            "통신의 비밀",
+            "국방의 의무"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Điều 18 bảo vệ bí mật liên lạc. Không thể tự ý xâm phạm thông tin trao đổi của người khác."
+        },
+        {
+          "number": 11,
+          "format": "text",
+          "prompt": "자신의 사생활이 함부로 공개되지 않을 권리는?",
+          "choices": [
+            "화폐 발행권",
+            "사생활의 비밀과 자유",
+            "국회의 법률안 의결권",
+            "조약 체결권"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Điều 17 bảo vệ bí mật và tự do đời tư của công dân."
+        },
+        {
+          "number": 12,
+          "format": "text",
+          "prompt": "종교를 믿거나 믿지 않을 자유는 무엇인가?",
+          "choices": [
+            "국방의 의무",
+            "재산권만",
+            "종교의 자유",
+            "선거권만"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Tự do tôn giáo bao gồm việc lựa chọn tín ngưỡng; nhà nước không được coi một tôn giáo là quốc giáo."
+        },
+        {
+          "number": 13,
+          "format": "text",
+          "prompt": "국가가 특정 종교를 공식 종교로 강요하지 않는 원칙은?",
+          "choices": [
+            "왕권 강화",
+            "권력 집중",
+            "신분 세습",
+            "정교 분리"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Điều 20 nêu không công nhận quốc giáo và tách tôn giáo khỏi chính trị nhà nước."
+        },
+        {
+          "number": 14,
+          "format": "text",
+          "prompt": "평화적으로 모여 공동의 의견을 표현하는 자유는?",
+          "choices": [
+            "집회의 자유",
+            "국적 이탈 절차",
+            "영업 비밀",
+            "상속의 자유"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Tự do hội họp bảo vệ việc tập hợp và bày tỏ ý kiến; việc thực hiện vẫn phải tuân thủ pháp luật."
+        },
+        {
+          "number": 15,
+          "format": "text",
+          "prompt": "언론·출판에 대한 사전 허가나 검열을 인정하지 않는다는 내용과 관계있는 자유는?",
+          "choices": [
+            "거주 이전의 자유",
+            "재산 처분의 자유",
+            "표현의 자유",
+            "직업 선택의 자유"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Điều 21 bảo vệ tự do ngôn luận, báo chí và không công nhận chế độ cho phép trước hoặc kiểm duyệt."
+        },
+        {
+          "number": 16,
+          "format": "text",
+          "prompt": "대학에서 학문을 연구하고 예술을 창작할 자유는?",
+          "choices": [
+            "긴급 명령권",
+            "학문과 예술의 자유",
+            "선거 관리권",
+            "국가 예산 심의권"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Điều 22 bảo đảm tự do học thuật và nghệ thuật."
+        },
+        {
+          "number": 17,
+          "format": "text",
+          "prompt": "자기 능력과 적성에 맞는 일을 고를 자유는?",
+          "choices": [
+            "국민투표권만",
+            "재판 공개의 원칙",
+            "직업 선택의 자유",
+            "국정 감사권"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Điều 15 bảo đảm tự do lựa chọn nghề nghiệp, trong khuôn khổ các điều kiện pháp luật áp dụng."
+        },
+        {
+          "number": 18,
+          "format": "text",
+          "prompt": "법률에 따라 재산권을 행사할 때 함께 고려해야 할 것은?",
+          "choices": [
+            "타인의 권리를 무시할 자유",
+            "무제한 독점",
+            "법률 위반의 권리",
+            "공공복리"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Điều 23 yêu cầu việc thực hiện quyền tài sản phù hợp với lợi ích chung."
+        },
+        {
+          "number": 19,
+          "format": "text",
+          "prompt": "국가가 공공필요로 재산을 수용할 때 헌법이 요구하는 것은?",
+          "choices": [
+            "소유자의 가족을 처벌한다",
+            "보상을 언제나 생략한다",
+            "소문만으로 소유자를 정한다",
+            "법률에 따르고 정당한 보상을 한다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Trưng dụng hoặc thu hồi vì nhu cầu công phải dựa trên luật và được bồi thường chính đáng theo Điều 23."
+        },
+        {
+          "number": 20,
+          "format": "text",
+          "prompt": "기본권을 법률로 제한하더라도 침해할 수 없는 것은?",
+          "choices": [
+            "자유와 권리의 본질적인 내용",
+            "모든 사적 계약의 가격",
+            "모든 국민의 모든 행동",
+            "외국어 사용의 횟수"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Điều 37 không cho phép xâm phạm nội dung cốt lõi của tự do và quyền cơ bản."
+        },
+        {
+          "number": 21,
+          "format": "text",
+          "prompt": "판사가 판결할 때 따라야 할 기준은?",
+          "choices": [
+            "헌법과 법률 및 양심",
+            "특정 정당의 지시",
+            "인터넷 댓글의 수",
+            "재판 당사자의 재산 순위"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Theo Điều 103, thẩm phán độc lập xét xử theo Hiến pháp, pháp luật và lương tâm nghề nghiệp."
+        },
+        {
+          "number": 22,
+          "format": "text",
+          "prompt": "돈을 빌려주고 돌려받지 못한 당사자 사이의 분쟁은 주로 어느 영역인가?",
+          "choices": [
+            "국방 훈련",
+            "선거 관리",
+            "민사",
+            "외교 의전"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Tranh chấp nghĩa vụ trả nợ giữa các bên thường thuộc lĩnh vực dân sự; có tội phạm hay không cần xét tình tiết riêng."
+        },
+        {
+          "number": 23,
+          "format": "text",
+          "prompt": "계약서에 서명하기 전에 가장 먼저 할 일은?",
+          "choices": [
+            "내용과 조건을 읽고 확인한다",
+            "이해하지 못한 조항을 숨긴다",
+            "빈칸을 모두 남긴 채 서명한다",
+            "상대의 말만 믿고 버린다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Nên đọc quyền, nghĩa vụ, thời hạn và khoản tiền trước khi ký; cần hỏi lại phần chưa hiểu."
+        },
+        {
+          "number": 24,
+          "format": "text",
+          "prompt": "계약 내용을 확인할 수 있도록 보관하면 좋은 것은?",
+          "choices": [
+            "인터넷 소문만",
+            "다른 사람의 신분증",
+            "서명한 계약서와 지급 자료",
+            "관련 없는 광고지"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Hợp đồng đã ký và chứng từ thanh toán giúp xác minh thỏa thuận khi phát sinh tranh chấp."
+        },
+        {
+          "number": 25,
+          "format": "text",
+          "prompt": "타인의 사진을 온라인에 올리기 전에 알맞은 행동은?",
+          "choices": [
+            "이름을 덧붙여 무조건 공개한다",
+            "싫다고 해도 계속 올린다",
+            "주소까지 함께 게시한다",
+            "당사자의 동의를 확인한다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Kiểm tra sự đồng ý trước khi đăng ảnh là cách tôn trọng quyền riêng tư và hình ảnh cá nhân."
+        },
+        {
+          "number": 26,
+          "format": "text",
+          "prompt": "분쟁 상대를 위협하는 대신 먼저 선택할 만한 방법은?",
+          "choices": [
+            "폭력으로 해결한다",
+            "자료를 정리하고 적절한 상담을 받는다",
+            "물건을 부순다",
+            "개인 정보를 퍼뜨린다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Hãy lưu chứng cứ và tìm kênh tư vấn, hòa giải hoặc thủ tục phù hợp; đe dọa có thể gây thêm thiệt hại."
+        },
+        {
+          "number": 27,
+          "format": "text",
+          "prompt": "모든 국민이 법률이 정하는 바에 따라 세금을 내야 하는 의무는?",
+          "choices": [
+            "납세의 의무",
+            "투표 결과 공개의 의무",
+            "특정 종교의 의무",
+            "정당 가입의 의무"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Điều 38 quy định nghĩa vụ nộp thuế theo luật, không phải nghĩa vụ tham gia một đảng hay tôn giáo."
+        },
+        {
+          "number": 28,
+          "format": "text",
+          "prompt": "법률에 따라 국토를 지키는 국민의 의무는?",
+          "choices": [
+            "정당 후원의 의무",
+            "언론 검열의 의무",
+            "재산 공개의 의무",
+            "국방의 의무"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Điều 39 quy định nghĩa vụ quốc phòng theo luật; đây là kiến thức hiến định, không phải kết luận nghĩa vụ quân sự của từng cá nhân."
+        },
+        {
+          "number": 29,
+          "format": "text",
+          "prompt": "법을 잘 몰라 상담이 필요할 때 가장 적절한 태도는?",
+          "choices": [
+            "소문을 법률로 믿는다",
+            "사실관계와 문서를 정리해 전문가에게 묻는다",
+            "모든 사건의 결과가 같다고 단정한다",
+            "불리한 문서를 모두 없앤다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Tư vấn pháp lý cần thông tin và tài liệu cụ thể; không nên suy đoán kết quả từ tin đồn hoặc một vụ khác."
+        },
+        {
+          "number": 30,
+          "format": "text",
+          "prompt": "법률상 권리를 주장하면서 지켜야 할 태도는?",
+          "choices": [
+            "원하는 결과를 위해 거짓 자료를 만든다",
+            "다른 사람의 권리도 존중한다",
+            "타인의 자유는 무조건 무시한다",
+            "판결 전에 상대를 처벌한다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Quyền của mình đi cùng nghĩa vụ tôn trọng người khác và sử dụng thủ tục hợp pháp."
+        }
+      ]
+    },
+    {
+      "id": "hannest-kiip5-topic-history-2026",
+      "title": "Lịch sử · 역사",
+      "category": "level-5-topics",
+      "originalTitle": "역사",
+      "topicKey": "history",
+      "topicLabel": "Lịch sử",
+      "year": 2026,
+      "paperNumber": 3,
+      "kiipLevel": 5,
+      "keyType": "original",
+      "partial": false,
+      "timeLimitSeconds": 2400,
+      "sources": [
+        {
+          "title": "Quốc sử quán Hàn Quốc · Lịch sử Hàn Quốc",
+          "url": "https://contents.history.go.kr/front/eng/main.do?lang=en"
+        }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "format": "text",
+          "prompt": "단군 건국 이야기와 연결되는 한국 고대 국가는?",
+          "choices": [
+            "고조선",
+            "조선",
+            "고려",
+            "발해"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Truyền thuyết lập quốc của Dangun gắn với Gojoseon, nhà nước cổ trong lịch sử bán đảo Triều Tiên."
+        },
+        {
+          "number": 2,
+          "format": "text",
+          "prompt": "고구려·백제와 함께 삼국 시대를 이룬 나라는?",
+          "choices": [
+            "대한제국",
+            "신라",
+            "조선",
+            "고려"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Ba nước thời Tam Quốc là Goguryeo, Baekje và Silla."
+        },
+        {
+          "number": 3,
+          "format": "text",
+          "prompt": "광개토 대왕의 활발한 영토 확장과 관련된 나라는?",
+          "choices": [
+            "대한제국",
+            "조선",
+            "고구려",
+            "고려"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Gwanggaeto là vua Goguryeo, nổi tiếng với hoạt động mở rộng lãnh thổ."
+        },
+        {
+          "number": 4,
+          "format": "text",
+          "prompt": "백제의 옛 수도였던 도시들을 바르게 묶은 것은?",
+          "choices": [
+            "서울과 평양",
+            "대구와 광주",
+            "공주와 부여",
+            "부산과 인천"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Gongju và Buyeo lần lượt là kinh đô Ungjin và Sabi của Baekje."
+        },
+        {
+          "number": 5,
+          "format": "text",
+          "prompt": "신라의 수도였으며 오늘날 많은 문화유산이 남은 도시는?",
+          "choices": [
+            "수원",
+            "경주",
+            "춘천",
+            "제주"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Gyeongju là kinh đô của Silla và còn nhiều di tích của vương quốc này."
+        },
+        {
+          "number": 6,
+          "format": "text",
+          "prompt": "신라 시대 천문 관측과 관련된 경주의 유적은?",
+          "choices": [
+            "첨성대",
+            "독립문",
+            "수원 화성",
+            "남한산성"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Cheomseongdae ở Gyeongju là công trình liên quan đến quan sát thiên văn thời Silla."
+        },
+        {
+          "number": 7,
+          "format": "text",
+          "prompt": "고구려가 멸망한 뒤 대조영이 세운 나라는?",
+          "choices": [
+            "가야",
+            "조선",
+            "발해",
+            "고려"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Dae Joyeong lập Balhae năm 698 sau khi Goguryeo sụp đổ."
+        },
+        {
+          "number": 8,
+          "format": "text",
+          "prompt": "후삼국을 통일한 고려의 건국자는?",
+          "choices": [
+            "왕건",
+            "이성계",
+            "정조",
+            "세종"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Wang Geon lập Goryeo và hoàn thành thống nhất Hậu Tam Quốc năm 936."
+        },
+        {
+          "number": 9,
+          "format": "text",
+          "prompt": "영어 이름 Korea의 어원과 관계있는 왕조는?",
+          "choices": [
+            "고려",
+            "조선",
+            "백제",
+            "가야"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Tên Korea bắt nguồn từ tên Goryeo được truyền ra bên ngoài qua giao lưu quốc tế."
+        },
+        {
+          "number": 10,
+          "format": "text",
+          "prompt": "고려 시대의 대표적인 도자기 문화로 알맞은 것은?",
+          "choices": [
+            "유리병만",
+            "플라스틱 그릇",
+            "청자",
+            "백자만"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Goryeo nổi tiếng với đồ gốm men xanh celadon, gọi là 청자."
+        },
+        {
+          "number": 11,
+          "format": "text",
+          "prompt": "목판에 불경을 새긴 팔만대장경이 보관된 사찰은?",
+          "choices": [
+            "봉은사",
+            "해인사",
+            "불국사",
+            "조계사"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Các bản khắc Tripitaka Koreana được bảo quản tại Haeinsa; đây là di sản gắn với Goryeo."
+        },
+        {
+          "number": 12,
+          "format": "text",
+          "prompt": "금속 활자로 인쇄된 현존 최고본으로 알려진 불교 서적은?",
+          "choices": [
+            "동의보감",
+            "삼국사기",
+            "훈민정음 해례본",
+            "직지"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Jikji bản in năm 1377 được biết đến là cuốn sách in bằng chữ kim loại đúc lâu đời nhất còn tồn tại."
+        },
+        {
+          "number": 13,
+          "format": "text",
+          "prompt": "1392년에 조선을 세운 인물은?",
+          "choices": [
+            "이성계",
+            "왕건",
+            "장보고",
+            "대조영"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Yi Seong-gye lập Joseon năm 1392, trở thành vua Taejo."
+        },
+        {
+          "number": 14,
+          "format": "text",
+          "prompt": "조선의 수도 한양은 오늘날 어느 도시의 중심 지역과 관계있는가?",
+          "choices": [
+            "제주",
+            "부산",
+            "전주",
+            "서울"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Hanyang, kinh đô Joseon, tương ứng khu vực trung tâm Seoul ngày nay."
+        },
+        {
+          "number": 15,
+          "format": "text",
+          "prompt": "백성이 쉽게 글을 읽고 쓰도록 훈민정음을 만든 왕은?",
+          "choices": [
+            "세종",
+            "태종",
+            "영조",
+            "고종"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Vua Sejong tạo Hunminjeongeum để người dân dễ ghi âm tiếng nói và học chữ."
+        },
+        {
+          "number": 16,
+          "format": "text",
+          "prompt": "훈민정음이 반포된 해는?",
+          "choices": [
+            "1592년",
+            "1919년",
+            "1446년",
+            "1392년"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Hunminjeongeum được công bố năm 1446; cần phân biệt với thời điểm hoàn thành sáng tạo hệ chữ."
+        },
+        {
+          "number": 17,
+          "format": "text",
+          "prompt": "조선 시대 궁궐인 경복궁에 대한 설명으로 알맞은 것은?",
+          "choices": [
+            "일제 강점기에 만든 항구이다",
+            "고려의 도자기 가마만 있던 곳이다",
+            "현대의 고속철도역이다",
+            "왕이 정무를 보던 궁궐이다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Gyeongbokgung là cung điện chính của Joseon, gắn với hoạt động của triều đình."
+        },
+        {
+          "number": 18,
+          "format": "text",
+          "prompt": "조선 시대 유교의 영향이 잘 나타나는 것은?",
+          "choices": [
+            "산업용 로봇의 보급",
+            "보통 선거의 실시",
+            "신분 제도의 완전한 폐지",
+            "효와 예절을 중시하는 교육"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Nho giáo ảnh hưởng mạnh đến giáo dục, đạo hiếu, lễ nghi và tổ chức xã hội Joseon."
+        },
+        {
+          "number": 19,
+          "format": "text",
+          "prompt": "1592년에 시작된 일본의 침략 전쟁을 무엇이라고 하는가?",
+          "choices": [
+            "병자호란",
+            "한국 전쟁",
+            "청일 전쟁",
+            "임진왜란"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Imjin Waeran là cuộc xâm lược bắt đầu năm 1592; Byeongja Horan là cuộc chiến khác năm 1636."
+        },
+        {
+          "number": 20,
+          "format": "text",
+          "prompt": "임진왜란 때 수군을 이끌고 활약한 장군은?",
+          "choices": [
+            "정약용",
+            "김구",
+            "이순신",
+            "안중근"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Yi Sun-sin chỉ huy thủy quân và có vai trò quan trọng trong chiến tranh Imjin."
+        },
+        {
+          "number": 21,
+          "format": "text",
+          "prompt": "조선 후기 실생활에 도움이 되는 학문을 강조한 흐름은?",
+          "choices": [
+            "실학",
+            "성골 제도",
+            "골품제",
+            "화랑도"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Silhak nhấn mạnh nghiên cứu thực tiễn, cải thiện đời sống và xã hội vào cuối Joseon."
+        },
+        {
+          "number": 22,
+          "format": "text",
+          "prompt": "정조가 건설한 계획도시와 성곽으로 알맞은 것은?",
+          "choices": [
+            "경주 첨성대",
+            "수원 화성",
+            "강화 고인돌",
+            "서울 독립문"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Pháo đài Hwaseong ở Suwon được xây dưới triều vua Jeongjo."
+        },
+        {
+          "number": 23,
+          "format": "text",
+          "prompt": "1897년에 고종이 선포한 나라의 이름은?",
+          "choices": [
+            "대한제국",
+            "발해",
+            "대한민국 임시정부",
+            "고조선"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Năm 1897, Gojong tuyên bố thành lập Daehan Jeguk, tức Đế quốc Đại Hàn."
+        },
+        {
+          "number": 24,
+          "format": "text",
+          "prompt": "1910년부터 1945년까지의 한국 역사를 가리키는 말은?",
+          "choices": [
+            "삼국 시대",
+            "일제 강점기",
+            "고려 전기",
+            "조선 전기"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Thời kỳ Nhật chiếm đóng kéo dài từ năm 1910 đến khi giải phóng năm 1945."
+        },
+        {
+          "number": 25,
+          "format": "text",
+          "prompt": "1919년 3월 1일부터 전국으로 퍼진 독립운동은?",
+          "choices": [
+            "4·19 혁명",
+            "3·1 운동",
+            "6월 민주 항쟁",
+            "갑신정변"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Phong trào 1/3 là phong trào độc lập quy mô lớn chống ách thống trị Nhật năm 1919."
+        },
+        {
+          "number": 26,
+          "format": "text",
+          "prompt": "1919년 대한민국 임시정부가 수립된 중국의 도시는?",
+          "choices": [
+            "칭다오",
+            "상하이",
+            "난징",
+            "베이징"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Chính phủ lâm thời Đại Hàn Dân Quốc được thành lập tại Thượng Hải năm 1919."
+        },
+        {
+          "number": 27,
+          "format": "text",
+          "prompt": "1945년 8월 15일과 가장 관련이 깊은 사건은?",
+          "choices": [
+            "고려가 건국됨",
+            "훈민정음이 반포됨",
+            "6월 민주 항쟁이 시작됨",
+            "일제 지배에서 해방됨"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Ngày 15/8/1945 đánh dấu sự giải phóng khỏi sự thống trị của Nhật."
+        },
+        {
+          "number": 28,
+          "format": "text",
+          "prompt": "1950년 6월 25일에 시작된 전쟁은?",
+          "choices": [
+            "러일 전쟁",
+            "한국 전쟁",
+            "임진왜란",
+            "병자호란"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Chiến tranh Triều Tiên bắt đầu ngày 25/6/1950."
+        },
+        {
+          "number": 29,
+          "format": "text",
+          "prompt": "1960년 부정 선거에 항의하며 민주주의를 요구한 운동은?",
+          "choices": [
+            "새마을 운동",
+            "동학 농민 운동",
+            "4·19 혁명",
+            "3·1 운동"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Cách mạng 19/4/1960 phản đối gian lận bầu cử và đòi dân chủ."
+        },
+        {
+          "number": 30,
+          "format": "text",
+          "prompt": "1987년 대통령 직선제 개헌으로 이어진 민주화 운동은?",
+          "choices": [
+            "물산 장려 운동",
+            "갑오개혁",
+            "을사늑약",
+            "6월 민주 항쟁"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Phong trào dân chủ tháng 6/1987 thúc đẩy sửa Hiến pháp và khôi phục bầu tổng thống trực tiếp."
+        }
+      ]
+    },
+    {
+      "id": "hannest-kiip5-topic-economy-2026",
+      "title": "Kinh tế · 경제",
+      "category": "level-5-topics",
+      "originalTitle": "경제",
+      "topicKey": "economy",
+      "topicLabel": "Kinh tế",
+      "year": 2026,
+      "paperNumber": 4,
+      "kiipLevel": 5,
+      "keyType": "original",
+      "partial": false,
+      "timeLimitSeconds": 2400,
+      "sources": [
+        {
+          "title": "Ngân hàng Trung ương Hàn Quốc · Cơ chế tác động của chính sách tiền tệ",
+          "url": "https://www.bok.or.kr/portal/main/contents.do?menuNo=200289"
+        }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "format": "text",
+          "prompt": "가계가 한 달 동안 벌어들인 돈을 가리키는 말은?",
+          "choices": [
+            "소득",
+            "적자",
+            "부채",
+            "지출"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "소득 là thu nhập; 지출 là chi tiêu, 부채 là khoản nợ và 적자 là thâm hụt."
+        },
+        {
+          "number": 2,
+          "format": "text",
+          "prompt": "수입보다 지출이 많아서 부족한 상태를 무엇이라고 하는가?",
+          "choices": [
+            "적자",
+            "흑자",
+            "배당",
+            "저축"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Thâm hụt xảy ra khi chi lớn hơn thu. Thặng dư là tình huống ngược lại."
+        },
+        {
+          "number": 3,
+          "format": "text",
+          "prompt": "월소득 250만 원, 지출 210만 원일 때 남는 돈은?",
+          "choices": [
+            "460만 원",
+            "40만 원",
+            "60만 원",
+            "20만 원"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Số tiền còn lại là 250 − 210 = 40만 원, tức 400.000 won."
+        },
+        {
+          "number": 4,
+          "format": "text",
+          "prompt": "미래에 쓸 돈을 현재 소비하지 않고 모으는 행동은?",
+          "choices": [
+            "수입품 통관",
+            "저축",
+            "충동구매",
+            "과소비"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Tiết kiệm là dành lại một phần thu nhập để sử dụng trong tương lai."
+        },
+        {
+          "number": 5,
+          "format": "text",
+          "prompt": "갑작스러운 실직이나 수리비에 대비해 따로 모아 두는 돈은?",
+          "choices": [
+            "판매 수수료",
+            "관세",
+            "매출액",
+            "비상 자금"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Quỹ dự phòng dùng cho chi phí bất ngờ; khác với thuế nhập khẩu hoặc doanh thu."
+        },
+        {
+          "number": 6,
+          "format": "text",
+          "prompt": "돈을 빌리는 사람에게 생기는 경제적 의무는?",
+          "choices": [
+            "다른 고객의 예금을 쓰는 것",
+            "원금과 약정 이자를 갚는 것",
+            "은행의 모든 이익을 받는 것",
+            "세금을 전혀 내지 않는 것"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Người vay cần trả gốc và lãi theo thỏa thuận; phải đọc điều kiện vay cụ thể."
+        },
+        {
+          "number": 7,
+          "format": "text",
+          "prompt": "같은 대출 원금에서 금리가 높아지면 일반적으로 무엇이 늘어나는가?",
+          "choices": [
+            "원금의 구매력만",
+            "현금의 무게",
+            "예금자의 수만",
+            "이자 부담"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Với cùng số tiền vay và các điều kiện khác không đổi, lãi suất cao hơn làm tăng chi phí lãi."
+        },
+        {
+          "number": 8,
+          "format": "text",
+          "prompt": "100만 원을 연 3% 단리로 1년 예금했다. 세금과 수수료를 제외하기 전 이자는?",
+          "choices": [
+            "3천 원",
+            "30만 원",
+            "103만 원",
+            "3만 원"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Lãi đơn một năm là 1.000.000 × 3% = 30.000 won. 1.030.000 won là cả gốc lẫn lãi."
+        },
+        {
+          "number": 9,
+          "format": "text",
+          "prompt": "여러 상품과 서비스의 전반적인 가격이 지속적으로 오르는 현상은?",
+          "choices": [
+            "물물교환",
+            "분업",
+            "디플레이션",
+            "인플레이션"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Lạm phát là sự tăng liên tục của mức giá chung, không chỉ một mặt hàng riêng lẻ."
+        },
+        {
+          "number": 10,
+          "format": "text",
+          "prompt": "같은 돈으로 살 수 있는 물건의 양이 줄었다면 돈의 무엇이 낮아진 것인가?",
+          "choices": [
+            "지폐의 길이",
+            "계좌 번호",
+            "구매력",
+            "액면 금액"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Sức mua giảm khi cùng một số tiền mua được ít hàng hóa hơn."
+        },
+        {
+          "number": 11,
+          "format": "text",
+          "prompt": "다른 조건이 같을 때 어떤 상품의 가격이 오르면 보통 수요량은 어떻게 되는가?",
+          "choices": [
+            "줄어든다",
+            "가격과 전혀 관계없다",
+            "항상 두 배가 된다",
+            "반드시 무한히 늘어난다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Trong điều kiện các yếu tố khác không đổi, giá tăng thường làm lượng cầu giảm."
+        },
+        {
+          "number": 12,
+          "format": "text",
+          "prompt": "한파로 채소 생산량이 크게 줄고 수요는 그대로라면 가격은 일반적으로 어떻게 되는가?",
+          "choices": [
+            "항상 절반이 된다",
+            "반드시 0원이 된다",
+            "오를 가능성이 크다",
+            "판매 가격이 없어지게 된다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Nguồn cung giảm trong khi nhu cầu không đổi thường gây áp lực tăng giá."
+        },
+        {
+          "number": 13,
+          "format": "text",
+          "prompt": "하나를 선택하느라 포기한 다른 선택 중 가장 가치 있는 것의 가치는?",
+          "choices": [
+            "관세",
+            "총매출",
+            "기회비용",
+            "환율"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Chi phí cơ hội là giá trị của phương án tốt nhất bị bỏ qua khi lựa chọn."
+        },
+        {
+          "number": 14,
+          "format": "text",
+          "prompt": "국내에서 만든 물건을 외국에 파는 활동은?",
+          "choices": [
+            "과세",
+            "저축",
+            "수입",
+            "수출"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Xuất khẩu là bán hàng ra nước ngoài; nhập khẩu là mua từ nước ngoài vào."
+        },
+        {
+          "number": 15,
+          "format": "text",
+          "prompt": "외국에서 생산된 물건을 국내로 들여와 사는 활동은?",
+          "choices": [
+            "수출",
+            "임금 지급",
+            "기부",
+            "수입"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "수입 trong ngữ cảnh thương mại nghĩa là nhập khẩu, khác với thu nhập của hộ gia đình."
+        },
+        {
+          "number": 16,
+          "format": "text",
+          "prompt": "두 나라 돈을 바꾸는 비율을 뜻하는 말은?",
+          "choices": [
+            "환율",
+            "출생률",
+            "문해율",
+            "실업률"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Tỷ giá là tỷ lệ quy đổi giữa hai đồng tiền."
+        },
+        {
+          "number": 17,
+          "format": "text",
+          "prompt": "1달러가 1,300원이라고 가정하면 100달러는 수수료 없이 몇 원인가?",
+          "choices": [
+            "130,000원",
+            "1,300,000원",
+            "13,000원",
+            "1,300원"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Đây là tỷ giá giả định để tính toán: 100 × 1.300 = 130.000 won."
+        },
+        {
+          "number": 18,
+          "format": "text",
+          "prompt": "국가와 지방자치단체가 공공서비스에 필요한 재원을 마련하기 위해 법에 따라 거두는 돈은?",
+          "choices": [
+            "세금",
+            "회비",
+            "팁",
+            "축하금"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Thuế được thu theo luật để tài trợ các nhiệm vụ và dịch vụ công."
+        },
+        {
+          "number": 19,
+          "format": "text",
+          "prompt": "공공 재정이 사용되는 사례로 가장 적절한 것은?",
+          "choices": [
+            "특정 개인의 취미 물품 구매",
+            "공공 도서관과 도로의 운영",
+            "모든 사적 빚의 자동 면제",
+            "개인 가족 여행비의 무조건 지급"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Thư viện công và đường sá là ví dụ điển hình về sử dụng ngân sách cho cộng đồng."
+        },
+        {
+          "number": 20,
+          "format": "text",
+          "prompt": "기업이 상품을 팔아 얻은 금액 전체를 무엇이라고 하는가?",
+          "choices": [
+            "매출액",
+            "임금",
+            "순이익",
+            "적자"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Doanh thu là tổng tiền bán hàng; lợi nhuận còn phải trừ chi phí."
+        },
+        {
+          "number": 21,
+          "format": "text",
+          "prompt": "매출이 100만 원이고 모든 비용이 70만 원이면 이익은?",
+          "choices": [
+            "30만 원",
+            "70만 원",
+            "100만 원",
+            "170만 원"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Lợi nhuận theo giả định của đề là doanh thu 100 − chi phí 70 = 30만 원."
+        },
+        {
+          "number": 22,
+          "format": "text",
+          "prompt": "생산자가 일을 여러 단계로 나누어 맡는 방식은?",
+          "choices": [
+            "납세",
+            "분업",
+            "소비",
+            "독점"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Phân công lao động chia công việc thành những nhiệm vụ chuyên môn khác nhau."
+        },
+        {
+          "number": 23,
+          "format": "text",
+          "prompt": "일할 의사와 능력이 있고 구직 활동을 하지만 일자리를 구하지 못한 상태는?",
+          "choices": [
+            "재학만 하는 상태",
+            "실업",
+            "은퇴 후 구직 의사 없음",
+            "무급 휴가 자체"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Thất nghiệp đòi hỏi các điều kiện về khả năng, mong muốn làm việc và tìm việc; không phải mọi người không đi làm đều là thất nghiệp."
+        },
+        {
+          "number": 24,
+          "format": "text",
+          "prompt": "필요성을 충분히 생각하지 않고 순간적인 마음으로 물건을 사는 것은?",
+          "choices": [
+            "예산 관리",
+            "가격 비교",
+            "계획 소비",
+            "충동구매"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Mua bốc đồng là quyết định theo cảm xúc tức thời mà chưa cân nhắc nhu cầu và ngân sách."
+        },
+        {
+          "number": 25,
+          "format": "text",
+          "prompt": "같은 쌀이 1kg에 4,000원, 2kg에 7,000원이다. 1kg당 가격이 더 낮은 것은?",
+          "choices": [
+            "상품 무게로 비교할 수 없다",
+            "2kg에 7,000원인 상품",
+            "두 상품의 단위 가격이 같다",
+            "1kg에 4,000원인 상품"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Gói 2 kg có giá 3.500 won/kg, thấp hơn 4.000 won/kg của gói 1 kg."
+        },
+        {
+          "number": 26,
+          "format": "text",
+          "prompt": "5,000원인 물건을 20% 할인하면 지불할 금액은?",
+          "choices": [
+            "6,000원",
+            "4,500원",
+            "4,000원",
+            "1,000원"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Giảm 20% tương đương 1.000 won; giá còn lại là 4.000 won."
+        },
+        {
+          "number": 27,
+          "format": "text",
+          "prompt": "소비자가 제품을 비교할 때 가격과 함께 확인하면 좋은 것은?",
+          "choices": [
+            "판매자의 옷 색깔만",
+            "광고의 글자 크기만",
+            "품질과 사용 조건",
+            "친구의 구매 횟수만"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Tiêu dùng hợp lý cần xem chất lượng, điều kiện sử dụng, bảo hành và tổng chi phí."
+        },
+        {
+          "number": 28,
+          "format": "text",
+          "prompt": "예금 이자율보다 물가 상승률이 높다면 저축한 돈의 실질 구매력은 어떻게 될 수 있는가?",
+          "choices": [
+            "원금 숫자가 자동으로 0이 된다",
+            "반드시 두 배가 된다",
+            "낮아질 수 있다",
+            "물가와 관계없이 늘기만 한다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Số dư danh nghĩa có thể tăng nhưng sức mua thực tế giảm nếu giá cả tăng nhanh hơn lãi tiền gửi."
+        },
+        {
+          "number": 29,
+          "format": "text",
+          "prompt": "카드 대금을 늦게 갚지 않도록 가장 먼저 확인할 것은?",
+          "choices": [
+            "카드의 색상만",
+            "결제일과 결제할 금액",
+            "광고 문구만",
+            "친구의 한도만"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Theo dõi ngày thanh toán và số tiền phải trả giúp quản lý dòng tiền và tránh trả chậm."
+        },
+        {
+          "number": 30,
+          "format": "text",
+          "prompt": "수익이 높다는 말만 듣고 금융 상품을 고르기 전에 확인할 것은?",
+          "choices": [
+            "다른 사람의 소문만",
+            "포장 디자인만",
+            "손실 위험과 수수료 및 조건",
+            "추천한 사람의 목소리만"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Cần hiểu rủi ro mất vốn, phí và điều kiện của sản phẩm; lợi nhuận quảng cáo không bảo đảm kết quả."
+        }
+      ]
+    },
+    {
+      "id": "hannest-kiip5-topic-society-2026",
+      "title": "Xã hội · 사회",
+      "category": "level-5-topics",
+      "originalTitle": "사회",
+      "topicKey": "society",
+      "topicLabel": "Xã hội",
+      "year": 2026,
+      "paperNumber": 5,
+      "kiipLevel": 5,
+      "keyType": "original",
+      "partial": false,
+      "timeLimitSeconds": 2400,
+      "sources": [
+        {
+          "title": "Bộ Nội vụ · Hệ thống số khẩn cấp",
+          "url": "https://www.mois.go.kr/eng/sub/a03/bestPractices3/screen.do"
+        },
+        {
+          "title": "Hiến pháp Hàn Quốc · KLRI",
+          "url": "https://elaw.klri.re.kr/eng_service/lawTwoView.do?hseq=1"
+        }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "format": "text",
+          "prompt": "서로 다른 문화적 배경을 가진 사람들이 함께 살아가는 사회는?",
+          "choices": [
+            "단일 직업 사회",
+            "세습 사회",
+            "폐쇄 경제",
+            "다문화 사회"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Xã hội đa văn hóa gồm những người có nền tảng văn hóa khác nhau cùng sinh sống."
+        },
+        {
+          "number": 2,
+          "format": "text",
+          "prompt": "낯선 문화의 생활 방식을 이해하려는 태도로 알맞은 것은?",
+          "choices": [
+            "그 문화의 맥락을 알아본다",
+            "자기 기준만으로 열등하다고 단정한다",
+            "모든 차이를 없애라고 요구한다",
+            "소문만 믿고 피한다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Tìm hiểu bối cảnh giúp hiểu khác biệt văn hóa; không đồng nghĩa phải chấp nhận hành vi xâm phạm quyền con người."
+        },
+        {
+          "number": 3,
+          "format": "text",
+          "prompt": "전체 인구에서 노년층의 비중이 커지는 현상은?",
+          "choices": [
+            "인구 고령화",
+            "세계화만",
+            "도시화만",
+            "출생 증가만"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Già hóa dân số là sự gia tăng tỷ trọng người cao tuổi trong tổng dân số."
+        },
+        {
+          "number": 4,
+          "format": "text",
+          "prompt": "고령화 사회에서 중요성이 커지는 서비스는?",
+          "choices": [
+            "세대 간 대화 중단",
+            "모든 복지 시설 폐쇄",
+            "고령자의 사회 참여 금지",
+            "돌봄과 건강 지원"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Nhu cầu chăm sóc, hỗ trợ sức khỏe và tham gia xã hội tăng khi dân số già hóa."
+        },
+        {
+          "number": 5,
+          "format": "text",
+          "prompt": "청년과 노인이 서로 경험과 기술을 나누는 활동의 장점은?",
+          "choices": [
+            "세대 간 이해를 높인다",
+            "세대 간 교류를 막는다",
+            "연령 차별을 강화한다",
+            "노인의 의견을 없앤다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Trao đổi giữa các thế hệ giúp hiểu nhau và tận dụng kinh nghiệm, kỹ năng bổ sung cho nhau."
+        },
+        {
+          "number": 6,
+          "format": "text",
+          "prompt": "임금을 목적으로 하지 않고 공동체를 돕기 위해 자발적으로 하는 활동은?",
+          "choices": [
+            "유급 고용 계약",
+            "불법 거래",
+            "자원봉사",
+            "강제 징수"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Tình nguyện là hoạt động tự nguyện đóng góp cho cộng đồng, không lấy tiền lương làm mục tiêu."
+        },
+        {
+          "number": 7,
+          "format": "text",
+          "prompt": "봉사 활동을 신청한 뒤 참석하기 어렵게 되었다. 가장 적절한 행동은?",
+          "choices": [
+            "다른 사람 이름으로 참석 처리한다",
+            "아무 연락 없이 빠진다",
+            "담당자에게 미리 알린다",
+            "실제로 하지 않은 시간을 적는다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Báo sớm giúp người tổ chức điều chỉnh kế hoạch; cần ghi nhận hoạt động trung thực."
+        },
+        {
+          "number": 8,
+          "format": "text",
+          "prompt": "화재가 나거나 긴급 구조·구급이 필요할 때 신고하는 번호는?",
+          "choices": [
+            "1330",
+            "110",
+            "114",
+            "119"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "119 tiếp nhận tình huống cháy, cứu nạn và cấp cứu. Đây là số khẩn cấp, không dùng cho việc không khẩn cấp."
+        },
+        {
+          "number": 9,
+          "format": "text",
+          "prompt": "범죄를 목격하여 경찰의 긴급 도움이 필요할 때 신고하는 번호는?",
+          "choices": [
+            "114",
+            "119",
+            "112",
+            "1330"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "112 là số báo cảnh sát khi có tội phạm hoặc cần hỗ trợ khẩn cấp của cảnh sát."
+        },
+        {
+          "number": 10,
+          "format": "text",
+          "prompt": "긴급 신고를 할 때 우선 전달하면 도움이 되는 내용은?",
+          "choices": [
+            "위치와 상황",
+            "관련 없는 과거 경험",
+            "신고자의 취미만",
+            "친구의 여행 일정"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Cung cấp vị trí và tình huống giúp điều phối hỗ trợ; tiếp tục làm theo hướng dẫn của tổng đài."
+        },
+        {
+          "number": 11,
+          "format": "text",
+          "prompt": "재난 대피 안내를 받았을 때 적절한 행동은?",
+          "choices": [
+            "확인되지 않은 소문만 따른다",
+            "출입 통제선을 넘는다",
+            "공식 안내를 확인하고 안전하게 이동한다",
+            "촬영을 위해 위험 장소에 간다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Hãy theo thông tin và hướng dẫn chính thức, tránh đến khu vực nguy hiểm để quay phim."
+        },
+        {
+          "number": 12,
+          "format": "text",
+          "prompt": "공동주택에서 늦은 밤 큰 소음이 생겼을 때 먼저 할 만한 방법은?",
+          "choices": [
+            "이웃의 주소를 온라인에 공개한다",
+            "관리사무소 등을 통해 차분히 조정한다",
+            "보복 소음을 낸다",
+            "문을 부수며 항의한다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Trao đổi bình tĩnh hoặc nhờ ban quản lý hỗ trợ giúp giảm xung đột; tránh trả đũa và xâm phạm riêng tư."
+        },
+        {
+          "number": 13,
+          "format": "text",
+          "prompt": "분리배출 방법이 지역마다 다를 수 있을 때 확인할 곳은?",
+          "choices": [
+            "상품 광고만",
+            "거주지 지자체의 안내",
+            "오래된 소문만",
+            "외국 도시의 규정만"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Cách phân loại và lịch thu gom có thể khác theo địa phương, nên kiểm tra hướng dẫn nơi cư trú."
+        },
+        {
+          "number": 14,
+          "format": "text",
+          "prompt": "음식물과 일반 쓰레기를 버릴 때 바람직한 행동은?",
+          "choices": [
+            "이웃의 봉투에 몰래 넣는다",
+            "아무 곳에나 섞어 버린다",
+            "지역의 분리배출 기준을 따른다",
+            "하천에 흘려보낸다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Cần phân loại theo quy định địa phương và dùng phương thức thu gom phù hợp."
+        },
+        {
+          "number": 15,
+          "format": "text",
+          "prompt": "일회용품 사용을 줄이는 생활 습관은?",
+          "choices": [
+            "물건마다 새 비닐을 쓴다",
+            "포장을 더 많이 요구한다",
+            "재사용 가능한 장바구니를 쓴다",
+            "멀쩡한 용기를 바로 버린다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Dùng túi tái sử dụng giúp giảm lượng đồ dùng một lần và rác thải."
+        },
+        {
+          "number": 16,
+          "format": "text",
+          "prompt": "가정에서 돌봄과 집안일을 나누는 바람직한 기준은?",
+          "choices": [
+            "성별만으로 모두 정한다",
+            "가족의 상황과 능력을 함께 고려한다",
+            "의견을 말할 기회를 없앤다",
+            "한 사람에게 항상 떠넘긴다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Phân chia việc nhà và chăm sóc nên dựa trên hoàn cảnh, năng lực và trao đổi giữa các thành viên."
+        },
+        {
+          "number": 17,
+          "format": "text",
+          "prompt": "장애가 있는 사람의 이동을 돕는 시설로 가장 적절한 것은?",
+          "choices": [
+            "출입구의 불필요한 높은 턱",
+            "안내가 없는 계단만",
+            "막아 놓은 점자블록",
+            "경사로와 엘리베이터"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Đường dốc và thang máy hỗ trợ tiếp cận. Không đặt vật cản trên lối dẫn đường dành cho người khiếm thị."
+        },
+        {
+          "number": 18,
+          "format": "text",
+          "prompt": "버스의 교통약자 배려석을 이용할 때 알맞은 태도는?",
+          "choices": [
+            "더 필요한 사람이 이용하도록 배려한다",
+            "도움 요청을 비웃는다",
+            "자리 이용을 촬영해 공개한다",
+            "짐을 계속 올려 둔다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Ghế ưu tiên nhằm hỗ trợ người cần trợ giúp; nên quan sát và nhường chỗ khi phù hợp."
+        },
+        {
+          "number": 19,
+          "format": "text",
+          "prompt": "공공 도서관을 함께 이용할 때 적절한 행동은?",
+          "choices": [
+            "다른 사람 좌석을 계속 차지한다",
+            "대출 기한과 이용 규칙을 지킨다",
+            "큰 소리로 통화한다",
+            "책의 필요한 부분을 찢는다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Tuân thủ hạn mượn và quy định giúp mọi người cùng sử dụng thư viện công bằng."
+        },
+        {
+          "number": 20,
+          "format": "text",
+          "prompt": "인터넷에서 놀라운 뉴스를 보았다. 공유하기 전에 할 일은?",
+          "choices": [
+            "사진이 있으면 모두 사실로 본다",
+            "댓글 수만 믿는다",
+            "제목만 보고 퍼뜨린다",
+            "출처와 날짜를 확인한다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Kiểm tra nguồn, ngày đăng và nội dung giúp tránh lan truyền tin sai hoặc tin cũ."
+        },
+        {
+          "number": 21,
+          "format": "text",
+          "prompt": "통계 자료를 읽을 때 함께 확인해야 하는 것은?",
+          "choices": [
+            "작성자의 사진만",
+            "조사 대상과 조사 시점",
+            "그래프의 색깔만",
+            "공유한 사람의 수만"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Đối tượng khảo sát, thời điểm, đơn vị và phương pháp ảnh hưởng đến cách hiểu số liệu."
+        },
+        {
+          "number": 22,
+          "format": "text",
+          "prompt": "자신의 비밀번호를 관리하는 방법으로 알맞은 것은?",
+          "choices": [
+            "다른 사람과 공유하지 않는다",
+            "모든 계정에 생일만 쓴다",
+            "여러 곳에 공개한다",
+            "모르는 사람에게 전송한다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Mật khẩu là thông tin bảo mật; không chia sẻ và nên dùng mật khẩu mạnh, khác nhau cho các tài khoản."
+        },
+        {
+          "number": 23,
+          "format": "text",
+          "prompt": "개인 정보를 요구하는 출처 불명의 문자 링크를 받았다. 적절한 행동은?",
+          "choices": [
+            "바로 신분증 사진을 올린다",
+            "인증번호를 답장한다",
+            "링크 대신 공식 경로로 사실을 확인한다",
+            "지인에게도 누르라고 한다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Dùng ứng dụng hoặc địa chỉ chính thức để xác minh, tránh gửi giấy tờ hay mã xác thực qua liên kết lạ."
+        },
+        {
+          "number": 24,
+          "format": "text",
+          "prompt": "직장에서 문화적 차이 때문에 오해가 생겼다. 우선 할 일은?",
+          "choices": [
+            "대화를 영구히 피한다",
+            "서로의 의도를 차분히 확인한다",
+            "모든 동료에게 소문을 낸다",
+            "국적만으로 상대를 판단한다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Hỏi rõ ý định và bối cảnh giúp giải quyết hiểu lầm mà không quy chụp theo quốc tịch."
+        },
+        {
+          "number": 25,
+          "format": "text",
+          "prompt": "공동체 문제를 해결하려는 주민 회의에서 필요한 태도는?",
+          "choices": [
+            "반대 의견을 모두 삭제한다",
+            "관련된 사람들의 의견을 듣는다",
+            "가장 큰 소리를 낸 사람만 따른다",
+            "확인할 자료를 숨긴다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Quyết định của cộng đồng cần lắng nghe các bên chịu ảnh hưởng và xem xét thông tin liên quan."
+        },
+        {
+          "number": 26,
+          "format": "text",
+          "prompt": "기부를 하기 전에 확인하면 좋은 사항은?",
+          "choices": [
+            "연예인의 옷차림만",
+            "포스터 크기만",
+            "광고 음악만",
+            "단체의 신뢰성과 사용 목적"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Nên xác minh tổ chức và mục đích sử dụng tiền để việc đóng góp đạt hiệu quả."
+        },
+        {
+          "number": 27,
+          "format": "text",
+          "prompt": "건강보험과 같은 사회보험의 기본 취지와 가까운 것은?",
+          "choices": [
+            "질병 등 사회적 위험의 부담을 함께 나눈다",
+            "모든 사람이 언제나 같은 병에 걸린다",
+            "개인의 의료 이용을 모두 금지한다",
+            "병원비가 어떤 경우에도 전혀 없다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Bảo hiểm xã hội phân chia gánh nặng rủi ro giữa các thành viên; không có nghĩa mọi chi phí đều được miễn."
+        },
+        {
+          "number": 28,
+          "format": "text",
+          "prompt": "성별에 관계없이 능력과 기회를 존중하는 사회적 가치는?",
+          "choices": [
+            "권력 세습",
+            "성평등",
+            "신분 차별",
+            "성별 고정관념"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Bình đẳng giới tôn trọng cơ hội và năng lực của mỗi người thay vì áp đặt vai trò theo giới."
+        },
+        {
+          "number": 29,
+          "format": "text",
+          "prompt": "새로 이사 온 이웃이 지역 정보를 잘 모른다. 적절한 도움은?",
+          "choices": [
+            "확인하지 않은 소문만 전한다",
+            "개인 서류를 대신 공개한다",
+            "국적 때문에 도움을 거절한다",
+            "주민센터 등 확인 가능한 정보를 알려 준다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Chỉ dẫn đến nguồn thông tin đáng tin cậy hỗ trợ người mới hòa nhập mà vẫn tôn trọng riêng tư."
+        },
+        {
+          "number": 30,
+          "format": "text",
+          "prompt": "지역 행사 뒤 공동 공간을 사용하는 태도로 알맞은 것은?",
+          "choices": [
+            "쓰레기를 정리하고 시설을 원래대로 둔다",
+            "남은 물건을 통로에 쌓는다",
+            "시설을 허락 없이 가져간다",
+            "다음 이용자에게 모두 떠넘긴다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Dọn sạch và trả lại hiện trạng giúp bảo vệ tài sản chung và tôn trọng người sử dụng tiếp theo."
+        }
+      ]
+    },
+    {
+      "id": "hannest-kiip5-topic-culture-2026",
+      "title": "Văn hóa · 문화",
+      "category": "level-5-topics",
+      "originalTitle": "문화",
+      "topicKey": "culture",
+      "topicLabel": "Văn hóa",
+      "year": 2026,
+      "paperNumber": 6,
+      "kiipLevel": 5,
+      "keyType": "original",
+      "partial": false,
+      "timeLimitSeconds": 2400,
+      "sources": [
+        {
+          "title": "UNESCO · Di sản phi vật thể của Hàn Quốc",
+          "url": "https://ich.unesco.org/en-state/republic-of-korea-KR"
+        },
+        {
+          "title": "Bộ Nội vụ · Biểu tượng quốc gia",
+          "url": "https://www.mois.go.kr/eng/sub/a03/nationalSymbol/screen.do"
+        }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "format": "text",
+          "prompt": "설날에 새해를 맞으며 흔히 먹는 음식은?",
+          "choices": [
+            "떡국",
+            "송편",
+            "팥빙수",
+            "냉면"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Tteokguk, canh bánh gạo, là món ăn gắn với Seollal, Tết âm lịch Hàn Quốc."
+        },
+        {
+          "number": 2,
+          "format": "text",
+          "prompt": "추석과 대표적으로 연결되는 떡은?",
+          "choices": [
+            "백설기만",
+            "인절미만",
+            "송편",
+            "가래떡만"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Songpyeon là bánh gạo hình bán nguyệt thường được làm vào Chuseok."
+        },
+        {
+          "number": 3,
+          "format": "text",
+          "prompt": "설날에 어른께 새해 인사를 드리며 절하는 풍습은?",
+          "choices": [
+            "강강술래",
+            "세배",
+            "김장",
+            "돌잡이"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "세배 là nghi thức cúi lạy chúc Tết người lớn vào Seollal."
+        },
+        {
+          "number": 4,
+          "format": "text",
+          "prompt": "가을의 수확을 감사하고 가족이 모이는 명절은?",
+          "choices": [
+            "현충일",
+            "추석",
+            "한글날",
+            "어린이날"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Chuseok là lễ truyền thống mùa thu gắn với thu hoạch và sum họp gia đình."
+        },
+        {
+          "number": 5,
+          "format": "text",
+          "prompt": "한국의 전통 의복을 가리키는 말은?",
+          "choices": [
+            "한옥",
+            "한지",
+            "한복",
+            "한식"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "한복 là trang phục truyền thống; 한옥 là nhà, 한지 là giấy truyền thống và 한식 là ẩm thực Hàn."
+        },
+        {
+          "number": 6,
+          "format": "text",
+          "prompt": "한국의 전통 가옥을 무엇이라고 하는가?",
+          "choices": [
+            "한글",
+            "한지",
+            "한옥",
+            "한복"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Hanok là nhà truyền thống Hàn Quốc, thường sử dụng vật liệu tự nhiên và kết cấu gỗ."
+        },
+        {
+          "number": 7,
+          "format": "text",
+          "prompt": "바닥을 따뜻하게 하여 실내를 데우는 한국의 전통 난방 방식은?",
+          "choices": [
+            "온돌",
+            "대청마루",
+            "처마",
+            "담장"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Ondol sưởi ấm qua sàn; 대청마루 là không gian sàn gỗ, không phải bộ phận sưởi."
+        },
+        {
+          "number": 8,
+          "format": "text",
+          "prompt": "한옥에서 여름철 통풍과 휴식에 도움이 되는 공간은?",
+          "choices": [
+            "굴뚝 안",
+            "장독 안",
+            "아궁이",
+            "대청마루"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "대청마루 là không gian sàn gỗ thông thoáng, thích hợp sinh hoạt và nghỉ ngơi mùa nóng."
+        },
+        {
+          "number": 9,
+          "format": "text",
+          "prompt": "겨울을 대비해 김치를 많이 담그고 나누는 문화는?",
+          "choices": [
+            "김장",
+            "성묘",
+            "세배",
+            "돌잡이"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Kimjang là việc làm và chia sẻ kimchi để chuẩn bị cho mùa đông."
+        },
+        {
+          "number": 10,
+          "format": "text",
+          "prompt": "김치를 만드는 과정과 가장 관계가 깊은 것은?",
+          "choices": [
+            "도금",
+            "증류만",
+            "제련",
+            "발효"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Kimchi là thực phẩm lên men; fermentation tạo hương vị và biến đổi thành phần thực phẩm."
+        },
+        {
+          "number": 11,
+          "format": "text",
+          "prompt": "된장과 간장의 전통적인 주원료는?",
+          "choices": [
+            "감자만",
+            "콩",
+            "귤",
+            "밀가루만"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Đậu nành là nguyên liệu chính của doenjang và ganjang truyền thống."
+        },
+        {
+          "number": 12,
+          "format": "text",
+          "prompt": "반찬을 여러 가지 놓고 밥과 함께 먹는 식사 문화를 가리키는 설명은?",
+          "choices": [
+            "모든 반찬이 후식이다",
+            "주식과 반찬이 함께 구성된다",
+            "국은 언제나 음료로만 쓴다",
+            "밥은 항상 간식이다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Bữa ăn Hàn thường gồm cơm, canh và nhiều món ăn kèm; 반찬 là món ăn kèm."
+        },
+        {
+          "number": 13,
+          "format": "text",
+          "prompt": "아기의 첫 번째 생일을 축하하는 잔치는?",
+          "choices": [
+            "졸업식",
+            "환갑잔치",
+            "돌잔치",
+            "회혼례"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "돌잔치 là tiệc mừng sinh nhật đầu tiên của em bé."
+        },
+        {
+          "number": 14,
+          "format": "text",
+          "prompt": "돌잔치에서 아기가 물건을 고르게 하며 미래를 상징적으로 점쳐 보는 풍습은?",
+          "choices": [
+            "차례",
+            "세배",
+            "씨름",
+            "돌잡이"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "돌잡이 là nghi thức cho trẻ chọn đồ vật mang ý nghĩa tượng trưng; không phải dự đoán khoa học về tương lai."
+        },
+        {
+          "number": 15,
+          "format": "text",
+          "prompt": "조상의 묘를 찾아 돌보고 인사하는 일을 무엇이라고 하는가?",
+          "choices": [
+            "입학",
+            "이사",
+            "진학",
+            "성묘"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "성묘 là đi thăm và chăm sóc mộ tổ tiên, thường được thực hiện vào những dịp truyền thống."
+        },
+        {
+          "number": 16,
+          "format": "text",
+          "prompt": "한 사람이 소리하고 고수가 북 장단을 맞추는 전통 공연은?",
+          "choices": [
+            "사물놀이",
+            "판소리",
+            "강강술래",
+            "탈춤"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Pansori gồm người hát kể chuyện và người đánh trống giữ nhịp, gọi là 고수."
+        },
+        {
+          "number": 17,
+          "format": "text",
+          "prompt": "꽹과리·징·장구·북의 네 악기로 연주하는 공연은?",
+          "choices": [
+            "가곡 독창",
+            "판소리",
+            "사물놀이",
+            "가야금 독주"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Samulnori sử dụng bốn nhạc cụ gõ: kkwaenggwari, jing, janggu và buk."
+        },
+        {
+          "number": 18,
+          "format": "text",
+          "prompt": "가면을 쓰고 춤과 연기를 하는 전통 공연은?",
+          "choices": [
+            "탈춤",
+            "서예",
+            "자수",
+            "도예"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "탈 là mặt nạ; 탈춤 là múa mặt nạ, kết hợp động tác, kịch và thường có yếu tố châm biếm."
+        },
+        {
+          "number": 19,
+          "format": "text",
+          "prompt": "사람들이 손을 잡고 원을 이루어 춤추는 전통 놀이는?",
+          "choices": [
+            "씨름",
+            "투호",
+            "강강술래",
+            "윷놀이"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Ganggangsullae có hình thức múa vòng tròn, nổi bật với việc nắm tay nhau."
+        },
+        {
+          "number": 20,
+          "format": "text",
+          "prompt": "모래판에서 샅바를 잡고 상대를 넘어뜨리는 전통 경기는?",
+          "choices": [
+            "택견만",
+            "양궁",
+            "투호",
+            "씨름"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Ssireum là môn vật truyền thống, dùng đai 샅바 quấn quanh người thi đấu."
+        },
+        {
+          "number": 21,
+          "format": "text",
+          "prompt": "네 개의 윷을 던져 말을 움직이는 전통 놀이는?",
+          "choices": [
+            "윷놀이",
+            "제기차기",
+            "연날리기",
+            "널뛰기"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Yutnori dùng bốn thanh gỗ 윷 để quyết định số bước đi trên bàn chơi."
+        },
+        {
+          "number": 22,
+          "format": "text",
+          "prompt": "발로 제기를 차며 노는 전통 놀이는?",
+          "choices": [
+            "제기차기",
+            "바둑",
+            "투호",
+            "장기"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "제기차기 là đá cầu truyền thống, giữ cho 제기 không rơi xuống đất."
+        },
+        {
+          "number": 23,
+          "format": "text",
+          "prompt": "통 안에 화살 모양의 막대를 던져 넣는 놀이는?",
+          "choices": [
+            "씨름",
+            "투호",
+            "윷놀이",
+            "널뛰기"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Tuho là trò ném que giống mũi tên vào bình hoặc ống đặt ở một khoảng cách."
+        },
+        {
+          "number": 24,
+          "format": "text",
+          "prompt": "붓과 먹으로 글씨를 쓰는 예술은?",
+          "choices": [
+            "도예",
+            "탈춤",
+            "서예",
+            "자수"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "서예 là thư pháp bằng bút lông và mực; 도예 là nghệ thuật gốm."
+        },
+        {
+          "number": 25,
+          "format": "text",
+          "prompt": "닥나무 섬유 등을 이용해 만드는 한국의 전통 종이는?",
+          "choices": [
+            "한식",
+            "한지",
+            "한복",
+            "한옥"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Hanji là giấy truyền thống, thường làm từ sợi vỏ cây dâu giấy."
+        },
+        {
+          "number": 26,
+          "format": "text",
+          "prompt": "한글의 창제와 가치를 기념하는 10월 9일은?",
+          "choices": [
+            "한글날",
+            "개천절",
+            "현충일",
+            "광복절"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Ngày 9/10 là Hangul Day, kỷ niệm sự ra đời và giá trị của chữ Hangeul."
+        },
+        {
+          "number": 27,
+          "format": "text",
+          "prompt": "전통 음식을 다른 문화의 친구에게 소개할 때 적절한 태도는?",
+          "choices": [
+            "식습관을 비웃는다",
+            "싫어해도 억지로 먹인다",
+            "모든 사람이 같은 음식을 먹어야 한다고 한다",
+            "재료와 먹는 방법을 설명하고 선택을 존중한다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Giới thiệu nguyên liệu và cách dùng, đồng thời tôn trọng dị ứng, tín ngưỡng và lựa chọn của người khác."
+        },
+        {
+          "number": 28,
+          "format": "text",
+          "prompt": "가정 방문 때 신발을 벗는지 확실하지 않다면 어떻게 하는 것이 좋은가?",
+          "choices": [
+            "집주인의 안내를 확인한다",
+            "묻지 않고 신발을 식탁에 올린다",
+            "문화가 다르다고 다투기부터 한다",
+            "바닥 상태와 상관없이 뛰어다닌다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Phong tục sinh hoạt có thể khác nhau; hỏi chủ nhà là cách ứng xử lịch sự và tránh hiểu lầm."
+        },
+        {
+          "number": 29,
+          "format": "text",
+          "prompt": "어른에게 물건을 건네거나 받을 때 흔히 공손함을 나타내는 방법은?",
+          "choices": [
+            "뒤돌아선 채 바닥에 놓는다",
+            "상대의 말을 끊으며 빼앗는다",
+            "멀리서 던진다",
+            "두 손을 사용하거나 한 손을 받친다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Trong giao tiếp Hàn, dùng hai tay hoặc đỡ tay còn lại thường biểu thị sự kính trọng."
+        },
+        {
+          "number": 30,
+          "format": "text",
+          "prompt": "문화유산을 관람할 때 지켜야 할 태도는?",
+          "choices": [
+            "금지된 곳에 낙서한다",
+            "보존 안내와 출입 제한을 따른다",
+            "기념으로 일부를 떼어 간다",
+            "전시물을 허락 없이 옮긴다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Tuân thủ hướng dẫn bảo tồn giúp gìn giữ di sản để người khác và thế hệ sau tiếp tục thưởng thức."
+        }
+      ]
+    },
+    {
+      "id": "hannest-kiip5-topic-geography-2026",
+      "title": "Địa lý · 지리",
+      "category": "level-5-topics",
+      "originalTitle": "지리",
+      "topicKey": "geography",
+      "topicLabel": "Địa lý",
+      "year": 2026,
+      "paperNumber": 7,
+      "kiipLevel": 5,
+      "keyType": "original",
+      "partial": false,
+      "timeLimitSeconds": 2400,
+      "sources": [
+        {
+          "title": "Tổng cục Du lịch Hàn Quốc · Địa lý và biểu tượng",
+          "url": "https://english1.visitkorea.or.kr/enu/AKR/AK_ENG_1_1.jsp"
+        },
+        {
+          "title": "Cục Khí tượng Hàn Quốc · Khí hậu",
+          "url": "https://www.kma.go.kr/neng/biz/climate/climate-of-korea.do"
+        }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "format": "text",
+          "prompt": "삼면이 바다이고 한쪽이 대륙에 이어진 땅을 무엇이라고 하는가?",
+          "choices": [
+            "분지",
+            "반도",
+            "삼각주",
+            "사막"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Bán đảo là phần đất có ba phía giáp biển và một phía nối với lục địa."
+        },
+        {
+          "number": 2,
+          "format": "text",
+          "prompt": "한반도의 동쪽에 있는 바다는?",
+          "choices": [
+            "동해",
+            "서해",
+            "지중해",
+            "북해"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Phía đông bán đảo Triều Tiên là biển được Hàn Quốc gọi là 동해."
+        },
+        {
+          "number": 3,
+          "format": "text",
+          "prompt": "한반도의 서쪽에 있으며 황해라고도 불리는 바다는?",
+          "choices": [
+            "카리브해",
+            "서해",
+            "남해",
+            "동해"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "서해, còn gọi là 황해, nằm phía tây bán đảo."
+        },
+        {
+          "number": 4,
+          "format": "text",
+          "prompt": "한국의 남쪽 해안을 따라 있는 바다를 일반적으로 무엇이라고 하는가?",
+          "choices": [
+            "남해",
+            "서해",
+            "동해",
+            "북극해"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "남해 chỉ vùng biển phía nam Hàn Quốc."
+        },
+        {
+          "number": 5,
+          "format": "text",
+          "prompt": "조수 간만의 차가 크고 갯벌이 넓게 발달한 해안은 주로 어디인가?",
+          "choices": [
+            "내륙 산지",
+            "서해안",
+            "한강 상류",
+            "동해안 전체만"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Bờ biển phía tây có chênh lệch thủy triều lớn và nhiều bãi triều."
+        },
+        {
+          "number": 6,
+          "format": "text",
+          "prompt": "밀물 때 바닷물에 잠기고 썰물 때 드러나는 넓고 평평한 땅은?",
+          "choices": [
+            "빙하",
+            "갯벌",
+            "분화구",
+            "사막"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "갯벌 là bãi triều, thường lộ ra khi nước rút và ngập khi triều lên."
+        },
+        {
+          "number": 7,
+          "format": "text",
+          "prompt": "화산 활동으로 형성되었으며 한라산이 있는 섬은?",
+          "choices": [
+            "강화도",
+            "여의도",
+            "제주도",
+            "남이섬"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Jeju là đảo núi lửa và có núi Hallasan."
+        },
+        {
+          "number": 8,
+          "format": "text",
+          "prompt": "남한에서 가장 높은 산은?",
+          "choices": [
+            "남산",
+            "무등산",
+            "북한산",
+            "한라산"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Hallasan trên đảo Jeju là đỉnh núi cao nhất Hàn Quốc, xét phần lãnh thổ phía nam bán đảo."
+        },
+        {
+          "number": 9,
+          "format": "text",
+          "prompt": "서울을 가로질러 흐르는 대표적인 강은?",
+          "choices": [
+            "영산강",
+            "낙동강",
+            "금강",
+            "한강"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Sông Hàn chảy qua Seoul và đổ về vùng biển phía tây."
+        },
+        {
+          "number": 10,
+          "format": "text",
+          "prompt": "경상도 지역을 지나 부산 쪽으로 흐르는 큰 강은?",
+          "choices": [
+            "낙동강",
+            "한강",
+            "대동강",
+            "압록강"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Nakdong chảy qua vùng Yeongnam và có cửa sông tại khu vực Busan."
+        },
+        {
+          "number": 11,
+          "format": "text",
+          "prompt": "대전·공주·부여 등 충청 지역과 관련이 깊은 강은?",
+          "choices": [
+            "영산강",
+            "한강",
+            "금강",
+            "두만강"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Sông Geum gắn với vùng Chungcheong, trong đó có Daejeon, Gongju và Buyeo."
+        },
+        {
+          "number": 12,
+          "format": "text",
+          "prompt": "광주와 전라남도 지역을 흐르는 대표적인 강은?",
+          "choices": [
+            "임진강",
+            "낙동강",
+            "영산강",
+            "소양강"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Yeongsan là dòng sông quan trọng của vùng Gwangju và Jeollanam-do."
+        },
+        {
+          "number": 13,
+          "format": "text",
+          "prompt": "강원 동해안 쪽에 길게 이어지는 대표적인 산맥은?",
+          "choices": [
+            "안데스산맥",
+            "알프스산맥",
+            "히말라야산맥",
+            "태백산맥"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Dãy Taebaek chạy dọc khu vực phía đông bán đảo, gắn với vùng núi Gangwon."
+        },
+        {
+          "number": 14,
+          "format": "text",
+          "prompt": "산으로 둘러싸여 주변보다 낮은 지형은?",
+          "choices": [
+            "절벽",
+            "분지",
+            "반도",
+            "해협"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "분지 là bồn địa, vùng đất thấp được bao quanh bởi địa hình cao hơn."
+        },
+        {
+          "number": 15,
+          "format": "text",
+          "prompt": "바다를 사이에 두고 두 육지 사이가 좁아진 곳은?",
+          "choices": [
+            "해협",
+            "평야",
+            "분지",
+            "고원"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "해협 là eo biển, nối các vùng nước giữa những phần đất gần nhau."
+        },
+        {
+          "number": 16,
+          "format": "text",
+          "prompt": "한국의 계절에 대한 일반적인 설명으로 알맞은 것은?",
+          "choices": [
+            "일 년 내내 같은 기온이다",
+            "여름에도 비가 전혀 오지 않는다",
+            "봄·여름·가을·겨울이 구별된다",
+            "겨울이 존재하지 않는다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Hàn Quốc có bốn mùa phân biệt, dù thời tiết từng năm và từng vùng có thể khác nhau."
+        },
+        {
+          "number": 17,
+          "format": "text",
+          "prompt": "여름철 일정 기간 비가 자주 내리는 현상을 무엇이라고 하는가?",
+          "choices": [
+            "결빙",
+            "장마",
+            "황사",
+            "서리"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "장마 là mùa mưa đầu hè, gắn với dải mưa hoạt động trên bán đảo."
+        },
+        {
+          "number": 18,
+          "format": "text",
+          "prompt": "한국의 겨울 날씨에 대한 일반적인 설명은?",
+          "choices": [
+            "태풍만 매일 온다",
+            "항상 고온 다습하다",
+            "춥고 건조한 날이 많다",
+            "기온이 여름보다 언제나 높다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Mùa đông Hàn Quốc thường lạnh và khô; đây là đặc trưng khí hậu, không phải dự báo cho từng ngày."
+        },
+        {
+          "number": 19,
+          "format": "text",
+          "prompt": "한국의 여름 날씨에 대한 일반적인 설명은?",
+          "choices": [
+            "덥고 습한 날이 많다",
+            "매일 눈이 쌓인다",
+            "항상 춥고 건조하다",
+            "강수량이 항상 0이다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Mùa hè thường nóng ẩm và có lượng mưa đáng kể."
+        },
+        {
+          "number": 20,
+          "format": "text",
+          "prompt": "가을 산에서 나뭇잎이 붉거나 노랗게 변하는 현상은?",
+          "choices": [
+            "해일",
+            "태풍",
+            "장마",
+            "단풍"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "단풍 là hiện tượng lá đổi màu vào mùa thu."
+        },
+        {
+          "number": 21,
+          "format": "text",
+          "prompt": "대한민국의 수도이자 정치·경제·문화의 중심 도시 중 하나는?",
+          "choices": [
+            "서울",
+            "전주",
+            "강릉",
+            "목포"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Seoul là thủ đô của Hàn Quốc và là trung tâm lớn về nhiều mặt."
+        },
+        {
+          "number": 22,
+          "format": "text",
+          "prompt": "서울·인천·경기도를 함께 부르는 지역 명칭은?",
+          "choices": [
+            "수도권",
+            "호남권",
+            "제주권",
+            "영남권"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Vùng thủ đô gồm Seoul, Incheon và tỉnh Gyeonggi."
+        },
+        {
+          "number": 23,
+          "format": "text",
+          "prompt": "서울의 서쪽에 있으며 국제공항과 항구가 있는 광역시는?",
+          "choices": [
+            "대전",
+            "광주",
+            "대구",
+            "인천"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Incheon nằm phía tây Seoul và có cảng, sân bay quốc tế quan trọng."
+        },
+        {
+          "number": 24,
+          "format": "text",
+          "prompt": "한국 남동쪽의 대표적인 항구 도시로 해운대가 있는 곳은?",
+          "choices": [
+            "춘천",
+            "청주",
+            "전주",
+            "부산"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Busan là thành phố cảng lớn ở đông nam, nơi có bãi biển Haeundae."
+        },
+        {
+          "number": 25,
+          "format": "text",
+          "prompt": "여러 중앙행정기관이 이전하여 행정 기능을 담당하는 특별자치시는?",
+          "choices": [
+            "속초",
+            "포항",
+            "세종",
+            "군산"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Sejong là thành phố tự trị đặc biệt tập trung nhiều cơ quan hành chính trung ương."
+        },
+        {
+          "number": 26,
+          "format": "text",
+          "prompt": "옛 신라의 유적을 답사하려고 할 때 대표적으로 찾는 도시는?",
+          "choices": [
+            "김포",
+            "평택",
+            "원주",
+            "경주"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Gyeongju là cố đô Silla, phù hợp cho việc tìm hiểu các di tích thời vương quốc này."
+        },
+        {
+          "number": 27,
+          "format": "text",
+          "prompt": "전라도 지역을 부르는 전통적인 지역 명칭은?",
+          "choices": [
+            "관동",
+            "관서",
+            "호남",
+            "영남"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "호남 là tên vùng truyền thống dùng cho khu vực Jeolla."
+        },
+        {
+          "number": 28,
+          "format": "text",
+          "prompt": "경상도 지역을 부르는 전통적인 지역 명칭은?",
+          "choices": [
+            "관북",
+            "영남",
+            "호서",
+            "호남"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "영남 là tên vùng truyền thống dùng cho khu vực Gyeongsang."
+        },
+        {
+          "number": 29,
+          "format": "text",
+          "prompt": "충청도 지역과 관련된 전통적인 지역 명칭은?",
+          "choices": [
+            "호서",
+            "영남",
+            "호남",
+            "관북"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "호서 là tên vùng truyền thống gắn với Chungcheong."
+        },
+        {
+          "number": 30,
+          "format": "text",
+          "prompt": "지도의 축척과 방향을 함께 확인하는 이유는?",
+          "choices": [
+            "날씨를 무조건 예측하기 위해서",
+            "실제 거리와 위치 관계를 파악하기 위해서",
+            "인구를 정확히 세기 위해서",
+            "건물의 가격을 결정하기 위해서"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Tỷ lệ bản đồ cho biết quan hệ với khoảng cách thực; hướng giúp xác định vị trí tương đối."
+        }
+      ]
+    },
+    {
+      "id": "hannest-kiip5-topic-korean-2026",
+      "title": "Tiếng Hàn · 한국어",
+      "category": "level-5-topics",
+      "originalTitle": "한국어",
+      "topicKey": "korean",
+      "topicLabel": "Tiếng Hàn",
+      "year": 2026,
+      "paperNumber": 8,
+      "kiipLevel": 5,
+      "keyType": "original",
+      "partial": false,
+      "timeLimitSeconds": 2400,
+      "sources": [
+        {
+          "title": "Từ điển học tiếng Hàn · Quốc lập Quốc ngữ viện",
+          "url": "https://krdict.korean.go.kr/vie/mainAction"
+        }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "format": "text",
+          "prompt": "비가 많이 왔다. 그런데도 행사는 열렸다. 두 문장을 알맞게 연결한 것은?",
+          "choices": [
+            "비가 많이 오려고 행사는 열렸다.",
+            "비가 많이 오자마자 행사는 끝났다.",
+            "비가 많이 왔기 때문에 행사는 취소됐다.",
+            "비가 많이 왔는데도 행사는 열렸다."
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "-는데도 diễn tả kết quả trái với điều dự đoán: dù mưa lớn, sự kiện vẫn diễn ra. Các lựa chọn khác thay đổi ý gốc."
+        },
+        {
+          "number": 2,
+          "format": "text",
+          "prompt": "“서류를 빠뜨리지 않도록 목록을 확인하세요.”에서 ‘-도록’이 나타내는 뜻은?",
+          "choices": [
+            "목적",
+            "추측의 정도",
+            "서로 다른 두 대상의 비교",
+            "과거 경험"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Trong câu này, -도록 biểu thị mục đích: kiểm tra danh sách để không bỏ sót giấy tờ."
+        },
+        {
+          "number": 3,
+          "format": "text",
+          "prompt": "의무를 나타내는 문장은 어느 것인가?",
+          "choices": [
+            "신청서에 서명하고 싶습니다.",
+            "신청서에 서명할 것 같습니다.",
+            "신청서에 서명해야 합니다.",
+            "신청서에 서명한 적이 있습니다."
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "-아/어야 하다 biểu thị việc phải làm. Ba câu còn lại diễn tả kinh nghiệm, suy đoán và mong muốn."
+        },
+        {
+          "number": 4,
+          "format": "text",
+          "prompt": "금지를 나타내는 안내는 어느 것인가?",
+          "choices": [
+            "이곳에 주차한 적이 있습니다.",
+            "이곳에 주차하면 안 됩니다.",
+            "이곳에 주차하고 싶습니다.",
+            "이곳에 주차해도 됩니다."
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "-(으)면 안 되다 nghĩa là không được làm. -아/어도 되다 cho phép làm, có ý ngược lại."
+        },
+        {
+          "number": 5,
+          "format": "text",
+          "prompt": "“저는 한국 박물관에 가 본 적이 있습니다.”는 무엇을 말하는가?",
+          "choices": [
+            "상대방의 명령",
+            "미래의 의무",
+            "현재의 금지",
+            "과거의 경험"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "V-아/어 본 적이 있다 diễn tả đã từng trải nghiệm việc gì trong quá khứ."
+        },
+        {
+          "number": 6,
+          "format": "text",
+          "prompt": "직원이 “내일까지 제출하세요.”라고 말했다. 간접 인용으로 맞는 것은?",
+          "choices": [
+            "직원이 내일까지 제출한다고 했다.",
+            "직원이 내일까지 제출하라고 했다.",
+            "직원이 내일까지 제출하냐고 했다.",
+            "직원이 내일까지 제출하자고 했다."
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Mệnh lệnh được dẫn gián tiếp bằng -(으)라고 하다; -자고 là lời rủ, -냐고 là câu hỏi."
+        },
+        {
+          "number": 7,
+          "format": "text",
+          "prompt": "“한국어로 발표하려면 연습이 필요합니다.”에서 ‘-려면’의 의미는?",
+          "choices": [
+            "어떤 일을 하려는 경우의 조건",
+            "상대방에 대한 금지",
+            "확실한 과거 사실",
+            "끝난 일에 대한 후회"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "V-(으)려면 nêu điều kiện để thực hiện mục tiêu: muốn trình bày bằng tiếng Hàn thì cần luyện tập."
+        },
+        {
+          "number": 8,
+          "format": "text",
+          "prompt": "“어제 서류를 준비하느라고 잠을 늦게 잤어요.”에서 늦게 잔 이유는?",
+          "choices": [
+            "일찍 잠들고 싶지 않았기 때문이다.",
+            "서류를 전혀 준비하지 않았기 때문이다.",
+            "서류를 이미 잃어버렸기 때문이다.",
+            "서류를 준비했기 때문이다."
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "-느라고 nêu hoạt động gây ra kết quả bất lợi: vì bận chuẩn bị giấy tờ nên ngủ muộn."
+        },
+        {
+          "number": 9,
+          "format": "text",
+          "prompt": "“친구가 도와준 덕분에 신청을 마쳤어요.”에서 ‘덕분에’가 나타내는 것은?",
+          "choices": [
+            "상관없는 두 사건",
+            "실현되지 않은 소원",
+            "좋은 결과를 가져온 원인",
+            "강한 금지"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "덕분에 thường chỉ nguyên nhân mang lại kết quả tốt: nhờ bạn giúp nên hoàn tất đăng ký."
+        },
+        {
+          "number": 10,
+          "format": "text",
+          "prompt": "“이 수업은 문법뿐만 아니라 문화도 가르칩니다.”와 같은 뜻은?",
+          "choices": [
+            "문법과 문화를 모두 가르친다.",
+            "문법 대신 운동만 가르친다.",
+            "문화는 가르치지 않는다.",
+            "문법만 가르친다."
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "뿐만 아니라 bổ sung thông tin: không chỉ ngữ pháp mà còn văn hóa."
+        },
+        {
+          "number": 11,
+          "format": "text",
+          "prompt": "기관에 궁금한 점을 물어보는 행동에 알맞은 단어는?",
+          "choices": [
+            "분실하다",
+            "폐기하다",
+            "문의하다",
+            "연기하다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "문의하다 là hỏi thông tin. 분실하다 là làm mất, 폐기하다 là tiêu hủy, 연기하다 là hoãn."
+        },
+        {
+          "number": 12,
+          "format": "text",
+          "prompt": "약속된 날짜를 나중 날짜로 바꾸는 것은?",
+          "choices": [
+            "앞당기다",
+            "완료하다",
+            "확정하다",
+            "연기하다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "연기하다 là hoãn sang thời điểm muộn hơn; 앞당기다 là đưa lên sớm hơn."
+        },
+        {
+          "number": 13,
+          "format": "text",
+          "prompt": "잃어버린 물건을 가리키는 말은?",
+          "choices": [
+            "분실물",
+            "기념품",
+            "대여료",
+            "입장권"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "분실물 là đồ thất lạc; 기념품 là quà lưu niệm, 대여료 là phí thuê và 입장권 là vé vào cửa."
+        },
+        {
+          "number": 14,
+          "format": "text",
+          "prompt": "신청서를 낼 수 있는 마지막 날짜를 뜻하는 말은?",
+          "choices": [
+            "마감일",
+            "기념일",
+            "생일",
+            "개관일"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "마감일 là hạn chót nhận hồ sơ hoặc hoàn thành công việc."
+        },
+        {
+          "number": 15,
+          "format": "text",
+          "prompt": "이미 낸 돈을 돌려받는 것을 무엇이라고 하는가?",
+          "choices": [
+            "할부",
+            "환불",
+            "기부",
+            "예약"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "환불 là hoàn tiền. 할부 là trả góp, còn 예약 là đặt trước."
+        },
+        {
+          "number": 16,
+          "format": "text",
+          "prompt": "돈을 여러 번에 나누어 내는 방식은?",
+          "choices": [
+            "기부",
+            "무료",
+            "할부",
+            "일시불"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "할부 là thanh toán nhiều đợt; 일시불 là trả một lần."
+        },
+        {
+          "number": 17,
+          "format": "text",
+          "prompt": "문제가 생겼을 때 해결책을 찾기 위해 의견을 주고받는 것은?",
+          "choices": [
+            "방치",
+            "은폐",
+            "분실",
+            "상담"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "상담 là tư vấn hoặc trao đổi để tìm hướng giải quyết; 방치 là bỏ mặc."
+        },
+        {
+          "number": 18,
+          "format": "text",
+          "prompt": "자격이나 경력 등을 공식적으로 보여 주는 서류는?",
+          "choices": [
+            "안내 방송",
+            "증명서",
+            "시간표",
+            "장바구니"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "증명서 là giấy chứng nhận, dùng xác minh một thông tin hoặc tư cách."
+        },
+        {
+          "number": 19,
+          "format": "text",
+          "prompt": "반드시 해야 하는 항목을 나타내는 말은?",
+          "choices": [
+            "별도",
+            "선택",
+            "필수",
+            "임시"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "필수 nghĩa là bắt buộc; 선택 là tùy chọn. Đọc đúng hai nhãn giúp điền hồ sơ đầy đủ."
+        },
+        {
+          "number": 20,
+          "format": "text",
+          "prompt": "다른 비용에 들어 있지 않아 따로 내야 한다는 뜻은?",
+          "choices": [
+            "별도",
+            "포함",
+            "동일",
+            "면제"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "별도 nghĩa là riêng, tách biệt; phí ghi 별도 thường chưa nằm trong mức giá đã nêu."
+        },
+        {
+          "number": 21,
+          "format": "text",
+          "prompt": "“월요일 휴관, 화요일부터 일요일까지 운영.” 이 시설을 이용할 수 없는 요일은?",
+          "choices": [
+            "일요일",
+            "월요일",
+            "화요일",
+            "토요일"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "휴관 nghĩa là đóng cửa cơ sở. Thông báo nói nghỉ thứ Hai, mở từ thứ Ba đến Chủ nhật."
+        },
+        {
+          "number": 22,
+          "format": "text",
+          "prompt": "“접수: 11월 1일~10일. 발표: 11월 15일.” 신청 결과를 확인하는 날은?",
+          "choices": [
+            "11월 1일",
+            "11월 10일",
+            "11월 5일",
+            "11월 15일"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "접수 là thời gian nhận đăng ký; 발표 là ngày công bố kết quả, ở đây là 15/11."
+        },
+        {
+          "number": 23,
+          "format": "text",
+          "prompt": "“수강료 무료, 교재비 8,000원 별도.” 참가자가 교재를 구입한다면 얼마를 내는가?",
+          "choices": [
+            "16,000원",
+            "8,000원",
+            "0원",
+            "80,000원"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Miễn học phí nhưng tiền giáo trình 8.000 won tính riêng; nếu mua sách thì trả khoản này."
+        },
+        {
+          "number": 24,
+          "format": "text",
+          "prompt": "“오전 9시 개장, 오후 6시 폐장, 입장은 오후 5시까지.” 입장 마감은 언제인가?",
+          "choices": [
+            "오전 9시",
+            "오후 5시",
+            "오후 7시",
+            "오후 6시"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Giờ đóng cửa là 18h nhưng hạn vào cửa là 17h; cần phân biệt 입장 마감 với 폐장."
+        },
+        {
+          "number": 25,
+          "format": "text",
+          "prompt": "“신분증 원본을 지참하세요. 사본은 인정하지 않습니다.” 준비할 것은?",
+          "choices": [
+            "신분증 복사본만",
+            "이름을 적은 메모만",
+            "신분증 사진만",
+            "신분증 원본"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "원본 là bản gốc, 사본 là bản sao. Thông báo yêu cầu mang giấy tờ gốc."
+        },
+        {
+          "number": 26,
+          "format": "text",
+          "prompt": "“예약 변경은 방문 전날 오후 4시까지 가능합니다.” 수요일 방문 예약을 바꿀 수 있는 마지막 시점은?",
+          "choices": [
+            "수요일 오후 4시",
+            "화요일 오후 4시",
+            "수요일 방문 직후",
+            "목요일 오후 4시"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "전날 là ngày trước đó; lịch đến thứ Tư phải đổi chậm nhất thứ Ba lúc 16h theo thông báo."
+        },
+        {
+          "number": 27,
+          "format": "text",
+          "prompt": "“공사로 인해 정문을 사용할 수 없습니다. 후문을 이용해 주세요.” 어디로 들어가야 하는가?",
+          "choices": [
+            "공사 구역 안",
+            "닫힌 비상구",
+            "후문",
+            "정문"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Thông báo yêu cầu dùng cửa sau, 후문, vì cửa chính đang bị ảnh hưởng bởi công trình."
+        },
+        {
+          "number": 28,
+          "format": "text",
+          "prompt": "“좌석이 한정되어 사전 신청자만 입장할 수 있습니다.” 입장하려면 무엇이 필요한가?",
+          "choices": [
+            "행사 후에 신청해야 한다.",
+            "당일 줄을 서면 항상 된다.",
+            "미리 신청해야 한다.",
+            "신청 없이 친구 이름을 쓰면 된다."
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "사전 신청 nghĩa là đăng ký trước. Do chỗ ngồi có hạn, chỉ người đã đăng ký trước được vào."
+        },
+        {
+          "number": 29,
+          "format": "text",
+          "prompt": "“우산을 두고 가신 분은 1층 안내 데스크로 오세요.” 안내의 목적은?",
+          "choices": [
+            "분실물의 주인을 찾는 것이다.",
+            "우산을 새로 판매하는 것이다.",
+            "우산 사용을 금지하는 것이다.",
+            "1층을 폐쇄하는 것이다."
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Nội dung mời người bỏ quên ô đến quầy thông tin, nên mục đích là tìm chủ đồ thất lạc."
+        },
+        {
+          "number": 30,
+          "format": "text",
+          "prompt": "“교육은 오후 2시에 시작하며 10분 전까지 입실해 주세요.” 입실해야 하는 시각은?",
+          "choices": [
+            "오후 1시 50분까지",
+            "오후 3시까지",
+            "오후 2시 30분까지",
+            "오후 2시 10분까지"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Bắt đầu lúc 14h và yêu cầu có mặt trước 10 phút, tức chậm nhất 13h50."
+        }
+      ]
+    },
+    {
+      "id": "hannest-kiip5-topic-education-2026",
+      "title": "Giáo dục · 교육",
+      "category": "level-5-topics",
+      "originalTitle": "교육",
+      "topicKey": "education",
+      "topicLabel": "Giáo dục",
+      "year": 2026,
+      "paperNumber": 9,
+      "kiipLevel": 5,
+      "keyType": "original",
+      "partial": false,
+      "timeLimitSeconds": 2400,
+      "sources": [
+        {
+          "title": "Bộ Giáo dục · Hệ thống giáo dục",
+          "url": "https://english.moe.go.kr/sub/infoRenewal.do?m=0301&page=0301&s=english"
+        }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "format": "text",
+          "prompt": "한국의 일반적인 학제에서 초등학교 교육 기간은?",
+          "choices": [
+            "4년",
+            "3년",
+            "9년",
+            "6년"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Theo hệ thống phổ thông thông thường, tiểu học kéo dài 6 năm."
+        },
+        {
+          "number": 2,
+          "format": "text",
+          "prompt": "초등학교를 졸업한 뒤 일반적으로 진학하는 학교는?",
+          "choices": [
+            "중학교",
+            "유치원",
+            "대학원",
+            "대학교"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Sau tiểu học là trung học cơ sở, 중학교."
+        },
+        {
+          "number": 3,
+          "format": "text",
+          "prompt": "한국의 중학교 교육 기간은 일반적으로 몇 년인가?",
+          "choices": [
+            "4년",
+            "3년",
+            "6년",
+            "2년"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Trung học cơ sở thông thường kéo dài 3 năm."
+        },
+        {
+          "number": 4,
+          "format": "text",
+          "prompt": "중학교 다음 단계인 고등학교의 일반적인 교육 기간은?",
+          "choices": [
+            "3년",
+            "6년",
+            "1년",
+            "2년"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Trung học phổ thông thông thường kéo dài 3 năm."
+        },
+        {
+          "number": 5,
+          "format": "text",
+          "prompt": "한국의 의무교육에 해당하는 학교 단계를 바르게 묶은 것은?",
+          "choices": [
+            "대학교와 대학원",
+            "초등학교와 중학교",
+            "고등학교와 대학원",
+            "유치원과 대학교"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Giáo dục bắt buộc gồm tiểu học và trung học cơ sở; không đồng nhất với mọi chính sách miễn học phí."
+        },
+        {
+          "number": 6,
+          "format": "text",
+          "prompt": "초등학교와 중학교의 일반적인 교육 기간을 합하면?",
+          "choices": [
+            "9년",
+            "15년",
+            "6년",
+            "12년"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Tiểu học 6 năm cộng trung học cơ sở 3 năm là 9 năm."
+        },
+        {
+          "number": 7,
+          "format": "text",
+          "prompt": "한국 학교의 새 학년은 일반적으로 어느 달에 시작하는가?",
+          "choices": [
+            "12월",
+            "3월",
+            "7월",
+            "1월"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Năm học mới thông thường bắt đầu vào tháng 3; ngày cụ thể tùy lịch trường."
+        },
+        {
+          "number": 8,
+          "format": "text",
+          "prompt": "대학에서 학사 과정을 마친 뒤 석사·박사 과정을 공부하는 곳은?",
+          "choices": [
+            "대학원",
+            "중학교",
+            "초등학교",
+            "유치원"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "대학원 là trường hoặc chương trình sau đại học, gồm các bậc thạc sĩ và tiến sĩ."
+        },
+        {
+          "number": 9,
+          "format": "text",
+          "prompt": "전문 분야의 직업 실무 교육을 중심으로 하는 고등교육기관의 한 종류는?",
+          "choices": [
+            "유치원",
+            "전문대학",
+            "초등학교",
+            "주민자치회"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "전문대학 là cao đẳng chuyên nghiệp, chú trọng kiến thức và kỹ năng nghề nghiệp."
+        },
+        {
+          "number": 10,
+          "format": "text",
+          "prompt": "어린아이가 초등학교 입학 전에 다닐 수 있는 교육기관은?",
+          "choices": [
+            "유치원",
+            "대학원",
+            "고등학교",
+            "전문대학"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "유치원 là mẫu giáo trước tuổi tiểu học; không phải bậc thuộc giáo dục bắt buộc."
+        },
+        {
+          "number": 11,
+          "format": "text",
+          "prompt": "국가나 지방자치단체가 설립한 학교와 개인·법인이 설립한 학교의 구분은?",
+          "choices": [
+            "초등학교와 중학교",
+            "주간반과 야간반",
+            "국공립학교와 사립학교",
+            "대학교와 대학원"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Quốc lập/công lập và tư thục là cách phân loại theo chủ thể thành lập, không phải theo cấp học."
+        },
+        {
+          "number": 12,
+          "format": "text",
+          "prompt": "나이와 학교 졸업 여부에 관계없이 계속 배우는 교육은?",
+          "choices": [
+            "평생교육",
+            "일회성 시험만",
+            "의무 군사훈련",
+            "학력 차별"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Giáo dục suốt đời tạo cơ hội học tập ở nhiều giai đoạn, kể cả sau khi rời hệ thống trường học."
+        },
+        {
+          "number": 13,
+          "format": "text",
+          "prompt": "성인이 글을 읽고 쓰는 능력을 기르기 위해 받는 교육은?",
+          "choices": [
+            "체육훈련만",
+            "운전교육만",
+            "문해교육",
+            "도예교육만"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "문해교육 là giáo dục đọc viết cho người cần cải thiện năng lực sử dụng chữ viết."
+        },
+        {
+          "number": 14,
+          "format": "text",
+          "prompt": "새로운 직업에 필요한 기술을 배우려는 성인에게 알맞은 교육은?",
+          "choices": [
+            "관광 안내만",
+            "출석 기록 조작",
+            "직업교육과 훈련",
+            "학습 기회의 영구 포기"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Đào tạo nghề giúp học kỹ năng cho công việc mới hoặc nâng cao năng lực đang có."
+        },
+        {
+          "number": 15,
+          "format": "text",
+          "prompt": "도서관·평생학습관에서 시민을 대상으로 수업을 제공하는 취지는?",
+          "choices": [
+            "졸업한 사람의 학습을 막기 위해서",
+            "지역 주민의 학습 기회를 넓히기 위해서",
+            "교재를 모두 없애기 위해서",
+            "특정 학교 학생만을 배제하기 위해서"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Các cơ sở học tập cộng đồng mở rộng cơ hội giáo dục ngoài hệ thống trường chính quy."
+        },
+        {
+          "number": 16,
+          "format": "text",
+          "prompt": "학생의 학교생활과 관련하여 가정에 전달하는 안내문은?",
+          "choices": [
+            "환전 신청서",
+            "가정통신문",
+            "영수증",
+            "수출 신고서"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "가정통신문 là thông báo nhà trường gửi gia đình về hoạt động hoặc việc cần phối hợp."
+        },
+        {
+          "number": 17,
+          "format": "text",
+          "prompt": "담임교사와 상담할 때 도움이 되는 준비는?",
+          "choices": [
+            "다른 학생의 비밀만 요구한다",
+            "확인하지 않은 소문만 적는다",
+            "질문과 관련 상황을 미리 정리한다",
+            "상대의 설명을 듣지 않는다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Chuẩn bị câu hỏi và tình huống cụ thể giúp buổi trao đổi với giáo viên chủ nhiệm hiệu quả."
+        },
+        {
+          "number": 18,
+          "format": "text",
+          "prompt": "아이가 결석해야 할 때 보호자가 할 일은?",
+          "choices": [
+            "친구에게 대신 출석하게 한다",
+            "아무 연락 없이 출석했다고 적는다",
+            "결석 사실을 영구히 숨긴다",
+            "학교의 절차에 따라 미리 알린다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Báo cho trường và làm theo thủ tục nghỉ học, thay vì tự ý sửa thông tin điểm danh."
+        },
+        {
+          "number": 19,
+          "format": "text",
+          "prompt": "학교 행사 동의서를 제출하기 전에 확인할 것은?",
+          "choices": [
+            "친구의 필체만",
+            "종이의 색깔만",
+            "교실 벽의 색깔만",
+            "행사 내용과 제출 기한"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Cần đọc nội dung hoạt động, điều kiện tham gia và thời hạn nộp giấy đồng ý."
+        },
+        {
+          "number": 20,
+          "format": "text",
+          "prompt": "학교 폭력을 알게 되었을 때 적절한 대응은?",
+          "choices": [
+            "피해 학생만 비난한다",
+            "보복 폭력을 계획한다",
+            "증거를 조작한다",
+            "믿을 수 있는 교사 등에게 도움을 요청한다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Hãy tìm hỗ trợ từ giáo viên hoặc người có trách nhiệm, ưu tiên an toàn và ghi nhận sự việc trung thực."
+        },
+        {
+          "number": 21,
+          "format": "text",
+          "prompt": "새로 온 학생이 한국어에 익숙하지 않을 때 도움이 되는 태도는?",
+          "choices": [
+            "모둠 활동에서 제외한다",
+            "모든 의견을 무시한다",
+            "이해하기 쉬운 말로 설명하고 참여를 돕는다",
+            "말실수를 반복해서 비웃는다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Giải thích dễ hiểu và tạo cơ hội tham gia giúp học sinh mới hòa nhập."
+        },
+        {
+          "number": 22,
+          "format": "text",
+          "prompt": "시험에서 다른 사람의 답을 몰래 보는 행동은?",
+          "choices": [
+            "부정행위",
+            "자기 평가",
+            "협동학습",
+            "정상적인 자료 조사"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Sao chép đáp án trái phép trong thi là gian lận, khác với hợp tác được giáo viên cho phép."
+        },
+        {
+          "number": 23,
+          "format": "text",
+          "prompt": "다른 사람의 글을 과제에 활용할 때 필요한 태도는?",
+          "choices": [
+            "작성자 이름만 지운다",
+            "출처를 밝히고 인용 규칙을 지킨다",
+            "자신이 쓴 글처럼 모두 제출한다",
+            "복사한 사실을 무조건 숨긴다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Cần ghi nguồn, tuân thủ quy tắc trích dẫn và phân biệt ý của mình với ý của người khác."
+        },
+        {
+          "number": 24,
+          "format": "text",
+          "prompt": "학습 목표를 세울 때 가장 실행하기 쉬운 계획은?",
+          "choices": [
+            "언젠가 모든 것을 완벽히 한다.",
+            "시험 전날 처음 책을 편다.",
+            "시간과 내용을 전혀 정하지 않는다.",
+            "매일 20분씩 어휘를 복습한다."
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Kế hoạch cụ thể về nội dung và thời gian dễ thực hiện và theo dõi hơn mục tiêu mơ hồ."
+        },
+        {
+          "number": 25,
+          "format": "text",
+          "prompt": "오답을 복습할 때 가장 도움이 되는 방법은?",
+          "choices": [
+            "정답 번호만 외운다",
+            "틀린 이유를 설명하고 다시 풀어 본다",
+            "문제를 보지 않고 지운다",
+            "틀렸다는 사실을 숨긴다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Hiểu nguyên nhân sai và làm lại giúp sửa kiến thức; chỉ nhớ số đáp án dễ sai khi đổi thứ tự lựa chọn."
+        },
+        {
+          "number": 26,
+          "format": "text",
+          "prompt": "서로 역할을 나누어 하나의 과제를 완성하는 학습은?",
+          "choices": [
+            "시험 부정행위",
+            "무단 결석",
+            "협동학습",
+            "자료 은폐"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Học hợp tác phân chia vai trò và phối hợp để hoàn thành nhiệm vụ chung."
+        },
+        {
+          "number": 27,
+          "format": "text",
+          "prompt": "온라인 수업에 참여하기 전에 확인하면 좋은 것은?",
+          "choices": [
+            "접속 방법과 수업 시간",
+            "배경 화면의 색만",
+            "다른 사람의 비밀번호",
+            "관련 없는 광고만"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Kiểm tra đường vào lớp, thiết bị và giờ học giúp tránh bỏ lỡ buổi học."
+        },
+        {
+          "number": 28,
+          "format": "text",
+          "prompt": "“수업: 매주 화·목요일 19시~21시.” 일주일 수업 시간은?",
+          "choices": [
+            "6시간",
+            "2시간",
+            "8시간",
+            "4시간"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Thứ Ba 2 giờ và thứ Năm 2 giờ, tổng cộng 4 giờ mỗi tuần."
+        },
+        {
+          "number": 29,
+          "format": "text",
+          "prompt": "“정원 20명, 선착순 모집.” 이 안내에 맞는 설명은?",
+          "choices": [
+            "시험 점수가 높은 순서로만 뽑는다",
+            "나이가 많은 순서로만 뽑는다",
+            "신청 시기와 관계없이 모두 뽑는다",
+            "먼저 신청한 사람부터 정원 안에서 모집한다"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "선착순 là theo thứ tự đến hoặc đăng ký trước, trong giới hạn 20 chỗ của thông báo."
+        },
+        {
+          "number": 30,
+          "format": "text",
+          "prompt": "학교를 졸업한 뒤에도 새로운 기술을 배우는 이유로 가장 적절한 것은?",
+          "choices": [
+            "성인은 새로운 것을 배울 수 없기 때문이다",
+            "학습은 어린이에게만 필요하기 때문이다",
+            "사회와 직업 환경이 계속 변하기 때문이다",
+            "졸업하면 모든 지식이 완성되기 때문이다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Môi trường xã hội và công việc thay đổi, nên tiếp tục học giúp cập nhật năng lực và thích nghi."
+        }
+      ]
+    },
+    {
+      "id": "hannest-kiip5-topic-citizenship-2026",
+      "title": "Công dân và quốc tịch · 시민과 국적",
+      "category": "level-5-topics",
+      "originalTitle": "시민과 국적",
+      "topicKey": "citizenship",
+      "topicLabel": "Công dân và quốc tịch",
+      "year": 2026,
+      "paperNumber": 10,
+      "kiipLevel": 5,
+      "keyType": "original",
+      "partial": false,
+      "timeLimitSeconds": 2400,
+      "sources": [
+        {
+          "title": "Cơ quan Xuất nhập cảnh · Quốc tịch",
+          "url": "https://www.immigration.go.kr/immigration/1517/subview.do"
+        },
+        {
+          "title": "Thông tin pháp luật · Quốc tịch do sinh ra",
+          "url": "https://www.easylaw.go.kr/CSP/CnpClsMainBtr.laf?ccfNo=2&cciNo=1&cnpClsNo=1&csmSeq=1770&menuType=cnpcls&popMenu=ov"
+        },
+        {
+          "title": "Bộ Nội vụ · Biểu tượng quốc gia",
+          "url": "https://www.mois.go.kr/eng/sub/a03/nationalSymbol/screen.do"
+        },
+        {
+          "title": "Hiến pháp Hàn Quốc · KLRI",
+          "url": "https://elaw.klri.re.kr/eng_service/lawTwoView.do?hseq=1"
+        },
+        {
+          "title": "Liên Hợp Quốc · Các quốc gia thành viên",
+          "url": "https://www.un.org/en/about-us/member-states"
+        },
+        {
+          "title": "OECD · Hàn Quốc",
+          "url": "https://www.oecd.org/en/countries/korea.html"
+        }
+      ],
+      "questions": [
+        {
+          "number": 1,
+          "format": "text",
+          "prompt": "개인이 어느 나라의 국민인지를 나타내는 법적 자격은?",
+          "choices": [
+            "주소",
+            "국적",
+            "직업",
+            "취미"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Quốc tịch là tư cách pháp lý xác định một người là công dân của một quốc gia; không đồng nhất với nơi ở hay nghề nghiệp."
+        },
+        {
+          "number": 2,
+          "format": "text",
+          "prompt": "영주자격과 대한민국 국적의 관계에 대한 설명으로 맞는 것은?",
+          "choices": [
+            "영주증은 모든 경우에 한국 여권과 같다",
+            "영주자격을 얻었다고 자동으로 한국 국민이 되는 것은 아니다",
+            "외국인은 주소를 옮기면 모두 한국 국민이 된다",
+            "영주자격은 항상 한국 국적과 같은 뜻이다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Tư cách thường trú cho phép cư trú theo quy định; việc có quốc tịch Hàn Quốc là vấn đề pháp lý riêng."
+        },
+        {
+          "number": 3,
+          "format": "text",
+          "prompt": "외국인이 법률이 정한 요건과 절차에 따라 한국 국적을 취득하는 방식은?",
+          "choices": [
+            "환전",
+            "단순 관광",
+            "귀화",
+            "숙소 예약"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "귀화 là nhập quốc tịch theo điều kiện và thủ tục pháp luật, không phải hệ quả của việc du lịch hay đổi tiền."
+        },
+        {
+          "number": 4,
+          "format": "text",
+          "prompt": "귀화허가를 담당하는 중앙행정기관의 장은?",
+          "choices": [
+            "국립박물관장",
+            "기상청장",
+            "한국은행 총재",
+            "법무부장관"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Luật Quốc tịch quy định việc cho phép nhập quốc tịch thuộc thẩm quyền Bộ trưởng Bộ Tư pháp."
+        },
+        {
+          "number": 5,
+          "format": "text",
+          "prompt": "한국인과 혼인한 외국인의 국적에 대한 설명으로 맞는 것은?",
+          "choices": [
+            "혼인만으로 자동 취득되는 것은 아니며 법정 절차를 확인해야 한다",
+            "배우자의 여권을 함께 사용하면 국민이 된다",
+            "혼인신고 즉시 모든 경우에 한국 국적이 생긴다",
+            "결혼식 사진만 있으면 국적이 바뀐다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Kết hôn với công dân Hàn không tự động làm đổi quốc tịch. Điều kiện và thủ tục áp dụng cần được kiểm tra riêng."
+        },
+        {
+          "number": 6,
+          "format": "text",
+          "prompt": "귀화 과정의 국민선서가 강조하는 태도는?",
+          "choices": [
+            "의무 없이 권리만 요구한다",
+            "법률보다 개인의 편의를 항상 우선한다",
+            "헌법과 법률을 지키고 국민의 책임을 다한다",
+            "다른 사람의 권리를 무시한다"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Lời tuyên thệ nhấn mạnh việc tuân thủ Hiến pháp, pháp luật và thực hiện trách nhiệm của công dân."
+        },
+        {
+          "number": 7,
+          "format": "text",
+          "prompt": "국적 신청 요건이 바뀌었는지 확인할 때 우선 참고할 곳은?",
+          "choices": [
+            "여행 상품 광고만",
+            "오래된 익명 댓글만",
+            "법무부·출입국 기관의 공식 안내",
+            "친구의 기억만"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Thông tin chính thức của Bộ Tư pháp và cơ quan xuất nhập cảnh phù hợp hơn tin đồn hoặc nội dung đã cũ."
+        },
+        {
+          "number": 8,
+          "format": "text",
+          "prompt": "국적 관련 신청서를 작성할 때 지켜야 할 원칙은?",
+          "choices": [
+            "불리한 사실은 허위로 바꾼다",
+            "사실대로 작성하고 증빙을 확인한다",
+            "확인 없이 서명을 대신한다",
+            "다른 사람의 서류를 자기 것으로 낸다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Hồ sơ phải trung thực và có tài liệu phù hợp. Giấy tờ của người khác không thể thay cho chứng cứ của mình."
+        },
+        {
+          "number": 9,
+          "format": "text",
+          "prompt": "아이가 태어날 당시 어머니가 대한민국 국민인 경우, 국적법의 기본 원칙은?",
+          "choices": [
+            "성인이 되어야 처음 취득할 수 있다",
+            "출생과 동시에 대한민국 국적을 취득한다",
+            "한국어 시험을 통과해야만 취득한다",
+            "외국에서 태어나면 언제나 취득할 수 없다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Điều 2 Luật Quốc tịch quy định trẻ có cha hoặc mẹ là công dân Hàn tại thời điểm sinh có quốc tịch theo nguyên tắc huyết thống. Câu hỏi đã nêu rõ người mẹ."
+        },
+        {
+          "number": 10,
+          "format": "text",
+          "prompt": "대한민국 국민이 되는 요건은 무엇으로 정하는가?",
+          "choices": [
+            "회사 광고",
+            "법률",
+            "학교 규칙",
+            "개인의 별명"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Điều 2 Hiến pháp xác định điều kiện trở thành công dân Hàn Quốc do pháp luật quy định."
+        },
+        {
+          "number": 11,
+          "format": "text",
+          "prompt": "대한민국 국기의 이름은 무엇인가?",
+          "choices": [
+            "애국가",
+            "무궁화",
+            "훈민정음",
+            "태극기"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "태극기 là quốc kỳ. 애국가 là quốc ca, 무궁화 là quốc hoa, 훈민정음 liên quan đến chữ Hangeul."
+        },
+        {
+          "number": 12,
+          "format": "text",
+          "prompt": "태극기 중앙의 빨강과 파랑 태극 문양이 상징하는 기본 개념은?",
+          "choices": [
+            "군주의 혈통",
+            "특정 정당의 승리",
+            "지방의 세금",
+            "음양의 조화"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Hình taegeuk đỏ và xanh biểu trưng sự hài hòa của âm và dương."
+        },
+        {
+          "number": 13,
+          "format": "text",
+          "prompt": "태극기 네 모서리에 있는 건·곤·감·리는 무엇이라고 하는가?",
+          "choices": [
+            "네 도시의 이름",
+            "사계절의 날짜",
+            "사괘",
+            "네 왕조의 연호"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "건·곤·감·리 là bốn quẻ, 사괘, với ý nghĩa tượng trưng trời, đất, nước và lửa."
+        },
+        {
+          "number": 14,
+          "format": "text",
+          "prompt": "대한민국의 나라꽃으로 알려진 것은?",
+          "choices": [
+            "무궁화",
+            "장미",
+            "해바라기",
+            "벚꽃"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Mugunghwa, thường gọi là hoa dâm bụt Syria hoặc rose of Sharon, là quốc hoa Hàn Quốc."
+        },
+        {
+          "number": 15,
+          "format": "text",
+          "prompt": "대한민국을 대표하는 노래인 국가(國歌)의 이름은 무엇인가?",
+          "choices": [
+            "애국가",
+            "아리랑",
+            "판소리",
+            "강강술래"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "애국가 là quốc ca. Arirang là dân ca, còn pansori và ganggangsullae thuộc các loại hình nghệ thuật truyền thống."
+        },
+        {
+          "number": 16,
+          "format": "text",
+          "prompt": "다른 나라의 국기와 국가를 접할 때 시민에게 바람직한 태도는?",
+          "choices": [
+            "그 나라의 상징과 문화를 존중한다",
+            "무조건 자기 나라의 상징으로 바꾸라고 한다",
+            "낯설다는 이유로 훼손한다",
+            "국적만으로 사람을 비난한다"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Tôn trọng biểu tượng của các nước giúp giao lưu quốc tế và cùng sống trong xã hội đa văn hóa."
+        },
+        {
+          "number": 17,
+          "format": "text",
+          "prompt": "8월 15일 광복절에 기념하는 역사적 의미는?",
+          "choices": [
+            "훈민정음 창제만",
+            "한국 전쟁의 시작",
+            "고려 건국",
+            "일제 지배에서 벗어난 해방"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Gwangbokjeol kỷ niệm sự giải phóng khỏi sự thống trị của Nhật vào ngày 15/8/1945."
+        },
+        {
+          "number": 18,
+          "format": "text",
+          "prompt": "대한민국 헌법 제정을 기념하는 7월 17일의 이름은?",
+          "choices": [
+            "제헌절",
+            "개천절",
+            "현충일",
+            "어린이날"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Jeheonjeol là ngày kỷ niệm ban hành Hiến pháp, 17/7; câu hỏi không đề cập việc có được nghỉ hay không."
+        },
+        {
+          "number": 19,
+          "format": "text",
+          "prompt": "10월 3일 개천절과 연결되는 의미는?",
+          "choices": [
+            "서울 올림픽 폐막을 기념한다",
+            "고조선 건국을 기념한다",
+            "한글 반포만을 기념한다",
+            "한국 전쟁 시작을 기념한다"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Gaecheonjeol là ngày lễ kỷ niệm truyền thống lập nước Gojoseon."
+        },
+        {
+          "number": 20,
+          "format": "text",
+          "prompt": "6월 6일 현충일에 주로 기리는 대상은?",
+          "choices": [
+            "모든 관광객",
+            "한 해의 모든 수출 기업",
+            "나라를 위해 희생한 순국선열과 호국영령",
+            "그해의 신입생만"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Ngày tưởng niệm 6/6 tri ân những người hy sinh vì đất nước."
+        },
+        {
+          "number": 21,
+          "format": "text",
+          "prompt": "대한민국이 유엔 회원국이 된 해는?",
+          "choices": [
+            "1991년",
+            "2002년",
+            "1988년",
+            "1945년"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "Hàn Quốc gia nhập Liên Hợp Quốc ngày 17/9/1991."
+        },
+        {
+          "number": 22,
+          "format": "text",
+          "prompt": "유엔의 핵심 목적과 가장 가까운 것은?",
+          "choices": [
+            "민간 기업의 가격을 모두 직접 결정",
+            "모든 나라의 언어를 하나로 강제 통일",
+            "국제 평화와 안전 및 국가 간 협력",
+            "각국의 학교를 하나의 학교로 합병"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Liên Hợp Quốc hướng đến hòa bình, an ninh quốc tế và hợp tác giữa các quốc gia."
+        },
+        {
+          "number": 23,
+          "format": "text",
+          "prompt": "대한민국이 경제협력개발기구 OECD에 가입한 해는?",
+          "choices": [
+            "1919년",
+            "1950년",
+            "1996년",
+            "2018년"
+          ],
+          "answer": 3,
+          "weight": 1,
+          "explanationVi": "Hàn Quốc chính thức trở thành thành viên OECD ngày 12/12/1996."
+        },
+        {
+          "number": 24,
+          "format": "text",
+          "prompt": "OECD의 성격에 대한 설명으로 알맞은 것은?",
+          "choices": [
+            "경제·사회 정책 경험을 공유하고 협력하는 국제기구",
+            "세계 모든 국가의 단일 정부",
+            "국내 한 대학의 동아리",
+            "한국의 지방자치단체"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "OECD là tổ chức hợp tác về chính sách kinh tế và xã hội, không phải chính phủ chung của thế giới."
+        },
+        {
+          "number": 25,
+          "format": "text",
+          "prompt": "1988년 하계 올림픽이 열린 한국의 도시는?",
+          "choices": [
+            "제주",
+            "서울",
+            "평창",
+            "전주"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Seoul đăng cai Thế vận hội mùa hè năm 1988."
+        },
+        {
+          "number": 26,
+          "format": "text",
+          "prompt": "2018년 동계 올림픽의 개최지로 알려진 곳은?",
+          "choices": [
+            "서울",
+            "광주",
+            "대전",
+            "평창"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "PyeongChang đăng cai Thế vận hội mùa đông năm 2018, với các địa điểm thi đấu trong vùng."
+        },
+        {
+          "number": 27,
+          "format": "text",
+          "prompt": "교육·과학·문화 분야의 국제 협력과 문화유산 보호로 알려진 유엔 전문기구는?",
+          "choices": [
+            "국회",
+            "기상청",
+            "한국은행",
+            "유네스코"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "UNESCO là tổ chức chuyên môn của Liên Hợp Quốc về giáo dục, khoa học và văn hóa."
+        },
+        {
+          "number": 28,
+          "format": "text",
+          "prompt": "기후변화처럼 국경을 넘어 영향을 주는 문제를 해결하는 데 필요한 태도는?",
+          "choices": [
+            "책임을 무조건 한 사람에게만 돌림",
+            "다른 나라의 상황을 모두 무시",
+            "정보 공유의 전면 중단",
+            "국가 간 협력과 공동 노력"
+          ],
+          "answer": 4,
+          "weight": 1,
+          "explanationVi": "Vấn đề toàn cầu cần hợp tác, chia sẻ thông tin và hành động từ nhiều quốc gia và cộng đồng."
+        },
+        {
+          "number": 29,
+          "format": "text",
+          "prompt": "한국의 드라마·음악·영화 등이 해외에서 인기를 얻는 문화 현상은?",
+          "choices": [
+            "한류",
+            "도시 공동화",
+            "고령화",
+            "장마"
+          ],
+          "answer": 1,
+          "weight": 1,
+          "explanationVi": "한류 là làn sóng văn hóa Hàn Quốc lan rộng ở nước ngoài, gồm âm nhạc, phim và nhiều loại hình khác."
+        },
+        {
+          "number": 30,
+          "format": "text",
+          "prompt": "헌법이 지향하는 통일 정책의 기본 방향은?",
+          "choices": [
+            "다른 나라의 문화를 금지하는 통일",
+            "자유민주적 기본질서에 입각한 평화적 통일",
+            "침략 전쟁만을 통한 통일",
+            "국민의 기본권을 없애는 통일"
+          ],
+          "answer": 2,
+          "weight": 1,
+          "explanationVi": "Điều 4 Hiến pháp nêu định hướng thống nhất hòa bình dựa trên trật tự dân chủ tự do."
+        }
+      ]
+    }
+  ]
+}

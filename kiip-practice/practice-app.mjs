@@ -1,4 +1,4 @@
-import {validateCatalog,newAttempt,readAttempt,readPreviousAttempt,selectAnswer,grade,finish,retryNumbers,storageKey} from './practice-core.mjs?v=kiip-unified-r9';
+import {validateCatalog,newAttempt,readAttempt,readPreviousAttempt,selectAnswer,grade,finish,retryNumbers,storageKey,startTimedAttempt,remainingSeconds} from './practice-core.mjs?v=topics-20261120';
 
 const app=document.querySelector('#app');
 const status=document.querySelector('#save-status');
@@ -8,9 +8,10 @@ const session=params.get('session') || '';
 const embedded=window.parent!==window && session.length>0 && session.length<129;
 const memory=new Map();
 let catalog=null,current=null,attempt=null,malformed=null,noticeTimer=null,storageSnapshot=null;
+let clockTimer=null;
 let search='',category='all';
 const categories={all:'Tất cả','level-1':'Cấp 1','level-2':'Cấp 2','level-3':'Cấp 3',
-  'pre-evaluation':'Đầu vào','mid-evaluation':'Giữa kỳ',permanent:'Định cư',naturalization:'Quốc tịch',comprehensive:'Tổng hợp cũ'};
+  'pre-evaluation':'Đầu vào','mid-evaluation':'Giữa kỳ',permanent:'Định cư',naturalization:'Quốc tịch',comprehensive:'Tổng hợp cũ','level-5-topics':'Cấp 5 · Theo chủ đề'};
 const $=(tag,attrs={},...children)=>{
   const e=document.createElement(tag);
   for(const [key,value] of Object.entries(attrs)) {
@@ -65,6 +66,8 @@ document.querySelector('#back').onclick=exit;
 document.querySelector('.brand').onclick=event=>{event.preventDefault();if(current){exit();return;}renderCatalog();};
 function communityDetails(){return {examId:'kiip-'+current.id,title:current.title,scoreLabel:'Trắc nghiệm · chưa gồm viết/nói'};}
 function openSet(set){
+  stopClock();
+  clearTimeout(noticeTimer);document.querySelector('#notice').hidden=true;
   current=set;malformed=null;post('exam-context',communityDetails());
   let raw=null;
   try{
@@ -75,16 +78,19 @@ function openSet(set){
     status.textContent=raw?'Đã tải bản lưu':'Chọn đáp án để bắt đầu lưu';
     if(previous)save();
   }catch(error){storageSnapshot=raw;attempt=newAttempt(set);if(raw||error.previousRaw){malformed=raw??error.previousRaw;status.textContent='Bản lưu cần kiểm tra';}else status.textContent='Trình duyệt chưa cho đọc bản lưu';}
-  renderPractice();app.focus();
+  renderPractice();runClock();app.focus();
 }
 
 function renderCatalog() {
+  stopClock();
   const groups = [{"key":"level-1","level":1,"label":"Cấp 1","title":"Cấp 1"},{"key":"level-2","level":2,"label":"Cấp 2","title":"Cấp 2"},{"key":"level-3","level":3,"label":"Cấp 3","title":"Cấp 3"},{"key":"mid-evaluation","level":4,"label":"Cấp 4 · Giữa chương trình","title":"Cấp 4"},{"key":"naturalization","level":5,"label":"Cấp 5 · Nhập tịch","title":"Cấp 5 · Nhập tịch"},{"key":"permanent","level":5,"label":"Cấp 5 · Thường trú","title":"Cấp 5 · Thường trú"},{"key":"pre-evaluation","level":null,"label":"Đánh giá đầu vào","title":"Đầu vào"},{"key":"comprehensive","level":null,"label":"Tổng hợp cũ","title":"Tổng hợp cũ"}];
-  refreshHeader(); app.replaceChildren();
+  groups.unshift({key:'level-5-topics',level:5,label:'Cấp 5 · Thi theo chủ đề',title:'Cấp 5 · Theo chủ đề'});
+  refreshHeader(); app.replaceChildren();status.textContent='';
   const total = catalog.sets.reduce((sum,set) => sum + set.questions.length,0);
   app.append($('section',{class:'hero'},$('p',{class:'eyebrow'},'PHÒNG LUYỆN KIIP'),
     $('h1',{},'Chọn cấp, chọn từng đề'),
-    $('p',{},`${catalog.sets.length} đề mẫu · ${total} câu trắc nghiệm`),
+    $('p',{},`${catalog.sets.length} bài luyện · ${total} câu trắc nghiệm`),
+    $('p',{},'Mới: 10 bài thi Cấp 5 theo chủ đề · Mỗi bài 30 câu, 40 phút, có giải thích tiếng Việt.'),
     $('p',{},'Mỗi đề có số riêng trong từng nhóm. Chọn đề để học tiếp và xem kết quả đã lưu.')));
   const input = $('input',{type:'search',maxlength:100,placeholder:'Tìm: cấp 1, đề 02, năm 2024…','aria-label':'Tìm đề KIIP',value:search});
   const select = $('select',{'aria-label':'Lọc loại đề'},
@@ -110,11 +116,11 @@ function renderCatalog() {
       for(const set of sets) {
         const ungraded = set.questions.filter(question => question.answer===null).length;
         grid.append($('article',{class:'paper-card','data-set':set.id},
-          $('div',{class:'badges'},$('span',{class:'badge paper-number'},`Đề ${String(set.paperNumber).padStart(2,'0')}`),
-            $('span',{class:'badge'},`Mẫu ${set.year}`),set.keyType==='official'?$('span',{class:'badge official'},'Đáp án chính thức'):null),
-          $('h3',{},set.title),$('p',{},`${set.questions.length} câu trắc nghiệm${set.partial?' · Mẫu một phần':''}`),
+          $('div',{class:'badges'},$('span',{class:'badge paper-number'},set.keyType==='original'?'Bài thi theo chủ đề':`Đề ${String(set.paperNumber).padStart(2,'0')}`),
+            $('span',{class:'badge'},set.keyType==='original'?'HANNEST tự biên soạn':`Mẫu ${set.year}`),set.keyType==='official'?$('span',{class:'badge official'},'Đáp án chính thức'):null),
+          $('h3',{},set.title),$('p',{},`${set.questions.length} câu trắc nghiệm${set.timeLimitSeconds?' · '+set.timeLimitSeconds/60+' phút':''}${set.partial?' · Mẫu một phần':''}`),
           ungraded?$('p',{class:'muted'},`${ungraded} câu đang rà soát, không tính điểm`):null,
-          $('div',{class:'actions'},button(`Làm đề ${String(set.paperNumber).padStart(2,'0')}`,()=>openSet(set),'primary'))));
+          $('div',{class:'actions'},button(set.keyType==='original'?'Vào bài thi':`Làm đề ${String(set.paperNumber).padStart(2,'0')}`,()=>openSet(set),'primary'))));
       }
       sections.append($('section',{class:'kiip-level-group','aria-labelledby':id},
         $('div',{class:'kiip-group-heading'},$('h2',{id},group.label),$('span',{class:'muted'},`${sets.length} đề`)),grid));
@@ -129,15 +135,32 @@ function renderCatalog() {
 }
 
 function move(index){attempt={...attempt,cursor:Math.max(0,Math.min(attempt.numbers.length-1,index))};save();renderPractice();window.scrollTo({top:0});}
+function stopClock(){clearInterval(clockTimer);clockTimer=null;}
+function clockText(seconds){return `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;}
+function syncClock(){
+  if(!attempt?.timeLimitSeconds || attempt.deadline===null || attempt.submitted || malformed)return;
+  const left=remainingSeconds(attempt);
+  const display=document.querySelector('#exam-clock');
+  if(display){display.textContent=clockText(left);display.classList.toggle('urgent',left<=300);}
+  if(left===0)completeSubmission(true);
+}
+function runClock(){stopClock();syncClock();if(attempt?.deadline && !attempt.submitted && !malformed)clockTimer=setInterval(syncClock,1000);}
+function completeSubmission(auto=false){
+  if(!attempt || attempt.submitted || malformed)return;
+  stopClock();
+  const dialog=document.querySelector('#confirm-dialog');if(dialog.open)dialog.close();
+  attempt=finish(attempt);const saved=save();archive();const marked=grade(current,attempt);
+  if(saved && !attempt.review && attempt.numbers.length===current.questions.length && marked.possible>0)post('exam-result',{...communityDetails(),submitted:true,fullAttempt:true,score:marked.earned,maximum:marked.possible});
+  renderPractice();window.scrollTo({top:0});
+  if(auto)tell('Đã hết giờ. Bài thi đã được nộp và chấm điểm.');
+}
 function submit(){
   const missing=attempt.numbers.filter(n=>!attempt.answers[n]&&current.questions[n-1].answer!==null).length;
-  const complete=()=>{attempt=finish(attempt);save();archive();const marked=grade(current,attempt);
-    if(attempt.numbers.length===current.questions.length && marked.possible>0)post('exam-result',{...communityDetails(),submitted:true,fullAttempt:true,score:marked.earned,maximum:marked.possible});renderPractice();window.scrollTo({top:0});};
-  confirmAction('Nộp bài và chấm điểm',missing?`Còn ${missing} câu chưa trả lời. Các câu này được tính là chưa làm.`:'Bài làm sẽ được chấm và khóa lựa chọn. Bạn có thể xem lại hoặc tạo lượt luyện mới.',complete,'Nộp và chấm');
+  confirmAction('Nộp bài và chấm điểm',missing?`Còn ${missing} câu chưa trả lời. Các câu này được tính là chưa làm.`:'Bài làm sẽ được chấm và khóa lựa chọn. Bạn có thể xem lại hoặc tạo lượt luyện mới.',()=>completeSubmission(),'Nộp và chấm');
 }
 function startNew(numbers){
   confirmAction('Bắt đầu lượt luyện mới','Kết quả đã nộp được giữ trong lịch sử lưu trên trình duyệt. Lượt hiện tại sẽ được thay bằng lượt mới.',()=>{
-    archive();attempt=newAttempt(current,numbers);malformed=null;save();renderPractice();window.scrollTo({top:0});
+    stopClock();archive();attempt=newAttempt(current,numbers,{timed:!numbers});malformed=null;save();renderPractice();window.scrollTo({top:0});
   },'Bắt đầu');
 }
 function showZoom(src){const dialog=document.querySelector('#zoom-dialog');document.querySelector('#zoom-image').src=src;dialog.showModal();}
@@ -145,6 +168,11 @@ document.querySelector('#zoom-close').onclick=()=>document.querySelector('#zoom-
 document.querySelector('#zoom-range').oninput=e=>document.querySelector('#zoom-image').style.width=e.target.value+'px';
 
 function renderExplanation(question){
+  if(question.format==='text')return $('section',{class:'study-explanation',id:'study-explanation','aria-labelledby':'study-explanation-title'},
+    $('h3',{id:'study-explanation-title'},'Giải thích tiếng Việt'),
+    $('p',{},$('strong',{},'Đáp án đúng: '),$('span',{lang:'ko'},question.choices[question.answer-1])),
+    $('p',{},question.explanationVi),
+    $('p',{class:'explanation-credit'},'Câu hỏi và giải thích do HANNEST tự biên soạn để luyện tập.'));
   const explanation=question.explanation;
   if(!explanation)return null;
   return $('section',{class:'study-explanation',id:'study-explanation','aria-labelledby':'study-explanation-title'},
@@ -164,9 +192,9 @@ function renderPractice(){
   const question=current.questions[attempt.numbers[attempt.cursor]-1];
   const marked=attempt.submitted?grade(current,attempt):null;
   app.append($('p',{class:'eyebrow'},`${categories[current.category]} • ${current.year}`),$('h1',{},current.title),
-    $('div',{class:'badges'},$('span',{class:`badge ${current.keyType==='official'?'official':'reference'}`},current.keyType==='official'?'Đối chiếu đáp án chính thức 2022':'Đáp án tham khảo HANNEST'),
+    $('div',{class:'badges'},$('span',{class:`badge ${current.keyType==='official'?'official':'reference'}`},current.keyType==='official'?'Đối chiếu đáp án chính thức 2022':current.keyType==='original'?'Bài thi tự luyện HANNEST':'Đáp án tham khảo HANNEST'),
       current.partial?$('span',{class:'badge'},'Bộ mẫu một phần'):null));
-  if(current.keyType!=='official')app.append($('p',{class:'muted'},'Điểm luyện dưới đây dựa trên đáp án HANNEST đã rà nội dung; không phải bảng đáp án do cơ quan thi công bố.'));
+  if(current.keyType!=='official')app.append($('p',{class:'muted'},current.keyType==='original'?'Mỗi bài thi tập trung vào một chủ đề KIIP Cấp 5. Đây là câu hỏi tự biên soạn để luyện tập.':'Điểm luyện dưới đây dựa trên đáp án HANNEST đã rà nội dung; không phải bảng đáp án do cơ quan thi công bố.'));
   if(attempt.previousSignature)app.append($('div',{class:'warning'},
     $('p',{},'Đã giữ lại lựa chọn và vị trí từ bản làm trước khi rà soát đáp án. Kết quả dưới đây tính theo đáp án mới; bản lưu cũ vẫn được giữ nguyên.'),
     button('Xuất bản làm trước cập nhật',()=>{
@@ -177,35 +205,48 @@ function renderPractice(){
   if(malformed)app.append($('div',{class:'error'},$('p',{},'Bản lưu cũ chưa đọc được và đang được giữ nguyên. Xuất bản lưu trước khi tạo lượt mới.'),
     $('div',{class:'actions'},button('Xuất bản lưu cũ',()=>download(malformed,`HANNEST_${current.id}_ban-luu-cu.json`)),
       button('Tạo lượt mới',()=>confirmAction('Thay bản lưu lỗi?','Chỉ thay bản lưu của bộ đề này. Hãy xuất bản lưu cũ nếu bạn muốn giữ lại.',()=>{malformed=null;attempt=newAttempt(current);save();renderPractice();},'Tạo lượt mới')))));
+  if(attempt.timeLimitSeconds && attempt.deadline===null && !attempt.submitted){
+    const begin=button('Bắt đầu bài thi',()=>{if(malformed)return;attempt=startTimedAttempt(attempt);save();renderPractice();runClock();},'primary');
+    begin.disabled=!!malformed;
+    app.append($('section',{class:'hero exam-intro'},$('h2',{},`${current.questions.length} câu · ${attempt.timeLimitSeconds/60} phút`),
+      $('p',{},'Chọn một đáp án cho mỗi câu. Sau khi nộp, bạn sẽ xem điểm, giải thích và luyện lại câu sai.'),
+      $('p',{},'Bài làm được lưu trên trình duyệt này. Đồng hồ vẫn chạy khi bạn rời hoặc tải lại bài; hết giờ sẽ tự nộp.'),
+      $('p',{class:'muted'},'Mỗi câu đúng được 1 điểm. Thời gian này dành cho bài tự luyện của HANNEST.'),begin));
+    renderSources();return;
+  }
+  if(attempt.timeLimitSeconds && !attempt.submitted)app.append($('div',{class:'exam-timer'},$('span',{},'Thời gian còn lại'),$('strong',{id:'exam-clock',role:'timer','aria-label':'Thời gian còn lại'},clockText(remainingSeconds(attempt)))));
+  else if(current.keyType==='original' && !attempt.submitted)app.append($('p',{class:'badge'},'Ôn câu cần luyện · Không giới hạn thời gian'));
   if(marked){
     const retry=retryNumbers(current,attempt);
     app.append($('section',{class:'result-summary',id:'result-summary','aria-live':'polite'},
       $('h2',{},`Đúng ${marked.correct}/${marked.total} câu được chấm`),
       $('div',{class:'result-numbers'},$('span',{},$('b',{},marked.wrong),' sai'),$('span',{},$('b',{},marked.unanswered),' chưa làm'),$('span',{},$('b',{},marked.ungraded),' không tính điểm')),
-      current.keyType==='official'?$('p',{},`Điểm trắc nghiệm: ${marked.earned}/${marked.possible}. Chưa gồm viết và nói.`):null,
+      current.keyType==='official'?$('p',{},`Điểm trắc nghiệm: ${marked.earned}/${marked.possible}. Chưa gồm viết và nói.`):current.keyType==='original'?$('p',{},`Điểm bài luyện: ${marked.earned}/${marked.possible} · ${Math.round(marked.earned/marked.possible*100)}%.`):null,
       $('div',{class:'actions'},retry.length?button(`Luyện lại ${retry.length} câu cần ôn`,()=>startNew(retry),'primary'):null,
         button('Làm lại cả bộ',()=>startNew()),button('Xuất kết quả',exportAttempt))));
   }
-  const image=$('img',{class:'question-image',src:question.image,alt:`Ảnh gốc câu ${question.number}, trang ${question.sourcePage}`,id:'question-image'});
+  const isText=question.format==='text';
+  const image=isText?null:$('img',{class:'question-image',src:question.image,alt:`Ảnh gốc câu ${question.number}, trang ${question.sourcePage}`,id:'question-image'});
   const error=$('div',{class:'error',hidden:true},'Chưa tải được ảnh câu hỏi. ',button('Thử tải ảnh',()=>{image.src=question.image+'?retry='+Date.now();}));
   const choices=[];
   for(let answer=1;answer<=4;answer++){
     let style=attempt.answers[question.number]===answer?'selected':'';
     if(marked && question.answer===answer)style='right';
     else if(marked && attempt.answers[question.number]===answer && question.answer!==null && question.answer!==answer)style='wrong';
-    choices.push($('button',{class:style,disabled:true,'data-answer':answer,'aria-label':`Chọn đáp án ${answer}`,
+    choices.push($('button',{class:style,disabled:isText?(attempt.submitted||!!malformed):true,'data-answer':answer,'aria-label':isText?`${answer}. ${question.choices[answer-1]}`:`Chọn đáp án ${answer}`,
       'aria-pressed':String(attempt.answers[question.number]===answer),
-      onclick:()=>{attempt=selectAnswer(attempt,question.number,answer);save();renderPractice();}},'①②③④'[answer-1]));
+      onclick:()=>{syncClock();if(attempt.submitted||malformed)return;attempt=selectAnswer(attempt,question.number,answer);save();renderPractice();}},
+      isText?[$('span',{class:'choice-number'},'①②③④'[answer-1]),$('span',{lang:'ko'},question.choices[answer-1]) ]:'①②③④'[answer-1]));
   }
   function imageReady(){for(const b of choices)b.disabled=attempt.submitted||!!malformed;error.hidden=true;}
-  image.onload=imageReady;image.onerror=()=>{for(const b of choices)b.disabled=true;error.hidden=false;};
-  if(image.complete && image.naturalWidth)imageReady();
+  if(image){image.onload=imageReady;image.onerror=()=>{for(const b of choices)b.disabled=true;error.hidden=false;};
+  if(image.complete && image.naturalWidth)imageReady();}
   const ownStatus=marked?.items.find(q=>q.number===question.number);
   const questionPanel=$('section',{class:'panel'},
-    $('div',{class:'question-tools'},$('h2',{},`Câu ${question.number}`),$('span',{class:'question-position'},`${attempt.cursor+1}/${attempt.numbers.length}`),button('Phóng to ảnh',()=>showZoom(question.image))),
-    question.note?$('p',{class:'warning'},question.note):null,image,error,
-    question.text?$('details',{open:matchMedia('(max-width:600px)').matches},$('summary',{},'Bản chữ tiếng Hàn'),$('pre',{},question.text)):null,
-    $('div',{class:'answers',role:'group','aria-label':`Đáp án câu ${question.number}`},choices),
+    $('div',{class:'question-tools'},$('h2',{},`Câu ${question.number}`),$('span',{class:'question-position'},`${attempt.cursor+1}/${attempt.numbers.length}`),isText?null:button('Phóng to ảnh',()=>showZoom(question.image))),
+    question.note?$('p',{class:'warning'},question.note):null,isText?$('p',{class:'question-prompt',lang:'ko'},question.prompt):image,isText?null:error,
+    !isText&&question.text?$('details',{open:matchMedia('(max-width:600px)').matches},$('summary',{},'Bản chữ tiếng Hàn'),$('pre',{},question.text)):null,
+    $('div',{class:isText?'answers text-answers':'answers',role:'group','aria-label':`Đáp án câu ${question.number}`},choices),
     ownStatus?$('div',{class:'explanation',id:'answer-feedback'},
       ownStatus.status==='ungraded'?'Câu này không tính điểm.':`Bạn chọn: ${ownStatus.selected??'chưa chọn'} • Đáp án ${current.keyType==='official'?'chính thức':'HANNEST'}: ${question.answer} • ${ownStatus.status==='correct'?'Đúng':ownStatus.status==='unanswered'?'Chưa làm':'Sai'}`):null,
     ownStatus?renderExplanation(question):null,
@@ -218,6 +259,14 @@ function renderPractice(){
     })),
     $('div',{class:'actions'},!attempt.submitted?button('Nộp và chấm',submit,'primary'):null,button('Xuất bản lưu',exportAttempt)));
   app.append($('div',{class:'practice-layout'},questionPanel,nav));
+  renderSources();
+}
+
+function renderSources(){
+  if(!current.sources?.length)return;
+  app.append($('details',{class:'topic-sources'},$('summary',{},'Tài liệu kiến thức tham khảo'),
+    $('p',{class:'muted'},'Các cơ quan và tài liệu để tra cứu kiến thức. Câu hỏi, tình huống và cách giải của bài này do HANNEST biên soạn.'),
+    $('ul',{},current.sources.map(source=>$('li',{},$('a',{href:source.url,target:'_blank',rel:'noopener noreferrer'},source.title))))));
 }
 
 window.addEventListener('message',event=>{
@@ -227,16 +276,20 @@ window.addEventListener('message',event=>{
   if(message.action==='request-exit'){
     if(save())post('exit');
     else confirmAction('Bản làm chưa lưu được','Bạn có thể tiếp tục học và xuất bản lưu trước khi rời phòng luyện.',()=>post('exit'),'Rời phòng luyện');
-  }else if(message.action==='dispose')save();
+  }else if(message.action==='dispose'){save();stopClock();}
 });
 window.addEventListener('pagehide',save);
-document.addEventListener('visibilitychange',()=>{if(document.hidden)save();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)save();else syncClock();});
 
 async function load(){
   try{
     const response=await fetch('question-data.json',{cache:'no-store'});
     if(!response.ok)throw new Error('Không tải được danh mục đề.');
-    catalog=validateCatalog(await response.json());
+    const legacy=validateCatalog(await response.json());
+    const topicsResponse=await fetch('topic-exams-2026.json',{cache:'no-store'});
+    if(!topicsResponse.ok)throw new Error('Không tải được bài thi theo chủ đề.');
+    const topics=validateCatalog(await topicsResponse.json());
+    catalog=validateCatalog({version:1,sets:[...topics.sets,...legacy.sets]});
     const requested=catalog.sets.find(s=>s.id===params.get('record'));
     if(requested)openSet(requested);else renderCatalog();
     post('ready');

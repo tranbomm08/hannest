@@ -9,3 +9,18 @@ main:focus{outline:none}.answers button:disabled{opacity:1}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 
 .kiip-level-group{margin:30px 0}.kiip-group-heading{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:10px}.kiip-group-heading h2{font-size:22px;margin:0;color:var(--orange)}.badge.paper-number{background:#ffedd5;color:#92400e;font-weight:800}
+
+/* Original topic exams share HANNEST's cream/orange practice layout. */
+.question-prompt{font-size:21px;line-height:1.8;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere;margin:22px 0}
+.answers.text-answers{grid-template-columns:1fr;gap:12px}
+.text-answers button{display:flex;align-items:flex-start;gap:12px;text-align:left;font-size:18px;line-height:1.65;padding:14px 16px;word-break:keep-all;overflow-wrap:anywhere;min-width:0}
+.text-answers button span[lang]{min-width:0}
+.choice-number{flex:0 0 25px;font-weight:800}
+.exam-timer{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:16px;background:#fff7e8;border:1px solid #edcf9b;border-radius:12px;padding:12px 18px;margin:18px 0}
+#exam-clock{font-size:25px;font-variant-numeric:tabular-nums;color:#92400e}
+#exam-clock.urgent{color:#b91c1c}
+.exam-intro{margin-top:22px}
+.exam-intro button{margin-top:14px;min-height:48px}
+.topic-sources{font-size:14px;line-height:1.7;margin:24px 0;overflow-wrap:anywhere}
+.topic-sources li{margin:8px 0}
+@media(max-width:600px){.question-prompt{font-size:19px}.text-answers button{font-size:17px;padding:12px;gap:9px}.exam-timer{padding:10px 14px}.exam-intro h2{font-size:23px}}

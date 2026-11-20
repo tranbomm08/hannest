@@ -4,9 +4,14 @@ export function validateCatalog(data) {
   for (const set of data.sets) {
     if (!/^[a-z0-9-]+$/.test(set.id) || ids.has(set.id) || !Array.isArray(set.questions) || !set.questions.length) throw new Error('Trùng hoặc thiếu bộ đề.');
     ids.add(set.id);
+    if (set.timeLimitSeconds !== undefined && (!Number.isInteger(set.timeLimitSeconds) || set.timeLimitSeconds < 60 || set.timeLimitSeconds > 21600)) throw new Error('Thời gian làm bài không hợp lệ.');
     for (let i = 0; i < set.questions.length; i++) {
       const q = set.questions[i];
-      if (q.number !== i + 1 || !/^questions\/[a-z0-9-]+\.webp$/.test(q.image) ||
+      const validText = value => typeof value === 'string' && value.trim().length > 0;
+      const validContent = q.format === 'text'
+        ? validText(q.prompt) && Array.isArray(q.choices) && q.choices.length === 4 && q.choices.every(validText) && new Set(q.choices).size === 4 && validText(q.explanationVi)
+        : /^questions\/[a-z0-9-]+\.webp$/.test(q.image);
+      if (q.number !== i + 1 || !validContent ||
           (q.answer !== null && ![1,2,3,4].includes(q.answer)) || !(q.weight > 0)) throw new Error('Dữ liệu câu hỏi không hợp lệ.');
       if(q.explanation){
         const e=q.explanation, validText=value=>typeof value==='string'&&value.trim().length>0;
@@ -31,12 +36,25 @@ export function signature(set) {
 }
 export function storageKey(set) { return `hannest_kiip_questions_v2:${set.id}:${signature(set)}`; }
 
-export function newAttempt(set, numbers = set.questions.map(q => q.number)) {
+export function newAttempt(set, numbers = set.questions.map(q => q.number), {timed = true} = {}) {
   if (!numbers.length || new Set(numbers).size !== numbers.length || numbers.some(n => !set.questions.some(q => q.number === n))) throw new Error('Danh sách câu luyện không hợp lệ.');
   return {version:2, setId:set.id, signature:signature(set),
     id:globalThis.crypto?.randomUUID?.() ?? `attempt-${Date.now()}-${Math.random()}`,
     numbers:[...numbers], answers:{}, cursor:0, submitted:false,
-    startedAt:new Date().toISOString(), submittedAt:null};
+    startedAt:timed && set.timeLimitSeconds ? null : new Date().toISOString(), submittedAt:null,
+    ...(timed && set.timeLimitSeconds ? {timeLimitSeconds:set.timeLimitSeconds, deadline:null} : {}),
+    ...(!timed ? {review:true} : {})};
+}
+
+export function startTimedAttempt(attempt, now = Date.now()) {
+  if (!attempt.timeLimitSeconds || attempt.submitted || attempt.deadline !== null) return attempt;
+  return {...attempt, startedAt:new Date(now).toISOString(), deadline:now + attempt.timeLimitSeconds * 1000};
+}
+
+export function remainingSeconds(attempt, now = Date.now()) {
+  if (!attempt.timeLimitSeconds) return null;
+  if (attempt.deadline === null) return attempt.timeLimitSeconds;
+  return Math.max(0, Math.min(attempt.timeLimitSeconds, Math.ceil((attempt.deadline - now) / 1000)));
 }
 
 export function readAttempt(set, raw) {
@@ -51,6 +69,13 @@ export function readAttempt(set, raw) {
       Object.entries(a.answers).some(([n,value]) => !a.numbers.includes(Number(n)) || String(Number(n)) !== n || ![1,2,3,4].includes(value))) {
     throw new Error('Bản lưu không hợp lệ; dữ liệu gốc được giữ nguyên.');
   }
+  if (a.timeLimitSeconds !== undefined) {
+    const validTime = a.timeLimitSeconds === set.timeLimitSeconds && Number.isInteger(a.timeLimitSeconds) && a.timeLimitSeconds >= 60;
+    const pending = a.deadline === null && a.startedAt === null && !a.submitted && Object.keys(a.answers).length === 0;
+    const started = Number.isSafeInteger(a.deadline) && typeof a.startedAt === 'string' && Number.isFinite(Date.parse(a.startedAt)) && a.deadline === Date.parse(a.startedAt) + a.timeLimitSeconds * 1000;
+    if (!validTime || (!pending && !started)) throw new Error('Đồng hồ trong bản lưu không hợp lệ; dữ liệu gốc được giữ nguyên.');
+  }
+  if (a.review !== undefined && typeof a.review !== 'boolean') throw new Error('Chế độ bản lưu không hợp lệ.');
   return a;
 }
 
@@ -71,8 +96,9 @@ export function readPreviousAttempt(set, getItem) {
   return null;
 }
 
-export function selectAnswer(attempt, number, answer) {
+export function selectAnswer(attempt, number, answer, now = Date.now()) {
   if (attempt.submitted) throw new Error('Bài đã nộp.');
+  if (attempt.timeLimitSeconds && (attempt.deadline === null || remainingSeconds(attempt, now) === 0)) throw new Error('Bài chưa bắt đầu hoặc đã hết giờ.');
   if (!attempt.numbers.includes(number) || ![1,2,3,4].includes(answer)) throw new Error('Lựa chọn không hợp lệ.');
   return {...attempt, answers:{...attempt.answers,[number]:answer}};
 }
